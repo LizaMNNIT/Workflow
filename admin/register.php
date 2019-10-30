@@ -89,16 +89,16 @@
 
 
                             // Store data in session variables
-                            $_SESSION["loggedin"] = true;
+                            $_SESSION["loggedin"] = $id;
                             //$_SESSION["id"] = $id;
                             //print_r($_SESSION);
-                            // echo '<script>console.log($_SESSION["loggedin"]);</script>';
+                            echo '<script>console.log($_SESSION["loggedin"]);</script>';
                            // $_SESSION["username"] = $username;
            //<script type="text/javascript">location.href = '../examples/employee.html';</script>
            if($_SESSION['loggedin'])
            {
            echo"<script>console.log('hello1');</script>";
-           header("location:../examples/dashboard.html");
+           header("location:../examples/employee.html");
            exit;
          }
 
@@ -120,7 +120,7 @@
  if(isset($_SESSION['loggedin']) /*|| $_SESSION['loggedin'] == true*/){
        //echo '<script>console.log($_SESSION["loggedin"]);</script>';
        //if($_SESSION!=""){
-       header("location: ../examples/dashboard.html");
+       header("location: ../examples/employee.html");
        exit;
    }
     ?>

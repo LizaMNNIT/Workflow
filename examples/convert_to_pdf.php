@@ -1,8 +1,7 @@
 <html>
 <?php
 include('../functions/connection.php');
-if(!empty($_POST['submit']))
-{
+
   $leave=$_post['leave'];
   $dept=$_post['department'];
   $from_date=$_post['from_date'];
@@ -13,7 +12,8 @@ if(!empty($_POST['submit']))
   $team_no=$_post['team_no'];
 
 
-  $sql="insert into application(eid, reason, leave_type, from_date, to_date) values('$eid', '$reason', '$leave', '$from_date', '$to_date')";
+  $sql="insert into application (eid, reason, leave_type, from_date, to_date) values ('$eid', '$reason', '$leave', '$from_date', '$to_date')";
+    $sql="insert into application (eid, reason, leave_type, from_date, to_date) values ('101', 'fever', '', '$from_date', '$to_date')";
   // if($conn->query($sql))
   // {
   //   echo "New record is inserted!";
@@ -41,7 +41,7 @@ if(!empty($_POST['submit']))
   $pdf->Cell(300,10,"Yours sincerely,",0,1,L);
   $pdf->Cell(300,10,"{$uname}",0,1,L);
   $pdf->Output();
-}
+
  ?>
  <body>
  <h1>HELLO </h1>
