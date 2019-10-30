@@ -177,13 +177,38 @@
                         <tr>
 
                           <td>
-                            Dakota Rice
+                            <?php
+                            include('../functions/connection.php');
+                            $sql="select reason from application where eid=111;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                          }
+                             ?>
                           </td>
                           <td>
-                            Niger
+                            <?php
+                            include('../functions/connection.php');
+                            $sql="select datediff(to_date, from_date) reason from application where eid=111;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                          }
+                             ?>
+
                           </td>
                           <td>
-                            Oud-Turnhout
+                            <?php
+                            include('../functions/connection.php');
+                            $sql="select leave_type from application where eid=111;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['leave_type']}";
+                          }
+                             ?>
                           </td>
                           <td class="text-primary">
                             $36,738
