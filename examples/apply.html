@@ -158,13 +158,13 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Employee Name</label>
-                          <input type="text" name="name" class="form-control">
+                          <input type="text" name="ename" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Employee Id</label>
-                          <input type="text" name="id" class="form-control">
+                          <input type="text" name="eid" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -195,10 +195,11 @@
                         <div class="form-group">
                          <label class="bmd-label-floating"> Type of Leave </label></br></br>
 						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="sick">Sick Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="casual">Casual Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="earned">Earned Leave  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						  </br>
+                          <select name="leave">
+                            <option value="Sick">Sick Leave</option>
+                            <option value="Casual">Casual Leave</option>
+                            <option value="Earned">Earned Leave</option>
+                            </select>
                         </div>
                       </div>
                     </div>
@@ -219,7 +220,7 @@
                         </div>
                       </div>
                       </div>
-                    <button type="submit" class="btn btn-primary pull-right" name="submit">Apply</button>
+                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
 
                   </form>
                 </div>
