@@ -153,18 +153,18 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-                  <form action="convert_to_pdf.php" method="post">
+                  <form action="apply.php" method="post">
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Employee Name</label>
-                          <input type="text" name="name" class="form-control">
+                          <input type="text" name="ename" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Employee Id</label>
-                          <input type="text" name="id" class="form-control">
+                          <input type="text" name="eid" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -219,7 +219,7 @@
                         </div>
                       </div>
                       </div>
-                    <button type="submit" class="btn btn-primary pull-right" name="submit">Apply</button>
+                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
 
                   </form>
                 </div>

@@ -81,18 +81,41 @@
          {
            echo"<script>console.log('hello');</script>";
 
+<<<<<<< HEAD
                             $_SESSION["loggedin"] = true;
 
+=======
+
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = $id;
+                            //$_SESSION["id"] = $id;
+                            //print_r($_SESSION);
+                            echo '<script>console.log($_SESSION["loggedin"]);</script>';
+                           // $_SESSION["username"] = $username;
+           //<script type="text/javascript">location.href = '../examples/employee.html';</script>
+>>>>>>> b6cc93064f66b3c92a3924f706593042ce0ed909
            if($_SESSION['loggedin'])
            {
            echo"<script>console.log('hello1');</script>";
-           header("location:../examples/dashboard.html");
+           header("location:../examples/employee.html");
            exit;
          }
          }
    }
 
+<<<<<<< HEAD
 
+=======
+  /* <?php include("../functions/connection.php");
+    session_start();
+   //unset($_SESSION['loggedin']);*/
+ if(isset($_SESSION['loggedin']) /*|| $_SESSION['loggedin'] == true*/){
+       //echo '<script>console.log($_SESSION["loggedin"]);</script>';
+       //if($_SESSION!=""){
+       header("location: ../examples/employee.html");
+       exit;
+   }
+>>>>>>> b6cc93064f66b3c92a3924f706593042ce0ed909
     ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
