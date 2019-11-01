@@ -22,8 +22,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    WorkFlow
-  </title>
+WorkFlow  </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -50,7 +49,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.html">
+            <a class="nav-link" href="./employee.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
@@ -81,7 +80,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">User Profile</a>
+            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -146,86 +145,83 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Leave Application</h4>
-                  <p class="card-category">&nbsp;&nbsp;Fill the details</p>
+                  <h4 class="card-title ">Application Status</h4>
+                  <p class="card-category"> Your leave application is in process</p>
                 </div>
                 <div class="card-body">
-                  <form action="apply.php" method="post">
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Employee Name</label>
-                          <input type="text" name="ename" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Employee Id</label>
-                          <input type="text" name="eid" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Department</label>
-                          <input type="text" name="department" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Team number</label>
-                          <input type="text" name="team_no" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Reason</label>
-                          <input type="text" name="reason" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-					<div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                         <label class="bmd-label-floating"> Type of Leave </label></br></br>
-						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="sick">Sick Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="casual">Casual Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="earned">Earned Leave  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						  </br>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> From Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="date" name="from_date" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> To Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          Reason
+                        </th>
+                        <th>
+                          No. of days
+                        </th>
+                        <th>
+                          Type of leave
+                        </th>
+                        <th>
+                          Status
+                        </th>
 
-                          <input type="date" name="to_date" class="form-control">
-                        </div>
-                      </div>
-                      </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
+                        <th>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
+                          </th>
+                      </thead>
+                      <tbody>
+                        <tr>
 
-                  </form>
+                          <td>
+                            <?php
+                            include('../functions/connection.php');
+                            $sql="select reason from application where eid=111;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                          }
+                             ?>
+                          </td>
+                          <td>
+                            <?php
+
+                            $sql="select datediff(to_date, from_date) reason from application where eid=111;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                          }
+                             ?>
+
+                          </td>
+                          <td>
+                            <?php
+
+                            $sql="select leave_type from application where eid=111;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['leave_type']}";
+                          }
+                             ?>
+                          </td>
+                          <td class="text-primary">
+                            
+                          </td>
+                          <td>
+                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-
 
 
 

@@ -100,7 +100,7 @@
            if($_SESSION['loggedin'])
            {
            echo"<script>console.log('hello1');</script>";
-           header("location:../examples/employee.html");
+           header("location:../examples/employee.php");
            exit;
          }
          }
@@ -114,7 +114,7 @@
 
    if(isset($_SESSION['loggedin']))
    {
-     header("location: ../examples/employee.html");
+     header("location: ../examples/employee.php");
      exit;
    }
 
