@@ -95,7 +95,7 @@
          {
            echo"<script>console.log('hello');</script>";
 
-            $_SESSION["loggedin"] = true;
+            $_SESSION["loggedin"] = $id;
 
            if($_SESSION['loggedin'])
            {

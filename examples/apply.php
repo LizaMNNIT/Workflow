@@ -6,11 +6,11 @@ include('../functions/connection.php');
 	$department = @$_POST["department"];
     $team_no = @$_POST["team_no"];
 	$reason = @$_POST["reason"];
-    $type = @$_POST["leave"];
+    $leave = @$_POST["leave"];
 	$from_date = @$_POST["from_date"];
     $to_date = @$_POST["to_date"];
-    
- $sql="INSERT INTO application (eid, reason, from_date, to_date) VALUES ('$eid', '$reason', '$from_date', '$to_date')";
+    echo $leave;
+ $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$eid', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
   mysqli_query($conn,$sql);
 
 ?>
