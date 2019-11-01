@@ -61,6 +61,20 @@
                echo "Congratulations! File Uploaded Successfully.";
    		}
 
+      $query1="insert into leave_info values (7,7,15,'$eid')";
+      if( !mysqli_query($conn,$query1) )
+      {
+
+      echo("Error description: " . mysqli_error($conn));
+        // unsuccessful("Error: " . $query . "<br>" . $con->error);
+      }
+      else
+      {
+        echo "<script>";
+        echo "alert('leaves assigned successfully.')";
+        echo "</script>";
+
+      }
 
    	}
    	else
