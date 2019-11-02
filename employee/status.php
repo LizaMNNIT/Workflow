@@ -77,10 +77,24 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+      include('../functions/connection.php');
+      
+      $eid=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$eid'";
+     
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+      
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
+            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -177,8 +191,8 @@ WorkFlow  </title>
 
                           <td>
                             <?php
-                            include('../functions/connection.php');
-                            $sql="select reason from application where eid=111;";
+                            
+                            $sql="select reason from application where eid='$eid';";
                             $result=mysqli_query($conn,$sql);
                             while($row = mysqli_fetch_assoc($result))
                             {
@@ -189,7 +203,7 @@ WorkFlow  </title>
                           <td>
                             <?php
 
-                            $sql="select datediff(to_date, from_date) reason from application where eid=111;";
+                            $sql="select datediff(to_date, from_date) reason from application where eid='$eid';";
                             $result=mysqli_query($conn,$sql);
                             while($row = mysqli_fetch_assoc($result))
                             {
@@ -201,7 +215,7 @@ WorkFlow  </title>
                           <td>
                             <?php
 
-                            $sql="select leave_type from application where eid=111;";
+                            $sql="select leave_type from application where eid='$eid';";
                             $result=mysqli_query($conn,$sql);
                             while($row = mysqli_fetch_assoc($result))
                             {

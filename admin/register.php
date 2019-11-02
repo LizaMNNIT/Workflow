@@ -96,11 +96,12 @@
            echo"<script>console.log('hello');</script>";
 
             $_SESSION["loggedin"] = $id;
-
+            
            if($_SESSION['loggedin'])
            {
+          
+           header("location:../employee/employee.php");
            echo"<script>console.log('hello1');</script>";
-           header("location:../examples/employee.php");
            exit;
          }
          }
@@ -114,7 +115,9 @@
 
    if(isset($_SESSION['loggedin']))
    {
-     header("location: ../examples/employee.php");
+    
+     header("location: ../employee/employee.php");
+     echo "<script>console.log('hello2');</script>";
      exit;
    }
 
