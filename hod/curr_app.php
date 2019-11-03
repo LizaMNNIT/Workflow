@@ -149,9 +149,7 @@ $q = mysqli_query($conn,$query);
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form id="mainform" method="POST" action="./process.php">
-<input type="hidden" id="applicationid" name="applicationid" value="0">
-<input type="hidden" id="operation" name="operation" value="0">
+             <form class="navbar-form">
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -214,6 +212,9 @@ $q = mysqli_query($conn,$query);
                   <p class="card-category">Here is the list of applications pending for approval. </p>
                 </div>
                 <div class="card-body">
+<form id="mainform" method="POST" action="./process.php">
+<input type="hidden" id="applicationid" name="applicationid" value="0">
+<input type="hidden" id="operation" name="operation" value="0">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
@@ -229,6 +230,8 @@ $q = mysqli_query($conn,$query);
                         <th>
                           Status of Application
                         </th>
+<th></th>
+<th></th>
 
                         <th>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
@@ -244,16 +247,20 @@ $q = mysqli_query($conn,$query);
   //  $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
-    echo "<td><input id=\"app_$app_no\" type=\"button\" onclick=\"javascript:approve(this.id);\" value=\"Approve\">";
-    echo "<input id=\"rej_$app_no\" type=\"button\" onclick=\"javascript:reject(this.id);\" value=\"Reject\">";
-    echo "<input id=\"fwd_$app_no\" type=\"button\" onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td></tr>";
+    echo "<td><input id=\"app_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:approve(this.id);\" value=\"Approve\"></td>";
+    echo "<td><input id=\"rej_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:reject(this.id);\" value=\"Reject\"></td>";
+    echo "<td><input id=\"fwd_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td>";
 
 }
 
 ?>
+<td>
+                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
+                            </td></tr>
  </tbody>
                     </table>
                   </div>
+</form>
                 </div>
               </div>
             </div>
