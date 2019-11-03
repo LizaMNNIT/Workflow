@@ -22,8 +22,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Leave Application
-  </title>
+WorkFlow  </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -62,7 +61,7 @@
             </a>
           </li>
 		  <li class="nav-item ">
-            <a class="nav-link" href="./status.html">
+            <a class="nav-link" href="./status.php">
               <i class="material-icons">person</i>
               <p>Application Status</p>
             </a>
@@ -81,7 +80,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">User Profile</a>
+            <a class="navbar-brand" href="#pablo">Dashboard</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -143,92 +142,53 @@
         </div>
       </nav>
       <!-- End Navbar -->
+      <?php include('../functions/connection.php');
+       $eid = @$_POST["eid"];
+      ?>
       <div class="content">
         <div class="container-fluid">
+          <div class="row"></br></br></br></div>
           <div class="row">
-            <div class="col-md-11">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Leave Application</h4>
-                  <p class="card-category">&nbsp;&nbsp;Fill the details</p>
+            <div class="col-md-4">
+              <div class="card ">
+                <div class="card-header card-header-success">
+				<div class="card-category">
+				</br>
+                  <b style="color:purple;font-size:50px">7 </b><b style="font-size:20px">leaves left</b> </br></br></div>
                 </div>
                 <div class="card-body">
-                  <form action="convert_to_pdf.php" method="post">
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Employee Name</label>
-                          <input type="text" name="ename" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Employee Id</label>
-                          <input type="text" name="eid" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Department</label>
-                          <input type="text" name="department" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Team number</label>
-                          <input type="text" name="team_no" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Reason</label>
-                          <input type="text" name="reason" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-					<div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                         <label class="bmd-label-floating"> Type of Leave </label></br></br>
-						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <select name="leave">
-                            <option value="Sick">Sick Leave</option>
-                            <option value="Casual">Casual Leave</option>
-                            <option value="Earned">Earned Leave</option>
-                            </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> From Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="date" name="from_date" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> To Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                          <input type="date" name="to_date" class="form-control">
-                        </div>
-                      </div>
-                      </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
-
-                  </form>
+                  <h4 class="card-title">Sick Leaves</h4>
                 </div>
+
               </div>
             </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-header card-header-warning ">
+				<div class="card-category">
+				</br>
+                  <b style="color:purple;font-size:50px">7 </b><b style="font-size:20px">leaves left</b> </br></br></div>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Casual Leaves</h4>
+                </div>
 
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-header card-header-danger ">
+				<div class="card-category">
+				</br>
+                  <b style="color:purple;font-size:50px">15 </b><b style="font-size:20px">leaves left</b></br></br></div>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Earned Leaves</h4>
+                </div>
 
-
+              </div>
+            </div>
+          </div>
 
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
@@ -442,6 +402,13 @@
 
         });
       });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
     });
   </script>
 </body>

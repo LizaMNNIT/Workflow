@@ -22,8 +22,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Leave Application
-  </title>
+WorkFlow  </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -50,7 +49,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.html">
+            <a class="nav-link" href="./employee.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
@@ -62,7 +61,7 @@
             </a>
           </li>
 		  <li class="nav-item ">
-            <a class="nav-link" href="./status.html">
+            <a class="nav-link" href="./status.php">
               <i class="material-icons">person</i>
               <p>Application Status</p>
             </a>
@@ -78,10 +77,24 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+      include('../functions/connection.php');
+      
+      $eid=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$eid'";
+     
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+      
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
+            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -149,18 +162,15 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Previous Applications</h4>
-                  <p class="card-category"> You have applied for following leaves</p>
+                  <h4 class="card-title ">Application Status</h4>
+                  <p class="card-category"> Your leave application is in process</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
-                          S no.
-                        </th>
-                        <th>
-                          Purpose of leave
+                          Reason
                         </th>
                         <th>
                           No. of days
@@ -169,111 +179,56 @@
                           Type of leave
                         </th>
                         <th>
-                          Accepted/Rejected
+                          Status
                         </th>
+
+                        <th>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
+                          </th>
                       </thead>
                       <tbody>
                         <tr>
+
                           <td>
-                            1
+                            <?php
+                            
+                            $sql="select reason from application where eid='$eid';";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                          }
+                             ?>
                           </td>
                           <td>
-                            Dakota Rice
+                            <?php
+
+                            $sql="select datediff(to_date, from_date) reason from application where eid='$eid';";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                          }
+                             ?>
+
                           </td>
                           <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
+                            <?php
+
+                            $sql="select leave_type from application where eid='$eid';";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['leave_type']}";
+                          }
+                             ?>
                           </td>
                           <td class="text-primary">
-                            $36,738
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
+                            
                           </td>
                           <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
+                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
+                            </td>
                         </tr>
                       </tbody>
                     </table>

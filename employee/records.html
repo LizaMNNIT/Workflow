@@ -80,7 +80,7 @@ WorkFlow  </title>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
+            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -144,48 +144,144 @@ WorkFlow  </title>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <div class="row"></br></br></br></div>
           <div class="row">
-            <div class="col-md-4">
-              <div class="card ">
-                <div class="card-header card-header-success">
-				<div class="card-category">
-				</br>
-                  <b style="color:purple;font-size:50px">7 </b><b style="font-size:20px">leaves left</b> </br></br></div>
-                </div>
-                <div class="card-body">
-                  <h4 class="card-title">Sick Leaves</h4>
-                </div>
-
-              </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-warning ">
-				<div class="card-category">
-				</br>
-                  <b style="color:purple;font-size:50px">7 </b><b style="font-size:20px">leaves left</b> </br></br></div>
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Previous Applications</h4>
+                  <p class="card-category"> You have applied for following leaves</p>
                 </div>
                 <div class="card-body">
-                  <h4 class="card-title">Casual Leaves</h4>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          S no.
+                        </th>
+                        <th>
+                          Purpose of leave
+                        </th>
+                        <th>
+                          No. of days
+                        </th>
+                        <th>
+                          Type of leave
+                        </th>
+                        <th>
+                          Accepted/Rejected
+                        </th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            1
+                          </td>
+                          <td>
+                            Dakota Rice
+                          </td>
+                          <td>
+                            Niger
+                          </td>
+                          <td>
+                            Oud-Turnhout
+                          </td>
+                          <td class="text-primary">
+                            $36,738
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            2
+                          </td>
+                          <td>
+                            Minerva Hooper
+                          </td>
+                          <td>
+                            Curaçao
+                          </td>
+                          <td>
+                            Sinaai-Waas
+                          </td>
+                          <td class="text-primary">
+                            $23,789
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            3
+                          </td>
+                          <td>
+                            Sage Rodriguez
+                          </td>
+                          <td>
+                            Netherlands
+                          </td>
+                          <td>
+                            Baileux
+                          </td>
+                          <td class="text-primary">
+                            $56,142
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            4
+                          </td>
+                          <td>
+                            Philip Chaney
+                          </td>
+                          <td>
+                            Korea, South
+                          </td>
+                          <td>
+                            Overland Park
+                          </td>
+                          <td class="text-primary">
+                            $38,735
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            5
+                          </td>
+                          <td>
+                            Doris Greene
+                          </td>
+                          <td>
+                            Malawi
+                          </td>
+                          <td>
+                            Feldkirchen in Kärnten
+                          </td>
+                          <td class="text-primary">
+                            $63,542
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            6
+                          </td>
+                          <td>
+                            Mason Porter
+                          </td>
+                          <td>
+                            Chile
+                          </td>
+                          <td>
+                            Gloucester
+                          </td>
+                          <td class="text-primary">
+                            $78,615
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-header card-header-danger ">
-				<div class="card-category">
-				</br>
-                  <b style="color:purple;font-size:50px">15 </b><b style="font-size:20px">leaves left</b></br></br></div>
-                </div>
-                <div class="card-body">
-                  <h4 class="card-title">Earned Leaves</h4>
-                </div>
 
-              </div>
-            </div>
-          </div>
+
 
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
@@ -399,13 +495,6 @@ WorkFlow  </title>
 
         });
       });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
-
     });
   </script>
 </body>

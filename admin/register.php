@@ -5,7 +5,7 @@
    session_start();
 
 
-   if(isset($_POST['register'])&&$_POST['register'])
+   if(isset($_POST['register']) && $_POST['register'])
    {
     //echo "<script>window.open('admin/admin.php','_self')</script>";
    $eid = $_POST['emp_id'];
@@ -16,12 +16,6 @@
    $team= $_POST['emp_team'];
    $contact = $_POST['phone'];
    $pass = $_POST['password'];
-
-     /*$check1 = getimagesize($_FILES["Sign"]["tmp_name"]);
-     if($check1 !== false){
-         $image = $_FILES['Sign']['tmp_name'];
-         $sign= addslashes(file_get_contents($image));
-            echo"<script>console.log('signature file ok');</script>";*/
 
 
 
@@ -67,6 +61,20 @@
                echo "Congratulations! File Uploaded Successfully.";
    		}
 
+      $query1="insert into leave_info values (7,7,15,'$eid')";
+      if( !mysqli_query($conn,$query1) )
+      {
+
+      echo("Error description: " . mysqli_error($conn));
+        // unsuccessful("Error: " . $query . "<br>" . $con->error);
+      }
+      else
+      {
+        echo "<script>";
+        echo "alert('leaves assigned successfully.')";
+        echo "</script>";
+
+      }
 
    	}
    	else
@@ -79,7 +87,7 @@
 
    else if( isset($_POST['login']) && $_POST['login'] )
     {
-
+   echo"<script>console.log('hello');</script>";
      $id = $_POST['login_id'];
      $passwd = $_POST['pwd'];
          $flag1 = check1($id,$passwd);
@@ -87,42 +95,32 @@
          {
            echo"<script>console.log('hello');</script>";
 
-
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            //$_SESSION["id"] = $id;
-                            //print_r($_SESSION);
-                            // echo '<script>console.log($_SESSION["loggedin"]);</script>';
-                           // $_SESSION["username"] = $username;
-           //<script type="text/javascript">location.href = '../examples/employee.html';</script>
+            $_SESSION["loggedin"] = $id;
+            
            if($_SESSION['loggedin'])
            {
+          
+           header("location:../employee/employee.php");
            echo"<script>console.log('hello1');</script>";
-           header("location:../examples/dashboard.html");
            exit;
          }
-
-
          }
-
-
-      /*  else
-       	{
-       		echo "<script>";
-       		echo "alert('$flag1')";
-       		echo "</script>";
-       	}*/
+         else
+         {
+           echo "<script>";
+           echo "alert('$flag1')";
+           echo "</script>";
+         }
    }
 
-  /* <?php include("../functions/connection.php");
-    session_start();
-   //unset($_SESSION['loggedin']);*/
- if(isset($_SESSION['loggedin']) /*|| $_SESSION['loggedin'] == true*/){
-       //echo '<script>console.log($_SESSION["loggedin"]);</script>';
-       //if($_SESSION!=""){
-       header("location: ../examples/dashboard.html");
-       exit;
+   if(isset($_SESSION['loggedin']))
+   {
+    
+     header("location: ../employee/employee.php");
+     echo "<script>console.log('hello2');</script>";
+     exit;
    }
+
     ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -214,14 +212,6 @@
         </div>
 
     </div>
-
-
-
-
-
-
-
-    <!--model-forms-->
 
 
      <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -455,14 +445,6 @@ $('.counter').countUp();
     </script>
     <script>
         $(document).ready(function () {
-            /*
-            var defaults = {
-             containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-            };
-            */
 
             $().UItoTop({
                 easingType: 'easeOutQuart'
