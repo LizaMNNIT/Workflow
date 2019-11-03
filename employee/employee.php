@@ -77,10 +77,24 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+      include('../functions/connection.php');
+      
+      $eid=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$eid'";
+     
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+      
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
+            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname ?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -142,20 +156,31 @@ WorkFlow  </title>
         </div>
       </nav>
       <!-- End Navbar -->
-      <?php include('../functions/connection.php');
-       $eid = @$_POST["eid"];
-      ?>
+     
       <div class="content">
         <div class="container-fluid">
-          <div class="row"></br></br></br></div>
+          <div class="row"><br><br><br></div>
           <div class="row">
             <div class="col-md-4">
               <div class="card ">
                 <div class="card-header card-header-success">
 				<div class="card-category">
-				</br>
-                  <b style="color:purple;font-size:50px">7 </b><b style="font-size:20px">leaves left</b> </br></br></div>
+				<br>
+                  <b style="color:purple;font-size:50px">
+                  <?php
+                            
+                            $sql= "SELECT sick from leave_info where eid= '$eid'";
+     
+                            $result = mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                              echo "{$row['sick']}";
+                            }
+                          
+                             ?>
+                             </b><b style="font-size:20px">leaves left</b> <br><br></div>
                 </div>
+                
                 <div class="card-body">
                   <h4 class="card-title">Sick Leaves</h4>
                 </div>
@@ -166,8 +191,18 @@ WorkFlow  </title>
               <div class="card">
                 <div class="card-header card-header-warning ">
 				<div class="card-category">
-				</br>
-                  <b style="color:purple;font-size:50px">7 </b><b style="font-size:20px">leaves left</b> </br></br></div>
+				<br>
+                  <b style="color:purple;font-size:50px"> <?php
+                            
+                            $sql= "SELECT casual from leave_info where eid= '$eid'";
+     
+                            $result = mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                              echo "{$row['casual']}";
+                            }
+                          
+                             ?> </b><b style="font-size:20px">leaves left</b> <br><br></div>
                 </div>
                 <div class="card-body">
                   <h4 class="card-title">Casual Leaves</h4>
@@ -179,8 +214,18 @@ WorkFlow  </title>
               <div class="card">
                 <div class="card-header card-header-danger ">
 				<div class="card-category">
-				</br>
-                  <b style="color:purple;font-size:50px">15 </b><b style="font-size:20px">leaves left</b></br></br></div>
+				<br>
+                  <b style="color:purple;font-size:50px"> <?php
+                            
+                            $sql= "SELECT earned from leave_info where eid= '$eid'";
+     
+                            $result = mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                              echo "{$row['earned']}";
+                            }
+                          
+                             ?> </b><b style="font-size:20px">leaves left</b><br><br></div>
                 </div>
                 <div class="card-body">
                   <h4 class="card-title">Earned Leaves</h4>
