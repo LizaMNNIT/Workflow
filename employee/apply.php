@@ -81,16 +81,16 @@
 	  <?php
       session_start();
       include('../functions/connection.php');
-      
+
       $id=$_SESSION['loggedin'];
       $sql= "SELECT ename from employee where eid= '$id'";
-     
+
       $result = mysqli_query($conn,$sql);
       while($row = mysqli_fetch_assoc($result))
       {
         $uname=$row['ename'];
       }
-      
+
       ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
@@ -157,11 +157,13 @@
         </div>
       </nav>
       <!-- End Navbar -->
-	  
+
       <div class="content">
 	  <?php
-	  if(isset($_POST['apply']))
+	  if(isset($_POST['apply']) && ($_POST['apply']))
 	  {
+
+      echo "<script>console.log('somya gndi hai');</script>";
 			$ename = @$_POST["ename"];
 			$eid = @$_POST["eid"];
 			$department = @$_POST["department"];
@@ -172,16 +174,26 @@
       $to_date = @$_POST["to_date"];
       $hr='-1';
       $hod='-1';
-			//if($from_date > $to_date){ 
-				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }				
+			//if($from_date > $to_date){
+				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }
         //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
-           
+
 		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$eid', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
-      mysqli_query($conn,$sql);
-      // $sql = "INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES (?,?,?,?,?,?,?)";
-      // $stmt = mysqli_prepare($conn,$sql);
-      // $stmt->bind_param($eid, $reason, $leave, $from_date, $to_date, $hr, $hod);
-      // $stmt->execute();
+
+
+      if( !mysqli_query($conn,$sql) )
+       		{
+
+         echo("Error description: " . mysqli_error($conn));
+            // unsuccessful("Error: " . $query . "<br>" . $con->error);
+       		}
+       		else
+       		{
+       			echo "<script>";
+       			echo "alert('Leave applied Successfully')";
+       			echo "</script>";
+
+       		}
 
 	  }
 	  ?>
@@ -194,8 +206,8 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-                  <form  action="status.php" method="post">
-               
+                  <form  method="post">
+
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
