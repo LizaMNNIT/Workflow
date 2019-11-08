@@ -1,6 +1,6 @@
 <html><body><?php
 include('../functions/connection.php');
-
+include('../employee/convert_to_pdf.php');
     $ename = @$_POST["ename"];
     $eid = @$_POST["eid"];
 	$department = @$_POST["department"];
