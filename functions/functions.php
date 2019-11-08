@@ -42,10 +42,10 @@ $run2=mysqli_query($conn,$query2);
   return "done";
 }
 
-function check1($id,$passwd)
+function check1($des,$id,$passwd)
 {
   global $conn;
-$query3="select * from employee where eid='$id'";
+$query3="select * from employee where eid='$id' and designation='$des'";
 $run3=mysqli_query($conn,$query3);
 $rowcount3=mysqli_num_rows($run3);
 if($rowcount3)
@@ -65,7 +65,7 @@ return $msg;
 }
 }
 else {
-  $msg='Email Id not registered, Register First';
+  $msg='Email Id not registered as the specified role, Register First';
   return $msg;
 }
 }

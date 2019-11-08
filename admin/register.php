@@ -43,7 +43,7 @@
 
    	if( $flag == "done" )
    	{
-   		$query = "insert into employee values ('$eid','$ename','$email','$department','$doj','$team','$contact','$pass','$path_filename_ext')";
+   		$query = "insert into employee values ('$eid','$ename','$email','$department','$doj','$team','$contact','$pass','$path_filename_ext','Employee')";
 
    		if( !mysqli_query($conn,$query) )
    		{
@@ -88,20 +88,37 @@
    else if( isset($_POST['login']) && $_POST['login'] )
     {
    echo"<script>console.log('hello');</script>";
+   $des=$_POST['role'];
      $id = $_POST['login_id'];
      $passwd = $_POST['pwd'];
-         $flag1 = check1($id,$passwd);
+         $flag1 = check1($des,$id,$passwd);
          if($flag1=="done")
          {
            echo"<script>console.log('hello');</script>";
 
             $_SESSION["loggedin"] = $id;
-            
+          $eid= $_SESSION['loggedin'];
            if($_SESSION['loggedin'])
            {
-          
+
+             $sql= "SELECT designation from employee where eid= '$eid'";
+
+             $result = mysqli_query($conn,$sql);
+             while($row = mysqli_fetch_assoc($result))
+             {
+              $var= $row['designation'];
+             }
+         if($var=='Employee')
            header("location:../employee/employee.php");
+           else if($var=='HOD')
+              header("location:../HOD/approve.html");
+              else if($var=='HR')
+                 header("location:../HR/finally.php");
            echo"<script>console.log('hello1');</script>";
+<<<<<<< HEAD
+           header("location:../employee/employee.php");
+=======
+>>>>>>> 18db80552f6141d8788f246fe10a5e6261bd89e2
            exit;
          }
          }
@@ -115,10 +132,27 @@
 
    if(isset($_SESSION['loggedin']))
    {
-    
+<<<<<<< HEAD
      header("location: ../employee/employee.php");
-     echo "<script>console.log('hello2');</script>";
      exit;
+=======
+     $eid= $_SESSION['loggedin'];
+     $sql= "SELECT designation from employee where eid= '$eid'";
+
+     $result = mysqli_query($conn,$sql);
+     while($row = mysqli_fetch_assoc($result))
+     {
+      $var= $row['designation'];
+     }
+ if($var=='Employee')
+   header("location:../employee/employee.php");
+   else if($var=='HOD')
+      header("location:../HOD/approve.html");
+      else if($var=='HR')
+         header("location:../HR/finally.php");
+   echo"<script>console.log('hello1');</script>";
+   exit;
+>>>>>>> 18db80552f6141d8788f246fe10a5e6261bd89e2
    }
 
     ?>
