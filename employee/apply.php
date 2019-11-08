@@ -13,7 +13,7 @@
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -78,7 +78,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-	  <?php
+      <?php
       session_start();
       include('../functions/connection.php');
       
@@ -95,7 +95,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname ?></a>
+            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -157,34 +157,7 @@
         </div>
       </nav>
       <!-- End Navbar -->
-	  
       <div class="content">
-	  <?php
-	  if(isset($_POST['apply']))
-	  {
-			$ename = @$_POST["ename"];
-			$eid = @$_POST["eid"];
-			$department = @$_POST["department"];
-			$team_no = @$_POST["team_no"];
-			$reason = @$_POST["reason"];
-			$leave = @$_POST["leave"];
-			$from_date = @$_POST["from_date"];
-      $to_date = @$_POST["to_date"];
-      $hr='-1';
-      $hod='-1';
-			//if($from_date > $to_date){ 
-				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }				
-        //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
-           
-		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$eid', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
-      mysqli_query($conn,$sql);
-      // $sql = "INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES (?,?,?,?,?,?,?)";
-      // $stmt = mysqli_prepare($conn,$sql);
-      // $stmt->bind_param($eid, $reason, $leave, $from_date, $to_date, $hr, $hod);
-      // $stmt->execute();
-
-	  }
-	  ?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-11">
@@ -194,18 +167,17 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-                  <form  action="status.php" method="post">
-               
+                  <form action="apply1.php" method="post">
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $uname ?></label>
+                          <label class="bmd-label-floating"><?php echo $uname?></label>
                           <input type="text" name="ename" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $id ?></label>
+                          <label class="bmd-label-floating"><?php echo $id?></label>
                           <input type="text" name="eid" class="form-control" disabled>
                         </div>
                       </div>
@@ -261,7 +233,7 @@
                         </div>
                       </div>
                       </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="apply" value="Apply" id="apply"/>
+                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
 
                   </form>
                 </div>
