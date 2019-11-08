@@ -31,6 +31,41 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+<script type="text/javascript">
+function approve(appnid)
+{
+    var y = appnid.substring(4);
+    var hid = document.getElementById("applicationid");
+    hid.value = y;
+    var operation = appnid.substring(0,3);
+    var op = document.getElementById("operation");
+    op.value= operation;
+    var form = document.getElementById("mainform");
+    form.submit();
+}
+function reject(appnid)
+{
+    var y = appnid.substring(4);
+    var hid = document.getElementById("applicationid");
+    hid.value = y;
+    var operation = appnid.substring(0,3);
+    var op = document.getElementById("operation");
+    op.value= operation;
+    var form = document.getElementById("mainform");
+    form.submit();
+}
+function forward(appnid)
+{
+    var y = appnid.substring(4);
+    var hid = document.getElementById("applicationid");
+    hid.value = y;
+    var operation = appnid.substring(0,3);
+    var op = document.getElementById("operation");
+    op.value= operation;
+    var form = document.getElementById("mainform");
+    form.submit();
+}
+</script>
 </head>
 
 <body class="">
@@ -49,27 +84,27 @@ WorkFlow  </title>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.html">
+            <a class="nav-link" href="./employee.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.html">
+            <a class="nav-link" href="./curr_app.html">
               <i class="material-icons">person</i>
-              <p>Apply for Leave</p>
+              <p>Current Applications</p>
             </a>
           </li>
 		  <li class="nav-item ">
-            <a class="nav-link" href="./status.php">
+            <a class="nav-link" href="./approve.html">
               <i class="material-icons">person</i>
-              <p>Application Status</p>
+              <p>Approved Application</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.html">
+            <a class="nav-link" href="./reject.html">
               <i class="material-icons">content_paste</i>
-              <p>Previous Applications</p>
+              <p>Rejected Applications</p>
             </a>
           </li>
         </ul>
@@ -78,23 +113,34 @@ WorkFlow  </title>
     <div class="main-panel">
       <!-- Navbar -->
       <?php
-      session_start();
-      include('../functions/connection.php');
-      
-      $eid=$_SESSION['loggedin'];
-      $sql= "SELECT ename from employee where eid= '$eid'";
-     
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $uname=$row['ename'];
-      }
-      
-      ?>
+include('../functions/connection.php');
+
+//if we reach this line, we are connected to the database
+
+$query = "SELECT * FROM `application`,`employee` WHERE application.hod_approved=-1 AND employee.eid = application.eid";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+			$data['total_data_rows'] = $rowcount;
+			while($row = mysqli_fetch_assoc($q)) 
+			{
+				$data['data'][] = $row;
+			}
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+        }
+        else
+        {
+            $data = null;
+        }
+?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname ?></a>
+            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -103,7 +149,7 @@ WorkFlow  </title>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+             <form class="navbar-form">
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -156,84 +202,70 @@ WorkFlow  </title>
         </div>
       </nav>
       <!-- End Navbar -->
-     
       <div class="content">
         <div class="container-fluid">
-          <div class="row"><br><br><br></div>
           <div class="row">
-            <div class="col-md-4">
-              <div class="card ">
-                <div class="card-header card-header-success">
-				<div class="card-category">
-				<br>
-                  <b style="color:purple;font-size:50px">
-                  <?php
-                            
-                            $sql= "SELECT sick from leave_info where eid= '$eid'";
-     
-                            $result = mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                              echo "{$row['sick']}";
-                            }
-                          
-                             ?>
-                             </b><b style="font-size:20px">leaves left</b> <br><br></div>
-                </div>
-                
-                <div class="card-body">
-                  <h4 class="card-title">Sick Leaves</h4>
-                </div>
-
-              </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-warning ">
-				<div class="card-category">
-				<br>
-                  <b style="color:purple;font-size:50px"> <?php
-                            
-                            $sql= "SELECT casual from leave_info where eid= '$eid'";
-     
-                            $result = mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                              echo "{$row['casual']}";
-                            }
-                          
-                             ?> </b><b style="font-size:20px">leaves left</b> <br><br></div>
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Application Pending</h4>
+                  <p class="card-category">Here is the list of applications pending for approval. </p>
                 </div>
                 <div class="card-body">
-                  <h4 class="card-title">Casual Leaves</h4>
-                </div>
+<form id="mainform" method="POST" action="./process.php">
+<input type="hidden" id="applicationid" name="applicationid" value="0">
+<input type="hidden" id="operation" name="operation" value="0">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                         Application ID
+                        </th>
+                        <th>
+                          Employee Name
+                        </th>
+                        <th>
+                          Reason
+                        </th>
+                        <th>
+                          Status of Application
+                        </th>
+<th></th>
+<th></th>
 
+                        <th>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
+                          </th>
+                      </thead>
+                      <tbody>
+                     <?php
+                      for($i=0;$i<$data['total_data_rows'];$i++)
+{
+    $app_no = $data['data']["$i"]['app_no'];
+    $emp = $data['data']["$i"]['ename'];
+    $sl = $data['data']["$i"]['reason'];
+  //  $co = $data['data']["$i"]['leave_type'];
+    
+    echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
+    echo "<td><input id=\"app_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:approve(this.id);\" value=\"Approve\"></td>";
+    echo "<td><input id=\"rej_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:reject(this.id);\" value=\"Reject\"></td>";
+    echo "<td><input id=\"fwd_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td>";
+
+}
+
+?>
+<td>
+                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
+                            </td></tr>
+ </tbody>
+                    </table>
+                  </div>
+</form>
+                </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-header card-header-danger ">
-				<div class="card-category">
-				<br>
-                  <b style="color:purple;font-size:50px"> <?php
-                            
-                            $sql= "SELECT earned from leave_info where eid= '$eid'";
-     
-                            $result = mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                              echo "{$row['earned']}";
-                            }
-                          
-                             ?> </b><b style="font-size:20px">leaves left</b><br><br></div>
-                </div>
-                <div class="card-body">
-                  <h4 class="card-title">Earned Leaves</h4>
-                </div>
 
-              </div>
-            </div>
-          </div>
+
 
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
@@ -447,13 +479,6 @@ WorkFlow  </title>
 
         });
       });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
-
     });
   </script>
 </body>
