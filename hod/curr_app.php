@@ -233,9 +233,7 @@ $q = mysqli_query($conn,$query);
 <th></th>
 <th></th>
 
-                        <th>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
-                          </th>
+                   
                       </thead>
                       <tbody>
                      <?php
@@ -247,16 +245,18 @@ $q = mysqli_query($conn,$query);
   //  $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
-    echo "<td><input id=\"app_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:approve(this.id);\" value=\"Approve\"></td>";
-    echo "<td><input id=\"rej_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:reject(this.id);\" value=\"Reject\"></td>";
-    echo "<td><input id=\"fwd_$app_no\" class=\"btn btn-primary pull-center\" type=\"button\" onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td>";
-
+ <td> <button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:approve(this.id);\" name="submit">Approve</button></td>
+<td> <button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:reject(this.id);\" name="submit">Reject</button></td>
+<td> <button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:forward(this.id);\" name="submit">Forward</button></td>
+<td><button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:approve(this.id);\" name="submit">View/Download</button>
+                            </td>
+			</tr>
+  
 }
 
 ?>
-<td>
-                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
-                            </td></tr>
+
+
  </tbody>
                     </table>
                   </div>
