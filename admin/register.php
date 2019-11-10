@@ -115,10 +115,6 @@
               else if($var=='HR')
                  header("location:../HR/finally.php");
            echo"<script>console.log('hello1');</script>";
-<<<<<<< HEAD
-           header("location:../employee/employee.php");
-=======
->>>>>>> 18db80552f6141d8788f246fe10a5e6261bd89e2
            exit;
          }
          }
@@ -132,10 +128,6 @@
 
    if(isset($_SESSION['loggedin']))
    {
-<<<<<<< HEAD
-     header("location: ../employee/employee.php");
-     exit;
-=======
      $eid= $_SESSION['loggedin'];
      $sql= "SELECT designation from employee where eid= '$eid'";
 
@@ -152,7 +144,6 @@
          header("location:../HR/finally.php");
    echo"<script>console.log('hello1');</script>";
    exit;
->>>>>>> 18db80552f6141d8788f246fe10a5e6261bd89e2
    }
 
     ?>
