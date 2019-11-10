@@ -31,6 +31,12 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <?php
+include('../functions/connection.php');
+session_start();
+$_SESSION["loggedin"] = $id;
+$eid= $_SESSION['loggedin'];
+   ?>
 </head>
 
 <body class="">
@@ -131,7 +137,7 @@ WorkFlow  </title>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="profile.php">Profile</a>
+                  <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Log out</a>
@@ -148,76 +154,46 @@ WorkFlow  </title>
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Application Status</h4>
-                  <p class="card-category"> Your leave application is in process</p>
+                  <h4 class="card-title ">Employee Profile</h4>
+
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
+                    <form action="" method="post">
                     <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          Reason
-                        </th>
-                        <th>
-                          No. of days
-                        </th>
-                        <th>
-                          Type of leave
-                        </th>
-                        <th>
-                          Status
-                        </th>
-
-                        <th>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
-                          </th>
-                      </thead>
-                      <tbody>
                         <tr>
-
                           <td>
-                            <?php
-                            include('../functions/connection.php');
-                            $sql="select reason from application where eid=777;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-                          }
-                             ?>
-                          </td>
-                          <td>
-                            <?php
-
-                            $sql="select datediff(to_date, from_date) reason from application where eid=777;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-                          }
-                             ?>
-
-                          </td>
-                          <td>
-                            <?php
-
-                            $sql="select leave_type from application where eid=777;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['leave_type']}";
-                          }
-                             ?>
-                          </td>
-                          <td class="text-primary">
-
-                          </td>
-                          <td>
-                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
-                            </td>
+                          Employee id<input type="text" name="" class="form-control" disabled>
+                        </td>
+                        <td>
+                        Employee name<input type="text" name="" class="form-control" disabled>
+                      </td>
                         </tr>
-                      </tbody>
+                        <tr>
+                          <td>
+                            Email<input type="text" name="" class="form-control" disabled>
+                          </td>
+                          <td>
+                            Contact<input type="text" name="" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Department<input type="text" name="" class="form-control">
+                          </td>
+                          <td>
+                            Team no.<input type="text" name="" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Change Password<input type="text" name="" class="form-control">
+                          </td>
+
+                        </tr>
+
                     </table>
+                  </form>
                   </div>
                 </div>
               </div>
