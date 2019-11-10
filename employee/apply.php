@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-<html><body><?php
-include('../functions/connection.php');
-include('../employee/convert_to_pdf.php');
-    $ename = @$_POST["ename"];
-    $eid = @$_POST["eid"];
-	$department = @$_POST["department"];
-    $team_no = @$_POST["team_no"];
-	$reason = @$_POST["reason"];
-    $leave = @$_POST["leave"];
-	$from_date = @$_POST["from_date"];
-    $to_date = @$_POST["to_date"];
-    echo $leave;
- $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$eid', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
-  mysqli_query($conn,$sql);
-
-?>
-=======
 <!--
 =========================================================
  Material Dashboard - v2.1.1
@@ -31,7 +13,7 @@ include('../employee/convert_to_pdf.php');
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -96,7 +78,7 @@ include('../employee/convert_to_pdf.php');
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-	  <?php
+      <?php
       session_start();
       include('../functions/connection.php');
 
@@ -113,7 +95,7 @@ include('../employee/convert_to_pdf.php');
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname ?></a>
+            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -229,13 +211,13 @@ include('../employee/convert_to_pdf.php');
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $uname ?></label>
+                          <label class="bmd-label-floating"><?php echo $uname?></label>
                           <input type="text" name="ename" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $id ?></label>
+                          <label class="bmd-label-floating"><?php echo $id?></label>
                           <input type="text" name="eid" class="form-control" disabled>
                         </div>
                       </div>
@@ -265,12 +247,12 @@ include('../employee/convert_to_pdf.php');
 					<div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                         <label class="bmd-label-floating"> Type of Leave </label></br></br>
+                         <label class="bmd-label-floating"> Type of Leave </label><br><br>
 						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="sick">Sick Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="casual">Casual Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="earned">Earned Leave  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						  </br>
+						  <br>
                         </div>
                       </div>
                     </div>
@@ -291,7 +273,7 @@ include('../employee/convert_to_pdf.php');
                         </div>
                       </div>
                       </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="apply" value="Apply" id="apply"/>
+                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
 
                   </form>
                 </div>
