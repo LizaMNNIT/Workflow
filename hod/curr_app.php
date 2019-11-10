@@ -212,7 +212,6 @@ $q = mysqli_query($conn,$query);
                   <p class="card-category">Here is the list of applications pending for approval. </p>
                 </div>
                 <div class="card-body">
-<form id="mainform" method="POST" action="./process.php">
 <input type="hidden" id="applicationid" name="applicationid" value="0">
 <input type="hidden" id="operation" name="operation" value="0">
                   <div class="table-responsive">
@@ -260,7 +259,7 @@ $q = mysqli_query($conn,$query);
  </tbody>
                     </table>
                   </div>
-</form>
+
                 </div>
               </div>
             </div>

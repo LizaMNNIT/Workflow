@@ -247,12 +247,12 @@
 					<div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                         <label class="bmd-label-floating"> Type of Leave </label></br></br>
+                         <label class="bmd-label-floating"> Type of Leave </label><br><br>
 						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="sick">Sick Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="casual">Casual Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="earned">Earned Leave  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						  </br>
+						  <br>
                         </div>
                       </div>
                     </div>
