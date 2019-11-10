@@ -31,15 +31,11 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-  <?php
-include('../functions/connection.php');
-session_start();
-$_SESSION["loggedin"] = $id;
-$eid= $_SESSION['loggedin'];
-   ?>
+
 </head>
 
 <body class="">
+
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -47,6 +43,7 @@ $eid= $_SESSION['loggedin'];
 
         Tip 2: you can also add an image using data-image tag
     -->
+
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           WORKFLOW
@@ -83,10 +80,56 @@ $eid= $_SESSION['loggedin'];
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+      include('../functions/connection.php');
+
+      $id=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+
+      $sql= "SELECT email from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $email=$row['email'];
+      }
+
+      $sql= "SELECT contact from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $contact=$row['contact'];
+      }
+
+      $sql= "SELECT department from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $dept=$row['department'];
+      }
+
+      $sql= "SELECT team_no from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $team=$row['team_no'];
+      }
+
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, {$ename}</a>
+            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -149,6 +192,38 @@ $eid= $_SESSION['loggedin'];
       </nav>
       <!-- End Navbar -->
       <div class="content">
+        <?php
+    	  if(isset($_POST['save']) && ($_POST['save']))
+    	  {
+
+          echo "<script>console.log('somya bahut gndi hai');</script>";
+    			$department = @$_POST["department"];
+    			$team_no = @$_POST["team_no"];
+    			$contact = @$_POST["contact"];
+
+    			//if($from_date > $to_date){
+    				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }
+            //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
+
+    		 $sql="UPDATE employee SET department='$department', team_no='$team_no', contact='$contact' where eid='$id';";
+
+
+          if( !mysqli_query($conn,$sql) )
+           		{
+
+             echo("Error description: " . mysqli_error($conn));
+                // unsuccessful("Error: " . $query . "<br>" . $con->error);
+           		}
+           		else
+           		{
+           			echo "<script>";
+           			echo "alert('Profile updated Successfully')";
+           			echo "</script>";
+
+           		}
+
+    	  }
+    	  ?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
@@ -159,40 +234,45 @@ $eid= $_SESSION['loggedin'];
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <form action="" method="post">
+
+
+
+                    <form method="post">
                     <table class="table">
                         <tr>
                           <td>
-                          Employee id<input type="text" name="" class="form-control" disabled>
+                          Employee id
+                        <input type="text" name="id" class="form-control" value="<?php echo $id?>" disabled>
                         </td>
                         <td>
-                        Employee name<input type="text" name="" class="form-control" disabled>
+                        Employee name<input type="text" name="name" class="form-control" value="<?php echo $uname?>" disabled>
                       </td>
                         </tr>
                         <tr>
                           <td>
-                            Email<input type="text" name="" class="form-control" disabled>
+                            Email<input type="text" name="email" class="form-control"  value="<?php echo $email?>" disabled>
                           </td>
                           <td>
-                            Contact<input type="text" name="" class="form-control">
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Department<input type="text" name="" class="form-control">
-                          </td>
-                          <td>
-                            Team no.<input type="text" name="" class="form-control">
+                            Contact<input type="text" name="contact" class="form-control" value="<?php echo $contact?>">
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            Change Password<input type="text" name="" class="form-control">
+                            Department<input type="text" name="department" class="form-control" value="<?php echo $dept?>">
+                          </td>
+                          <td>
+                            Team no.<input type="text" name="team_no" class="form-control" value="<?php echo $team?>">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Change Password
                           </td>
 
                         </tr>
 
                     </table>
+                    <input type="submit" class="btn btn-primary pull-right" name="save" value="Save" id="save"/>
                   </form>
                   </div>
                 </div>
