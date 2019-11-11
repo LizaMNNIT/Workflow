@@ -55,7 +55,7 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.html">
+            <a class="nav-link" href="./apply.php">
               <i class="material-icons">person</i>
               <p>Apply for Leave</p>
             </a>
@@ -67,7 +67,7 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.html">
+            <a class="nav-link" href="./records.php">
               <i class="material-icons">content_paste</i>
               <p>Previous Applications</p>
             </a>
@@ -77,6 +77,32 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+include('../functions/connection.php');
+$id=$_SESSION['loggedin'];
+
+$query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='-1'";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+			$data['total_data_rows'] = $rowcount;
+			while($row = mysqli_fetch_assoc($q)) 
+			{
+				$data['data'][] = $row;
+			}
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+        }
+        else
+        {
+            $data = null;
+            echo("Error description: " . mysqli_error($conn));
+        }
+?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
@@ -143,6 +169,7 @@ WorkFlow  </title>
       </nav>
       <!-- End Navbar -->
       <div class="content">
+      
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
@@ -172,108 +199,31 @@ WorkFlow  </title>
                         </th>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
-                          </td>
-                          <td class="text-primary">
-                            $36,738
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
+                      <?php
+                      for($i=0;$i<$data['total_data_rows'];$i++)
+{
+    $reason = $data['data']["$i"]['reason'];
+    $to = $data['data']["$i"]['to_date'];
+    $from = $data['data']["$i"]['from_date'];
+    $type = $data['data']["$i"]['leave_type'];
+    $hr = $data['data']["$i"]['hr_approved'];
+    $hod = $data['data']["$i"]['hod_approved'];
+  //  $co = $data['data']["$i"]['leave_type'];
+    
+  echo "<tr><td>$i</td><td>$reason</td><td>$to-$from</td><td>$type</td>";
+ // echo "<td>$hr,$hod</td></tr>";
+  if($hr=='1'||$hod=='1')
+  echo "<td<b style='color:green;font-size:20px'>Accepted</b></td></tr>";
+  else if($hr==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
+  else if($hr==0 && $hod==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected</b></td></tr>";
+  else
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
+
+}
+
+?>
                       </tbody>
                     </table>
                   </div>

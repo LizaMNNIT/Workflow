@@ -68,7 +68,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.html">
+            <a class="nav-link" href="./records.php">
               <i class="material-icons">content_paste</i>
               <p>Previous Applications</p>
             </a>
@@ -83,12 +83,14 @@
       include('../functions/connection.php');
 
       $id=$_SESSION['loggedin'];
-      $sql= "SELECT ename from employee where eid= '$id'";
+      $sql= "SELECT * from employee where eid= '$id'";
 
       $result = mysqli_query($conn,$sql);
       while($row = mysqli_fetch_assoc($result))
       {
         $uname=$row['ename'];
+        $department=$row['department'];
+        $team_no=$row['team_no'];
       }
 
       ?>
@@ -164,21 +166,26 @@
 	  {
 
       echo "<script>console.log('somya gndi hai');</script>";
-			$ename = @$_POST["ename"];
-			$eid = @$_POST["eid"];
-			$department = @$_POST["department"];
-			$team_no = @$_POST["team_no"];
 			$reason = @$_POST["reason"];
 			$leave = @$_POST["leave"];
 			$from_date = @$_POST["from_date"];
       $to_date = @$_POST["to_date"];
       $hr='-1';
       $hod='-1';
-			//if($from_date > $to_date){
-				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }
-        //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
-
-		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$eid', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
+      $now = new DateTime();
+			if($from_date > $to_date){
+				echo "<script>";
+       			echo "alert('Fill Dates Properly!! To Date cannot be before From Date')";
+             echo "</script>";
+            }
+             else if($now > $from_date)
+             {
+              echo "<script>";
+              echo "alert('Fill Dates Properly!! From Date cannot be before Current date')";
+              echo "</script>";}
+             
+        else{
+		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
 
 
       if( !mysqli_query($conn,$sql) )
@@ -194,8 +201,9 @@
        			echo "</script>";
 
        		}
-
-	  }
+        }
+    }
+  
 	  ?>
         <div class="container-fluid">
           <div class="row">
@@ -206,7 +214,7 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-                  <form  method="post">
+                  <form method="post">
 
                     <div class="row">
                       <div class="col-md-5">
@@ -225,13 +233,13 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Department</label>
+                          <label class="bmd-label-floating"><?php echo $department?></label>
                           <input type="text" name="department" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Team number</label>
+                          <label class="bmd-label-floating"><?php echo $team_no?></label>
                           <input type="text" name="team_no" class="form-control">
                         </div>
                       </div>
@@ -273,7 +281,7 @@
                         </div>
                       </div>
                       </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
+                    <input type="submit" class="btn btn-primary pull-right" name="apply" value="Apply" id="apply"/>
 
                   </form>
                 </div>
@@ -497,7 +505,7 @@
       });
     });
   </script>
->>>>>>> 18db80552f6141d8788f246fe10a5e6261bd89e2
+
 </body>
 
 </html>
