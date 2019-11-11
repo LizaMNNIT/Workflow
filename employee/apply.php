@@ -15,7 +15,6 @@
 
  <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -189,7 +188,7 @@
         else{
 
           
-		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
+		  $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
 
 
       if( !mysqli_query($conn,$sql) )
@@ -258,8 +257,12 @@
             }
             else
             {
+<<<<<<< HEAD
+                echo "success!";
+=======
 >>>>>>> 80aa8acb13c167ffa8b17185bf7ab365eff0e5ec
 
+>>>>>>> eaa0094c8c653b9a3c24e4dd83b1b7d810505549
             }
           
        

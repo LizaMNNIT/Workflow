@@ -269,9 +269,7 @@ WorkFlow  </title>
                           <td>
                             Change Password
                           </td>
-
                         </tr>
-
                     </table>
                     <input type="submit" class="btn btn-primary pull-right" name="save" value="Save" id="save"/>
                   </form>

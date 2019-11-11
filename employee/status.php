@@ -1,4 +1,4 @@
-<!--
+--
 =========================================================
  Material Dashboard - v2.1.1
 =========================================================
@@ -208,50 +208,6 @@ $q = mysqli_query($conn,$query);
                           </th>
                       </thead>
                       <tbody>
-<<<<<<< HEAD
-                        <tr>
-
-                          <td>
-                            <?php
-                            $sql="select reason from application where eid='$id';";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-                          }
-                             ?>
-                          </td>
-                          <td>
-                            <?php
-
-                            $sql="select datediff(to_date, from_date) reason from application where eid='$id';";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-                          }
-                             ?>
-
-                          </td>
-                          <td>
-                            <?php
-
-                            $sql="select leave_type from application where eid='$id';";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['leave_type']}";
-                          }
-                             ?>
-                          </td>
-                          <td class="text-primary">
-
-                          </td>
-                          <td>
-                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
-                            </td>
-                        </tr>
-=======
                       <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
                         {
@@ -281,7 +237,6 @@ $q = mysqli_query($conn,$query);
                         }
 
                       ?>
->>>>>>> 80aa8acb13c167ffa8b17185bf7ab365eff0e5ec
                       </tbody>
                     </table>
                   </div>
