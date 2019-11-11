@@ -20,7 +20,7 @@ if(!empty($_POST['submit']))
   $pdf->Cell(100,10,"{$dept} Department",0,1);
   $pdf->Cell(100,10,"XYZ Company",0,1);
   $pdf->Cell(300,10,"",0,1);
-  $pdf->Cell(100,10,"Date: {$date}",0,1);//{$sysdate}
+  $pdf->Cell(100,10,"Date: {$date}",0,1);
   $pdf->Cell(300,10,"",0,1);
   $pdf->Cell(100,10,"Subject: {$leave} Leave Application",0,1);
   $pdf->Cell(300,10,"",0,1);
@@ -31,7 +31,9 @@ if(!empty($_POST['submit']))
   $pdf->Cell(300,10,"",0,1);
   $pdf->Cell(300,10,"Yours sincerely,",0,1);
   $pdf->Cell(300,10,"{$ename}",0,1);
+  $filename="C:\xampp\htdocs\Workflow\files\PDF\hello.pdf";
   $pdf->Output();
+  echo($pdf->Output());
 }
 else {
   echo "Error";

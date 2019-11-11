@@ -13,7 +13,7 @@
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,8 +22,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    WorkFlow
-  </title>
+WorkFlow  </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -56,7 +55,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.html">
+            <a class="nav-link" href="./apply.php">
               <i class="material-icons">person</i>
               <p>Apply for Leave</p>
             </a>
@@ -80,24 +79,34 @@
       <!-- Navbar -->
       <?php
       session_start();
-      include('../functions/connection.php');
+include('../functions/connection.php');
+$id=$_SESSION['loggedin'];
 
-      $id=$_SESSION['loggedin'];
-      $sql= "SELECT * from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $uname=$row['ename'];
-        $department=$row['department'];
-        $team_no=$row['team_no'];
-      }
-
-      ?>
+$query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='-1'";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+			$data['total_data_rows'] = $rowcount;
+			while($row = mysqli_fetch_assoc($q)) 
+			{
+				$data['data'][] = $row;
+			}
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+        }
+        else
+        {
+            $data = null;
+            echo("Error description: " . mysqli_error($conn));
+        }
+?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
+            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -159,135 +168,68 @@
         </div>
       </nav>
       <!-- End Navbar -->
-
       <div class="content">
-	  <?php
-	  if(isset($_POST['apply']) && ($_POST['apply']))
-	  {
-
-      echo "<script>console.log('somya gndi hai');</script>";
-			$reason = @$_POST["reason"];
-			$leave = @$_POST["leave"];
-			$from_date = @$_POST["from_date"];
-      $to_date = @$_POST["to_date"];
-      $hr='-1';
-      $hod='-1';
-      $now = new DateTime();
-			if($from_date > $to_date){
-				echo "<script>";
-       			echo "alert('Fill Dates Properly!! To Date cannot be before From Date')";
-             echo "</script>";
-            }
-             else if($now > $from_date)
-             {
-              echo "<script>";
-              echo "alert('Fill Dates Properly!! From Date cannot be before Current date')";
-              echo "</script>";}
-             
-        else{
-		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
-
-
-      if( !mysqli_query($conn,$sql) )
-       		{
-
-         echo("Error description: " . mysqli_error($conn));
-            // unsuccessful("Error: " . $query . "<br>" . $con->error);
-       		}
-       		else
-       		{
-       			echo "<script>";
-       			echo "alert('Leave applied Successfully')";
-       			echo "</script>";
-
-       		}
-        }
-    }
-  
-	  ?>
+      
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Leave Application</h4>
-                  <p class="card-category">&nbsp;&nbsp;Fill the details</p>
+                  <h4 class="card-title ">Previous Applications</h4>
+                  <p class="card-category"> You have applied for following leaves</p>
                 </div>
                 <div class="card-body">
-                  <form method="post">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          S no.
+                        </th>
+                        <th>
+                          Purpose of leave
+                        </th>
+                        <th>
+                          No. of days
+                        </th>
+                        <th>
+                          Type of leave
+                        </th>
+                        <th>
+                          Accepted/Rejected
+                        </th>
+                      </thead>
+                      <tbody>
+                      <?php
+                      for($i=0;$i<$data['total_data_rows'];$i++)
+{
+    $reason = $data['data']["$i"]['reason'];
+    $to = $data['data']["$i"]['to_date'];
+    $from = $data['data']["$i"]['from_date'];
+    $type = $data['data']["$i"]['leave_type'];
+    $hr = $data['data']["$i"]['hr_approved'];
+    $hod = $data['data']["$i"]['hod_approved'];
+  //  $co = $data['data']["$i"]['leave_type'];
+    
+  echo "<tr><td>$i</td><td>$reason</td><td>$to-$from</td><td>$type</td>";
+ // echo "<td>$hr,$hod</td></tr>";
+  if($hr=='1'||$hod=='1')
+  echo "<td<b style='color:green;font-size:20px'>Accepted</b></td></tr>";
+  else if($hr==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
+  else if($hr==0 && $hod==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected</b></td></tr>";
+  else
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
 
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $uname?></label>
-                          <input type="text" name="ename" class="form-control" disabled>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $id?></label>
-                          <input type="text" name="eid" class="form-control" disabled>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $department?></label>
-                          <input type="text" name="department" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $team_no?></label>
-                          <input type="text" name="team_no" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Reason</label>
-                          <input type="text" name="reason" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-					<div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                         <label class="bmd-label-floating"> Type of Leave </label><br><br>
-						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="sick">Sick Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="casual">Casual Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="earned">Earned Leave  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						  <br>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> From Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="date" name="from_date" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> To Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}
 
-                          <input type="date" name="to_date" class="form-control">
-                        </div>
-                      </div>
-                      </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="apply" value="Apply" id="apply"/>
-
-                  </form>
+?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-
 
 
 
@@ -505,7 +447,6 @@
       });
     });
   </script>
-
 </body>
 
 </html>

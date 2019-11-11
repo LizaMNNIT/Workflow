@@ -55,7 +55,7 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.php">
+            <a class="nav-link" href="./apply.html">
               <i class="material-icons">person</i>
               <p>Apply for Leave</p>
             </a>
@@ -67,7 +67,7 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.html">
+            <a class="nav-link" href="./records.php">
               <i class="material-icons">content_paste</i>
               <p>Previous Applications</p>
             </a>
@@ -77,24 +77,10 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <?php
-      session_start();
-      include('../functions/connection.php');
-      
-      $eid=$_SESSION['loggedin'];
-      $sql= "SELECT ename from employee where eid= '$eid'";
-     
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $uname=$row['ename'];
-      }
-      
-      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname?></a>
+            <a class="navbar-brand" href="#pablo">Hello, {$ename}</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -145,7 +131,7 @@ WorkFlow  </title>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="profile.php">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Log out</a>
@@ -157,6 +143,28 @@ WorkFlow  </title>
       </nav>
       <!-- End Navbar -->
       <div class="content">
+      <?php
+      $query = "SELECT * FROM application WHERE eid='$eid' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+			$data['total_data_rows'] = $rowcount;
+			while($row = mysqli_fetch_assoc($q)) 
+			{
+				$data['data'][] = $row;
+			}
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+        }
+        else
+        {
+            $data = null;
+            echo("Error description: " . mysqli_error($conn));
+        }
+?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
@@ -167,10 +175,10 @@ WorkFlow  </title>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" style=" table-layout: auto;">
                       <thead class=" text-primary">
                         <th>
-                          Reason
+                          Application No
                         </th>
                         <th>
                           No. of days
@@ -187,49 +195,35 @@ WorkFlow  </title>
                           </th>
                       </thead>
                       <tbody>
-                        <tr>
+                      <?php
+                      for($i=0;$i<$data['total_data_rows'];$i++)
+                        {
+                            $app_no = $data['data']["$i"]['app_no'];
+                            $reason = $data['data']["$i"]['reason'];
+                            $to = new DateTime($data['data']["$i"]['to_date']);
+                            $from = new DateTime($data['data']["$i"]['from_date']);
+                            $type = $data['data']["$i"]['leave_type'];
+                            $hr = $data['data']["$i"]['hr_approved'];
+                            $hod = $data['data']["$i"]['hod_approved'];
+                          //  $co = $data['data']["$i"]['leave_type'];
+                          $diff=date_diff($to,$from);
+                          echo "<tr><td>$app_no</td><td>$diff->days</td><td>$type</td>";
+                        // echo "<td>$hr,$hod</td></tr>";
+                          if($hod=='-1')
+                          echo "<td>In process with HOD</td>";
+                          else if($hod==0 and $hr==-1)
+                          echo "<td><input id=\"app_$app_no\" type=\"button\" class='btn btn-primary pull-center' onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td>";
+                          else if($hr==-1 && $hod==2)
+                          echo "<td>Forwarded by HOD. In process with HR</td>";
+                          else if($hr==3)
+                          echo "<td>Declined By HOD. IN process with HR</td>";
+                          echo "<td>
+                          <button type='submit' class='btn btn-primary pull-center' name='submit'>View/Download</button>
+                            </td></tr>";
 
-                          <td>
-                            <?php
-                            
-                            $sql="select reason from application where eid='$eid';";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-                          }
-                             ?>
-                          </td>
-                          <td>
-                            <?php
+                        }
 
-                            $sql="select datediff(to_date, from_date) reason from application where eid='$eid';";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-                          }
-                             ?>
-
-                          </td>
-                          <td>
-                            <?php
-
-                            $sql="select leave_type from application where eid='$eid';";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['leave_type']}";
-                          }
-                             ?>
-                          </td>
-                          <td class="text-primary">
-                            
-                          </td>
-                          <td>
-                          <button type="submit" class="btn btn-primary pull-center" name="submit">View/Download</button>
-                            </td>
-                        </tr>
+                      ?>
                       </tbody>
                     </table>
                   </div>

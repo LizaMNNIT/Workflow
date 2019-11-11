@@ -31,9 +31,11 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="">
+
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -41,6 +43,7 @@ WorkFlow  </title>
 
         Tip 2: you can also add an image using data-image tag
     -->
+
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           WORKFLOW
@@ -49,7 +52,7 @@ WorkFlow  </title>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.html">
+            <a class="nav-link" href="./employee.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
@@ -77,10 +80,56 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+      include('../functions/connection.php');
+
+      $id=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+
+      $sql= "SELECT email from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $email=$row['email'];
+      }
+
+      $sql= "SELECT contact from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $contact=$row['contact'];
+      }
+
+      $sql= "SELECT department from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $dept=$row['department'];
+      }
+
+      $sql= "SELECT team_no from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $team=$row['team_no'];
+      }
+
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
+            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -143,139 +192,88 @@ WorkFlow  </title>
       </nav>
       <!-- End Navbar -->
       <div class="content">
+        <?php
+    	  if(isset($_POST['save']) && ($_POST['save']))
+    	  {
+
+          echo "<script>console.log('somya bahut gndi hai');</script>";
+    			$department = @$_POST["department"];
+    			$team_no = @$_POST["team_no"];
+    			$contact = @$_POST["contact"];
+
+    			//if($from_date > $to_date){
+    				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }
+            //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
+
+    		 $sql="UPDATE employee SET department='$department', team_no='$team_no', contact='$contact' where eid='$id';";
+
+
+          if( !mysqli_query($conn,$sql) )
+           		{
+
+             echo("Error description: " . mysqli_error($conn));
+                // unsuccessful("Error: " . $query . "<br>" . $con->error);
+           		}
+           		else
+           		{
+           			echo "<script>";
+           			echo "alert('Profile updated Successfully')";
+           			echo "</script>";
+
+           		}
+
+    	  }
+    	  ?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Previous Applications</h4>
-                  <p class="card-category"> You have applied for following leaves</p>
+                  <h4 class="card-title ">Employee Profile</h4>
+
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
+
+
+
+                    <form method="post">
                     <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          S no.
-                        </th>
-                        <th>
-                          Purpose of leave
-                        </th>
-                        <th>
-                          No. of days
-                        </th>
-                        <th>
-                          Type of leave
-                        </th>
-                        <th>
-                          Accepted/Rejected
-                        </th>
-                      </thead>
-                      <tbody>
                         <tr>
                           <td>
-                            1
+                          Employee id
+                        <input type="text" name="id" class="form-control" value="<?php echo $id?>" disabled>
+                        </td>
+                        <td>
+                        Employee name<input type="text" name="name" class="form-control" value="<?php echo $uname?>" disabled>
+                      </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Email<input type="text" name="email" class="form-control"  value="<?php echo $email?>" disabled>
                           </td>
                           <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
-                          </td>
-                          <td class="text-primary">
-                            $36,738
+                            Contact<input type="text" name="contact" class="form-control" value="<?php echo $contact?>">
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            2
+                            Department<input type="text" name="department" class="form-control" value="<?php echo $dept?>">
                           </td>
                           <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
+                            Team no.<input type="text" name="team_no" class="form-control" value="<?php echo $team?>">
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            3
+                            Change Password
                           </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
+
                         </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
-                      </tbody>
+
                     </table>
+                    <input type="submit" class="btn btn-primary pull-right" name="save" value="Save" id="save"/>
+                  </form>
                   </div>
                 </div>
               </div>

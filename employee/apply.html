@@ -13,7 +13,7 @@
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -68,7 +68,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.php">
+            <a class="nav-link" href="./records.html">
               <i class="material-icons">content_paste</i>
               <p>Previous Applications</p>
             </a>
@@ -78,26 +78,10 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <?php
-      session_start();
-      include('../functions/connection.php');
-
-      $id=$_SESSION['loggedin'];
-      $sql= "SELECT * from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $uname=$row['ename'];
-        $department=$row['department'];
-        $team_no=$row['team_no'];
-      }
-
-      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
+            <a class="navbar-brand" href="#pablo">User Profile</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -159,52 +143,7 @@
         </div>
       </nav>
       <!-- End Navbar -->
-
       <div class="content">
-	  <?php
-	  if(isset($_POST['apply']) && ($_POST['apply']))
-	  {
-
-      echo "<script>console.log('somya gndi hai');</script>";
-			$reason = @$_POST["reason"];
-			$leave = @$_POST["leave"];
-			$from_date = @$_POST["from_date"];
-      $to_date = @$_POST["to_date"];
-      $hr='-1';
-      $hod='-1';
-      $now = new DateTime();
-			if($from_date > $to_date){
-				echo "<script>";
-       			echo "alert('Fill Dates Properly!! To Date cannot be before From Date')";
-             echo "</script>";
-            }
-             else if($now > $from_date)
-             {
-              echo "<script>";
-              echo "alert('Fill Dates Properly!! From Date cannot be before Current date')";
-              echo "</script>";}
-             
-        else{
-		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
-
-
-      if( !mysqli_query($conn,$sql) )
-       		{
-
-         echo("Error description: " . mysqli_error($conn));
-            // unsuccessful("Error: " . $query . "<br>" . $con->error);
-       		}
-       		else
-       		{
-       			echo "<script>";
-       			echo "alert('Leave applied Successfully')";
-       			echo "</script>";
-
-       		}
-        }
-    }
-  
-	  ?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-11">
@@ -214,32 +153,31 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-                  <form method="post">
-
+                  <form action="apply.php" method="post">
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $uname?></label>
-                          <input type="text" name="ename" class="form-control" disabled>
+                          <label class="bmd-label-floating">Employee Name</label>
+                          <input type="text" name="ename" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $id?></label>
-                          <input type="text" name="eid" class="form-control" disabled>
+                          <label class="bmd-label-floating">Employee Id</label>
+                          <input type="text" name="eid" class="form-control">
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $department?></label>
+                          <label class="bmd-label-floating">Department</label>
                           <input type="text" name="department" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $team_no?></label>
+                          <label class="bmd-label-floating">Team number</label>
                           <input type="text" name="team_no" class="form-control">
                         </div>
                       </div>
@@ -255,12 +193,12 @@
 					<div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                         <label class="bmd-label-floating"> Type of Leave </label><br><br>
+                         <label class="bmd-label-floating"> Type of Leave </label></br></br>
 						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="sick">Sick Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="casual">Casual Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <input type="radio" name="leave" value="earned">Earned Leave  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						  <br>
+						  </br>
                         </div>
                       </div>
                     </div>
@@ -281,7 +219,7 @@
                         </div>
                       </div>
                       </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="apply" value="Apply" id="apply"/>
+                    <input type="submit" class="btn btn-primary pull-right" name="submit" value="Apply" id="submit"/>
 
                   </form>
                 </div>
@@ -505,7 +443,6 @@
       });
     });
   </script>
-
 </body>
 
 </html>
