@@ -1,0 +1,367 @@
+
+<!--<html>
+<head>
+	<title>SoSiLi</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="imagetoolbar" content="no">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Welcome to parcel service. We offer door-to-door shipping to more than 200 countries—connecting people and businesses all over the world at cheap affordable rates.">
+  dsfsdfsdf
+  <meta property="og:title" content="SoSiLi">
+  <meta property="og:type" content="website">
+
+  <meta property="og:site_name" content="our parcel service">
+  <meta property="og:description" content="Welcome to parcel service. We offer door-to-door shipping to more than 200 countries—connecting people and businesses all over the world at cheap affordab;e rates.">
+  <meta property="og:locale" content="en_in">
+
+
+
+  <link rel="preload" href="/etc/designs/tntexpress/4.00.12.1/fonts/2E8C52_2_0.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/etc/designs/tntexpress/4.00.12.1/fonts/2E8C52_4_0.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="CSS/cssFile.css">
+
+		<script type="text/javascript" src="JS/register.js"></script>
+		<script type="text/javascript" src="JS/login.js"></script>
+		<script type="text/javascript" src="JS/error.js"></script>
+		<script type="text/javascript" src="JS/root.js"></script>
+
+
+</head>
+
+
+<body>
+	<nav class="navbar navbar-default">
+
+        <div class="container-fluid" id="FirstLine">
+        	 <div class="collapse navbar-collapse " id="login">
+        	  <ul class="nav navbar-nav navbar-right">
+        	  		<li><a href="#popUpWindow2" data-toggle="modal">Create Account </a></li>
+                    <li><a href="#popUpWindow" data-toggle="modal">Login</a></li>
+                </ul>
+
+            </div>
+
+
+                    <div class="modal fade" id="popUpWindow">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h3 class="modal-title">Log In</h3>
+                                </div>
+
+
+                                <div class="modal-body">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="UserName" id="usname1">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password" id="pass">
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                                <div class="modal-footer">
+                                   <a href="choice.html"> <button class="btn btn-primary btn-block" id="login1">Log In</button></a>
+                                    <button class="btn btn-primary btn-block" data-dismiss="modal" data-toggle="modal" data-target="#popUpWindow2" >Not Registered? Sign Up now</button>
+
+
+
+
+                                    <a>Forgot Password</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+										<div class="modal fade" id="popUpWindow_ERROR">
+												<div class="modal-dialog">
+														<div class="modal-content">
+
+
+
+
+																<div class="modal-body">
+
+																		<b><h1 style="text-align:center;color:#FA8072;font-family:cursive"  >Error!</h1><b>
+																		<h2 style="text-align:center;color:#FA8072;font-family:cursive" id="par"></h2>
+																		</div>
+																		<div class="modal-footer">
+																			<button class="btn btn-primary btn-block " id="retry" onclick="retry();" >Retry</button>
+																		</div>
+
+
+
+
+														</div>
+												</div>
+										</div>
+
+
+										<div class="modal fade" id="subscribe_error">
+												<div class="modal-dialog">
+														<div class="modal-content">
+
+
+
+
+																<div class="modal-body">
+
+																		<b><h1 style="text-align:center;color:#FA8072;font-family:cursive" id="ersucc" ></h1><b>
+																		<h2 style="text-align:center;color:#FA8072;font-family:cursive" id="par2"></h2>
+																		</div>
+																		<div class="modal-footer">
+																			<button class="btn btn-primary btn-block " id="subs" onclick="subscribe();" >Proceed to subscription</button>
+																		</div>
+
+
+
+
+														</div>
+												</div>
+										</div>
+
+
+                    <div class="modal fade" id="popUpWindow2">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h3 class="modal-title">Register</h3>
+                                </div>
+
+
+																<div class="modal-body">
+                                    <form role="form" width="100%">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Name" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email-Id" id="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="UserName" id="userName1">
+                                        </div>
+																				<div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Contact no." id="contact">
+                                        </div>
+																				<div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Aadhar Card no." id="aadhaar">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password" id="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Confirm Password" id="confirm">
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                      <button class="btn btn-primary btn-block" id="register">Register</button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+        </div>
+
+
+        <div class="container-fluid" id="SecondLine">
+
+
+            <div class="navbar-header">
+            	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainMenu">
+            		<span class="icon-bar"></span>
+            		<span class="icon-bar"></span>
+            		<span class="icon-bar"></span>
+            	</button>
+                <a href="home.html" class="navbar-brand">
+                	<img src="images/logo.png" alt="LOGO" width="98" height="50">
+                </a>
+            </div>
+
+
+            <div class="collapse navbar-collapse " id="mainMenu">
+                <ul class="nav navbar-nav" id="menu">
+                    <li><a href="rate.html">Rates & Trades</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="vision.html">Our Vision</a></li>
+                    <li><a href="help.html">Help&Support</a></li>
+                </ul>
+                 <ul class="nav navbar-nav navbar-right" id="search">
+                   <form action="/action_page.php">
+      <input type="text" id="searchbox" placeholder="Search.." name="search">
+      <button type="submit" id="btn1"><i class="fa fa-search"></i></button>
+    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="background-image: url('images/faces/banner.jpg')">
+
+
+<div id="feedback-main">
+  <div id="feedback-div">
+    <form action="contact.php" method="post" class="form" id="feedback-form1" name="form1" enctype="multipart/form-data">
+
+      <p class="name">
+        <input name="name" type="name" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" required placeholder="Name" id="feedback-name" />
+      </p>
+
+      <p class="email">
+        <input name="email" type="email" class="validate[required,custom[email]] feedback-input" id="feedback-email" placeholder="Email" required />
+      </p>
+
+      <p class="text">
+        <textarea name="comment" type="comment" class="validate[required,length[6,300]] feedback-input" id="feedback-comment" required placeholder="Hey, I really love the site but I believe that you could incorporate some ..... and also get rid of the ...... on the section."></textarea>
+      </p>
+
+      <div class="feedback-submit">
+        <input type="submit" value="SEND" id="feedback-button-blue" />
+        <div class="feedback-ease"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<button id="popup" class="feedback-button" onclick="toggle_visibility()">Feedback</button>
+<script src="JS/feedback.js"></script>
+<br>
+<br>
+<br>
+
+<center>
+	<h1>
+		Do you find sending a parcel overseas expensive?<br>
+		Join Us and know how you can make<br>
+		Easy and cheap deliveries to any country from India.
+		<br><br><br>
+	</h1>
+	<a href="#popUpWindow2" data-toggle="modal"><button type="submit" id="btns"><b>Sign Up & Start Shipping</b></button></a>
+</center>
+</div><br>
+<br><br>
+<div class=" " id="footer">
+	CopyRight
+	</div>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="Bootstrap, Landing page, Template, Business, Service">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="images/2.png" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/LineIcons.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/nivo-lightbox.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+
+
+  </head>
+
+  <body>
+
+    <!-- Header Section Start -->
+    <header id="home" class="hero-area">
+      <div class="overlay">
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="navbar navbar-expand-md bg-inverse fixed-top scrolling-navbar">
+        <div class="container">
+          <a href="index.html" class="navbar-brand"><img src="images/logo.png" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="lni-menu"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto w-100 justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#services">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#features">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#showcase">Showcase</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#pricing">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#team">Team</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#blog">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link page-scroll" href="#contact">Contact</a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row space-100">
+          <div class="col-lg-6 col-md-12 col-xs-12">
+            <div class="contents">
+              <h2 class="head-title">Handcrafted Web Template <br>For Business and Startups</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab <br>dolores ea fugiat nesciunt quisquam.</p>
+              <div class="header-button">
+                <a data-toggle="modal" data-target="#registerpopup" class="btn btn-border-filled">Register yourself</a>
+                <a data-target="#loginpopup" data-toggle="modal" class="btn btn-border page-scroll">Login</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-xs-12 p-0">
+            <div class="intro-img">
+              <img src="images/img1.jpg" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Header Section End -->
+
+    </body>
+    </html>

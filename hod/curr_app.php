@@ -203,7 +203,8 @@ $q = mysqli_query($conn,$query);
       </nav>
       <!-- End Navbar -->
       <div class="content">
-        <div class="container-fluid">
+      
+        <div class="container-fluid" name="d">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
@@ -212,9 +213,11 @@ $q = mysqli_query($conn,$query);
                   <p class="card-category">Here is the list of applications pending for approval. </p>
                 </div>
                 <div class="card-body">
+                <!-- <iframe width="0" height="0" name="dummyframe" id="dummyframe"></iframe> -->
+                <form  action="process.php" method="post" id="mainform">
 <input type="hidden" id="applicationid" name="applicationid" value="0">
 <input type="hidden" id="operation" name="operation" value="0">
-                  <div class="table-responsive">
+                  <div class="table-responsive" name="tab">
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
@@ -244,12 +247,12 @@ $q = mysqli_query($conn,$query);
   //  $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
- <td> <button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:approve(this.id);\" name="submit">Approve</button></td>
-<td> <button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:reject(this.id);\" name="submit">Reject</button></td>
-<td> <button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:forward(this.id);\" name="submit">Forward</button></td>
-<td><button type="submit" class="btn btn-primary pull-center" onclick=\"javascript:approve(this.id);\" name="submit">View/Download</button>
+ echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
+echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
+echo "<td> <button id='fwd_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:forward(this.id);\" name=\"submit\">Forward</button></td>";
+echo "<td><button type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">View/Download</button>
                             </td>
-			</tr>
+			</tr>";
   
 }
 
@@ -259,11 +262,13 @@ $q = mysqli_query($conn,$query);
  </tbody>
                     </table>
                   </div>
-
+  </form>
+  
                 </div>
               </div>
             </div>
-
+  </div>
+  </div></div>
 
 
   <!--   Core JS Files   -->
