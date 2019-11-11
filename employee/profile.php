@@ -58,7 +58,7 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.html">
+            <a class="nav-link" href="./apply.php">
               <i class="material-icons">person</i>
               <p>Apply for Leave</p>
             </a>
@@ -70,7 +70,7 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.html">
+            <a class="nav-link" href="./records.php">
               <i class="material-icons">content_paste</i>
               <p>Previous Applications</p>
             </a>
@@ -129,7 +129,7 @@ WorkFlow  </title>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
+            <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -180,7 +180,7 @@ WorkFlow  </title>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="profile.php">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Log out</a>
@@ -216,12 +216,13 @@ WorkFlow  </title>
            		}
            		else
            		{
-           			echo "<script>";
+               
+           	    echo "<script>";
            			echo "alert('Profile updated Successfully')";
-           			echo "</script>";
-
+                 echo "</script>";          
+                 echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
            		}
-
+              
     	  }
     	  ?>
         <div class="container-fluid">
@@ -268,9 +269,7 @@ WorkFlow  </title>
                           <td>
                             Change Password
                           </td>
-
                         </tr>
-
                     </table>
                     <input type="submit" class="btn btn-primary pull-right" name="save" value="Save" id="save"/>
                   </form>
