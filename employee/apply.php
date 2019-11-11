@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.html">
+            <a class="nav-link" href="./apply.php">
               <i class="material-icons">person</i>
               <p>Apply for Leave</p>
             </a>
@@ -91,6 +91,7 @@
         $uname=$row['ename'];
         $department=$row['department'];
         $team_no=$row['team_no'];
+        $sign=$row['sign'];
       }
 
       ?>
@@ -148,7 +149,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="profile.php">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Log out</a>
@@ -173,7 +174,8 @@
       $hr='-1';
       $hod='-1';
       $now = new DateTime();
-			if($from_date > $to_date){
+      if($from_date > $to_date)
+      {
 				echo "<script>";
        			echo "alert('Fill Dates Properly!! To Date cannot be before From Date')";
              echo "</script>";
@@ -185,6 +187,8 @@
               echo "</script>";}
              
         else{
+
+          
 		 $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
 
 
@@ -196,11 +200,59 @@
        		}
        		else
        		{
-       			echo "<script>";
-       			echo "alert('Leave applied Successfully')";
-       			echo "</script>";
+       		  	echo "<script>";
+       			 echo "alert('Leave applied Successfully')";
+             echo "</script>";
+            
+             $sql="SELECT * FROM application ORDER BY app_no DESC LIMIT 1";
+             
+              $result = mysqli_query($conn,$sql);
+              while($row = mysqli_fetch_assoc($result))
+              {
+                $app_no=$row['app_no'];
+              }
+            
 
-       		}
+             $date=date("d/m/Y");
+
+             require('fpdf181/fpdf.php');
+             $pdf= new FPDF();
+             $pdf->AddPage();
+             $pdf->SetFont("Arial","","14");
+             $pdf->Cell(100,10,"Head of Department",0,1);
+             $pdf->Cell(100,10,"{$department} Department",0,1);
+             $pdf->Cell(100,10,"XYZ Company",0,1);
+             $pdf->Cell(300,10,"",0,1);
+             $pdf->Cell(100,10,"Date: {$date}",0,1);
+             $pdf->Cell(300,10,"",0,1);
+             $pdf->Cell(100,10,"Subject: {$leave} Leave Application",0,1);
+             $pdf->Cell(300,10,"",0,1);
+             $pdf->Cell(100,10,"Dear Sir,",0,1);
+             $pdf->Cell(300,10,"My name is {$uname}, employee id {$id}, of {$department} Department, team number {$team_no}.",0,1);
+             $pdf->Cell(300,10,"I want to apply for leave from {$from_date} to {$to_date} due to {$reason}.",0,1);
+             $pdf->Cell(300,10,"I will be obliged if you consider my application for approval.",0,1);
+             $pdf->Cell(300,10,"",0,1);
+             $pdf->Cell(300,10,"Yours sincerely,",0,1);
+             $pdf->Image($sign,10,160,20,20);
+             $pdf->Cell(300,10,"{$uname}",0,1);
+             $filename="C:/xampp/htdocs/Workflow/files/PDF/{$app_no}.pdf";
+             $pdf->Output($filename,'F');
+
+             $sql="UPDATE application SET paths='$filename' WHERE app_no='$app_no'";
+
+
+            if( !mysqli_query($conn,$sql) )
+            {
+
+                echo("Error description: " . mysqli_error($conn));
+              // unsuccessful("Error: " . $query . "<br>" . $con->error);
+            }
+            else
+            {
+
+            }
+          
+       
         }
     }
   
