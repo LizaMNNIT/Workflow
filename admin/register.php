@@ -8,12 +8,6 @@
    session_start();
 
    if(isset($_GET['code']) AND isset($_GET['user'])){
-     //$conn = $pdo->open();
-    
-     /*$stmt = $conn->prepare();
-     $stmt->execute(['code'=>, 'id'=>$_GET['user']]);
-     $row = $stmt->fetch();*/
-
        $code1=$_GET['code'];
        $user1=$_GET['user'];
      $sql= "SELECT *, COUNT(*) AS numrows FROM employee WHERE activate_code='$code1' AND eid='$user1'";
@@ -30,15 +24,13 @@
        }
        else{
          try{
-          // $stmt = $conn->prepare("UPDATE employee SET status=:status WHERE id=:id");
-          // $stmt->execute(['status'=>1, 'id'=>$row['id']]);
 
            $sql= "UPDATE employee SET status='1' WHERE eid='$user1'";
            if( !mysqli_query($conn,$sql) )
            {
-
+           echo "<script>";
            echo("Error description: " . mysqli_error($conn));
-             // unsuccessful("Error: " . $query . "<br>" . $con->error);
+           echo "</script>";
            }
       else{
 
@@ -77,6 +69,9 @@
    $team= $_POST['emp_team'];
    $contact = $_POST['phone'];
    $pass = $_POST['password'];
+   $c_pass=$_POST['c_password'];
+   $date=$_POST['date'];
+
 
 
 
@@ -97,7 +92,7 @@
   }
 
   //echo"<script>console.log('eid=".$eid." ename=".$ename." email=".$email." department=".$department." doj=".$doj." team=".$team." contact=".$contact." pwd=".$pass." sign=".$path_filename_ext." ');</script>";
-   $flag = check($eid,$email,$contact,$path_filename_ext);
+   $flag = check($eid,$email,$contact,$pass,$ext,$date,$c_pass,$path_filename_ext);
 
 
    //$flag = "done";
@@ -111,8 +106,9 @@
 
    		if( !mysqli_query($conn,$query) )
    		{
-
+      echo "<script>";
      echo("Error description: " . mysqli_error($conn));
+     echo "</script>";
         // unsuccessful("Error: " . $query . "<br>" . $con->error);
    		}
    		else
@@ -121,9 +117,7 @@
 
 
 				try{
-				//	$stmt = $conn->prepare("INSERT INTO users (email, password, firstname, lastname, activate_code, created_on) VALUES (:email, :password, :firstname, :lastname, :code, :now)");
-					//$stmt->execute(['email'=>$email, 'password'=>$password, 'firstname'=>$firstname, 'lastname'=>$lastname, 'code'=>$code, 'now'=>$now]);
-					//$userid = $conn->lastInsertId();
+
 
 					$message = "
 						<h2>Thank you for Registering.</h2>
@@ -143,8 +137,8 @@
 				        $mail->isSMTP();
 				        $mail->Host = 'smtp.gmail.com';
 				        $mail->SMTPAuth = true;
-                $mail->Username = 'harneet.singh.mnnit2017@gmail.com';
- 				        $mail->Password = 'mohanamanarora';
+                $mail->Username = 'workflow1865@gmail.com';
+ 				        $mail->Password = 'Andrew@1865';
 				        $mail->SMTPOptions = array(
 				            'ssl' => array(
 				            'verify_peer' => false,
@@ -155,7 +149,7 @@
 				        $mail->SMTPSecure = 'ssl';
 				        $mail->Port = 465;
 
-				        $mail->setFrom('Liza@gmail.com');
+				        $mail->setFrom('workflow1865@gmail.com');
 
 				        //Recipients
 				        $mail->addAddress($email);
@@ -180,7 +174,9 @@
               echo "catch1";
 				        $_SESSION['error'] = 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
 				        //header('location: register.php');
+                //echo "<script>";
                 echo "Message could not be sent. Mailer Error: ".$mail->ErrorInfo;
+                //echo "</script>";
 				    }
 
 
@@ -198,8 +194,9 @@
                $query1="insert into leave_info values (7,7,15,'$eid')";
                if( !mysqli_query($conn,$query1) )
                {
-
+                echo "<script>";
                echo("Error description: " . mysqli_error($conn));
+               echo "</script>";
                  // unsuccessful("Error: " . $query . "<br>" . $con->error);
                }
    		}
@@ -297,7 +294,6 @@
 
     ?>
 
-<form id="Form2" method="post" enctype="multipart/form-data">
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -346,7 +342,7 @@
   </head>
 
   <body>
-<form id="Form2" method="post" enctype="multipart/form-data">
+<form id="Form2" method="post" enctype="multipart/form-data" nonvalidate>
 
     <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-hidden="true">
        <div class="modal-dialog modal-dialog-centered" role="document">
@@ -362,66 +358,73 @@
 
 
 
-
+<form id="Form1" method="post" enctype="multipart/form-data" nonvalidate>
                            <div class="form-group">
-                               <label class="col-form-label">Full name</label>
+                               <label class="col-form-label"><h6>Full name</h6></label>
 
-                               <input type="text" name="emp_name" class="form-control" AutoComplete="off">
+                               <input type="text" name="emp_name" class="form-control" AutoComplete="off" required>
 
                            </div>
                            <div class="form-group">
-                               <label>User_Id</label>
-                               <input type="text" name="emp_id" class="form-control"  AutoComplete="off">
+                               <label class="col-form-label"><h6>User_Id</h6></label>
+                               <input type="text" name="emp_id" class="form-control"  AutoComplete="off" required>
 
 
                            </div>
 
                            <div class="form-group">
-                               <label>Email Id</label>
-                              <input type="text" name="emp_email" class="form-control"  AutoComplete="off">
+                               <label class="col-form-label"><h6>Email Id</h6></label>
+                              <input type="email" name="emp_email" class="form-control"  AutoComplete="off" required>
 
                            </div>
 
                             <div class="form-group">
-                               <label>Password</label>
-                              <input type="password" name="password" class="form-control" AutoComplete="off">
+                               <label class="col-form-label"><h6>Password</h6></label>
+                              <input type="password" name="password" class="form-control" AutoComplete="off" required>
 
                            </div>
 
                            <div class="form-group">
-                              <label> Confirm Password</label>
-                             <input type="password" ID="c_password" class="form-control" AutoComplete="off">
+                              <label class="col-form-label"><h6> Confirm Password</h6></label>
+                             <input type="password" name="c_password" class="form-control" AutoComplete="off" required>
 
                           </div>
 
                           <div class="form-group">
-                             <label>Department</label>
-                            <input type="text" name="dept" class="form-control" AutoComplete="off">
+
+                            <label class="col-form-label"><h6>Department</h6></label>
+                              <select name="dept" >
+                                <option value="IT">IT</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Sales">Sales</option>
+                                    <option value="Marketing">Marketing</option>
+                              </select>
+
 
                          </div>
 
                          <div class="form-group">
-                            <label>Team</label>
-                           <input type="text" name="emp_team" class="form-control" AutoComplete="off">
+                            <label class="col-form-label"><h6>Team</h6></label>
+                           <input type="text" name="emp_team" class="form-control" AutoComplete="off" required>
 
                         </div>
 
                          <div class="form-group">
-                            <label>Date of joining</label>
-                           <input type="date" name="date" class="form-control" AutoComplete="off">
+                            <label class="col-form-label"><h6>Date of joining</h6></label>
+                           <input type="date" name="date" class="form-control" AutoComplete="off" required>
 
                         </div>
 
                         <div class="form-group">
-                           <label>Contact</label>
-                          <input type="text" name="phone" class="form-control" AutoComplete="off">
+                           <label class="col-form-label"><h6>Contact</h6></label>
+                          <input type="text" name="phone" class="form-control" AutoComplete="off" required>
 
                        </div>
 
 
                       <div class="form-group">
-                         <label>Signature</label>
-                        <input type="file"  name="Sign" class="form-control" AutoComplete="off">
+                         <label class="col-form-label"><h6>Signature</h6></label>
+                        <input type="file"  name="Sign" class="form-control" AutoComplete="off" required>
 
                      </div>
 
@@ -429,7 +432,7 @@
                 <input type="submit"  name="register"  value="Register" class="btn btn-primary submit mb-4" >
 
                        </div>
-
+</form>
                    </div>
 
 
@@ -437,7 +440,7 @@
 
            </div>
        </div>
-   </div>
+
 
    <!--/Login-->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
@@ -453,7 +456,7 @@
              <div class="modal-body">
                  <div class="login px-4 mx-auto mw-100">
                     <!-- <h5 class="text-center mb-4">Login Now</h5>-->
-
+              <form id="Form3" method="post" enctype="multipart/form-data" nonvalidate>
                       <div class="form-group">
                              <label class="col-form-label"><h6>Select Role</h6></label>
                                <select name="role" >
@@ -465,13 +468,13 @@
 
                          <div class="form-group">
                              <label class="col-form-label" ><h6>Login ID</h6></label>
-                             <input type="text" class="form-control" id="exampleInputEmail1" name='login_id'>
+                             <input type="text" class="form-control" id="exampleInputEmail1" name='login_id' required>
 
                              <small id="emailHelp"> We will never share your information with anyone else. </small>
                          </div>
                          <div class="form-group">
                              <label class="col-form-label"><h6>Password</h6></label>
-                             <input type="password" class="form-control" id="exampleInputPassword1" name='pwd'>
+                             <input type="password" class="form-control" id="exampleInputPassword1" name='pwd' required>
 
                          </div>
                          <div class="form-group">
@@ -480,7 +483,7 @@
 
 
                  </div>
-
+</form>
              </div>
 
          </div>
@@ -491,34 +494,7 @@
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-  <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="recipient-name" class="col-form-label">Recipient:</label>
-        <input type="text" class="form-control" id="recipient-name">
-      </div>
-      <div class="form-group">
-        <label for="message-text" class="col-form-label">Message:</label>
-        <textarea class="form-control" id="message-text"></textarea>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Send message</button>
-  </div>
-</div>
-</div>
-</div>
+
 
     <!-- Header Section Start -->
     <header id="home" class="hero-area">

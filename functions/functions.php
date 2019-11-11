@@ -1,6 +1,6 @@
 <?php
 include("connection.php");
-function check($eid,$email,$contact,$path_filename_ext)
+function check($eid,$email,$contact,$pass,$ext,$date,$c_pass,$path_filename_ext)
 {
   global $conn;
   $query="select * from employee where eid='$eid'";
@@ -32,6 +32,38 @@ $run2=mysqli_query($conn,$query2);
   if($rowcount2>0)
   {
     $msg='Contact number already registered';
+    return $msg;
+  }
+
+  if($pass!=$c_pass)
+  {
+    $msg='Password and Confirm password do not match';
+    return $msg;
+  }
+
+  if(strlen($contact)!=10)
+  {
+    $msg='Contact number invalid';
+    return $msg;
+  }
+  if($ext!='jpg' && $ext!='png')
+  {
+    $msg='Upload a jpg or png file';
+    return $msg;
+  }
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $msg = "Invalid email format";
+    return $msg;
+  }
+  $date1=date("y-m-d");
+  $stamp1=strtotime($date);
+  $stamp2=strtotime($date1);
+
+  //echo "$stamp1";
+  //echo "$stamp2";
+  if($stamp1 > $stamp2 )
+  {
+    $msg='Enter a valid date';
     return $msg;
   }
   if (file_exists($path_filename_ext)) {
