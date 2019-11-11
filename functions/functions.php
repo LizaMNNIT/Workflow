@@ -52,10 +52,17 @@ if($rowcount3)
 {
   $query4="select * from employee where eid='$id' and pswd='$passwd'";
   $run4=mysqli_query($conn,$query4);
+    $row = mysqli_fetch_assoc($run4);
   $rowcount4=mysqli_num_rows($run4);
   if($rowcount4)
   {
+    if($row['status']=='1')
   return "done";
+  else
+  {
+    $msg="Account not activated,Check your gmail to activate";
+    return $msg;
+  }
   }
 
 else
