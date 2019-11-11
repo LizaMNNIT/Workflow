@@ -61,13 +61,13 @@ WorkFlow  </title>
             </a>
           </li>
 		  <li class="nav-item ">
-            <a class="nav-link" href="./approve.html">
+            <a class="nav-link" href="./approve1.php">
               <i class="material-icons">person</i>
               <p>Approved Applications</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./reject.html">
+            <a class="nav-link" href="./reject1.php">
               <i class="material-icons">content_paste</i>
               <p>Rejected Applications</p>
             </a>
@@ -75,6 +75,9 @@ WorkFlow  </title>
         </ul>
       </div>
     </div>
+<?php
+include('../functions/connection.php');
+?>
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -148,14 +151,14 @@ WorkFlow  </title>
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Rejected Applications</h4>
-                  <p class="card-category"> Here is the list of Rejected Applications</p>
+                  <h4 class="card-title ">Approved Applications</h4>
+                  <p class="card-category"> Here is the list of the Approved Applications</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
-                        <th>
+                            <th>
                           Application ID
                         </th>
                         <th>
@@ -166,100 +169,101 @@ WorkFlow  </title>
                         </th>
                         
                         <th>
-                          Accepted/Rejected
+			Type of leave
+			</th>
+			<th>
+                          From date
+                        </th>
+			<th>
+                          To date
                         </th>
                       </thead>
                       <tbody>
                         <tr>
+
                           <td>
-                            1
+                            <?php
+                            
+                            $sql="select app_no from application where  hod_approved=0;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['app_no']}";
+echo "<br>";
+echo "<br>";
+                          }
+                             ?>
                           </td>
-                          <td>
-                            Dakota Rice
+ <td>
+                            <?php
+
+                            $sql="select ename from employee join application where employee.eid= application.eid and hod_approved=0;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['ename']}";
+echo "<br>";
+echo "<br>";
+                          }
+                             ?>
+
                           </td>
-                          <td>
-                            Niger
+ <td>
+                            <?php
+                            
+                            $sql="select reason from application where hod_approved=0;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+echo "<br>";
+echo "<br>";
+                          }
+                             ?>
                           </td>
-                          
-                          <td class="text-primary">
-                            $36,738
+ 				<td>
+                            <?php
+                            
+                            $sql="select leave_type from application where hod_approved=0;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['leave_type']}";
+echo "<br>";
+echo "<br>";
+                          }
+                             ?>
                           </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
+<td>
+                            <?php
+                            
+                            $sql="select from_date from application where hod_approved=0;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['from_date']}";
+echo "<br>";
+echo "<br>";
+                          }
+                             ?>
                           </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                         
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                         
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                         
-                          <td>
-                            Gloucester
+<td>
+                            <?php
+                            
+                            $sql="select to_date from application where hod_approved=0;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['to_date']}";
+echo "<br>";
+echo "<br>";
+                          }
+                             ?>
                           </td>
                           <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
+                            
+                          </td>    
+			</tr>                  
                       </tbody>
                     </table>
                   </div>
