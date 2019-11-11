@@ -164,8 +164,6 @@
 	  <?php
 	  if(isset($_POST['apply']) && ($_POST['apply']))
 	  {
-
-      echo "<script>console.log('somya gndi hai');</script>";
 			$reason = @$_POST["reason"];
 			$leave = @$_POST["leave"];
 			$from_date = @$_POST["from_date"];
@@ -199,19 +197,10 @@
        		}
        		else
        		{
-<<<<<<< HEAD
-       			echo "<script>";
-       			echo "alert('Leave applied Successfully')";
-       			echo "</script>";
-
-
-
-       		}
-=======
        		  	echo "<script>";
        			 echo "alert('Leave applied Successfully')";
              echo "</script>";
-            
+           }
              $sql="SELECT * FROM application ORDER BY app_no DESC LIMIT 1";
              
               $result = mysqli_query($conn,$sql);
@@ -257,12 +246,7 @@
             }
             else
             {
-<<<<<<< HEAD
                 echo "success!";
-=======
->>>>>>> 80aa8acb13c167ffa8b17185bf7ab365eff0e5ec
-
->>>>>>> eaa0094c8c653b9a3c24e4dd83b1b7d810505549
             }
           
        
@@ -279,11 +263,7 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-<<<<<<< HEAD
-                  <form action="convert_to_pdf.php" method="post">
-=======
                   <form method="post">
->>>>>>> 80aa8acb13c167ffa8b17185bf7ab365eff0e5ec
 
                     <div class="row">
                       <div class="col-md-5">
