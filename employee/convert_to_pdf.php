@@ -1,4 +1,5 @@
 <?php
+
 if(!empty($_POST['submit']))
 {
   $leave=$_POST['leave'];
@@ -6,13 +7,24 @@ if(!empty($_POST['submit']))
   $from_date=$_POST['from_date'];
   $to_date =$_POST['to_date'];
   $reason=$_POST['reason'];
-  $eid=$_POST['eid'];
-  $ename=$_POST['ename'];
+//  $eid=$_POST['eid'];
+  //$ename=$_POST['ename'];
   $team_no=$_POST['team_no'];
+
+  if (isset($_POST['eid'])) { // If the id post variable is set
+      $eid = $_POST['eid'];
+  } else { // If the id post variable is not set
+      $eid = 0;
+  }
+  if (isset($_POST['ename'])) {
+      $ename = $_POST['ename'];
+  } else {
+      $ename = ".";
+  }
 
   $date=date("d/m/Y");
 
-  require('fpdf181/fpdf.php');
+  require('fpdf/fpdf.php');
   $pdf= new FPDF();
   $pdf->AddPage();
   $pdf->SetFont("Arial","","14");
@@ -31,9 +43,10 @@ if(!empty($_POST['submit']))
   $pdf->Cell(300,10,"",0,1);
   $pdf->Cell(300,10,"Yours sincerely,",0,1);
   $pdf->Cell(300,10,"{$ename}",0,1);
-  $filename="C:\xampp\htdocs\Workflow\files\PDF\hello.pdf";
-  $pdf->Output();
-  echo($pdf->Output());
+  $filename="C:/xampp/htdocs/Workflow/files/PDF/{$eid}.pdf";
+  $pdf->Output($filename,'F');
+  //file_put_contents("..\PDF\hello.pdf",$content);
+
 }
 else {
   echo "Error";

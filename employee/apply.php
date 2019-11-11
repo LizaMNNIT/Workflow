@@ -193,6 +193,8 @@
        			echo "alert('Leave applied Successfully')";
        			echo "</script>";
 
+
+
        		}
 
 	  }
@@ -206,19 +208,19 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-                  <form  method="post">
+                  <form action="convert_to_pdf.php" method="post">
 
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $uname?></label>
-                          <input type="text" name="ename" class="form-control" disabled>
+                          <label class="bmd-label-floating"></label>
+                          <input type="text" name="ename" class="form-control" value="<?php echo $uname?>" disabled>
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $id?></label>
-                          <input type="text" name="eid" class="form-control" disabled>
+                          <label class="bmd-label-floating"></label>
+                          <input type="text" name="eid" class="form-control" value="<?php echo $id?>" disabled>
                         </div>
                       </div>
                     </div>
