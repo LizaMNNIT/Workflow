@@ -1,4 +1,4 @@
-<!--
+--
 =========================================================
  Material Dashboard - v2.1.1
 =========================================================
@@ -77,10 +77,23 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+      include('../functions/connection.php');
+
+      $id=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, {$ename}</a>
+            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
