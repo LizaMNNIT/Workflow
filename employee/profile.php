@@ -31,9 +31,11 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="">
+
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -41,6 +43,7 @@ WorkFlow  </title>
 
         Tip 2: you can also add an image using data-image tag
     -->
+
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           WORKFLOW
@@ -67,7 +70,7 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.php">
+            <a class="nav-link" href="./records.html">
               <i class="material-icons">content_paste</i>
               <p>Previous Applications</p>
             </a>
@@ -77,10 +80,56 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+      session_start();
+      include('../functions/connection.php');
+
+      $id=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+
+      $sql= "SELECT email from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $email=$row['email'];
+      }
+
+      $sql= "SELECT contact from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $contact=$row['contact'];
+      }
+
+      $sql= "SELECT department from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $dept=$row['department'];
+      }
+
+      $sql= "SELECT team_no from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $team=$row['team_no'];
+      }
+
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, {$ename}</a>
+            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -131,7 +180,7 @@ WorkFlow  </title>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="profile.php">Profile</a>
+                  <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Log out</a>
@@ -143,89 +192,88 @@ WorkFlow  </title>
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      <?php
-      $query = "SELECT * FROM application WHERE eid='$eid' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
-//echo $query;
-$data = array();
-$q = mysqli_query($conn,$query);
-        if($q)
-        {
-            $rowcount=mysqli_num_rows($q);
-			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
-			{
-				$data['data'][] = $row;
-			}
-            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
-            mysqli_free_result($q);
-        }
-        else
-        {
-            $data = null;
-            echo("Error description: " . mysqli_error($conn));
-        }
-?>
+        <?php
+    	  if(isset($_POST['save']) && ($_POST['save']))
+    	  {
+
+          echo "<script>console.log('somya bahut gndi hai');</script>";
+    			$department = @$_POST["department"];
+    			$team_no = @$_POST["team_no"];
+    			$contact = @$_POST["contact"];
+
+    			//if($from_date > $to_date){
+    				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }
+            //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
+
+    		 $sql="UPDATE employee SET department='$department', team_no='$team_no', contact='$contact' where eid='$id';";
+
+
+          if( !mysqli_query($conn,$sql) )
+           		{
+
+             echo("Error description: " . mysqli_error($conn));
+                // unsuccessful("Error: " . $query . "<br>" . $con->error);
+           		}
+           		else
+           		{
+           			echo "<script>";
+           			echo "alert('Profile updated Successfully')";
+           			echo "</script>";
+
+           		}
+
+    	  }
+    	  ?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Application Status</h4>
-                  <p class="card-category"> Your leave application is in process</p>
+                  <h4 class="card-title ">Employee Profile</h4>
+
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table" style=" table-layout: auto;">
-                      <thead class=" text-primary">
-                        <th>
-                          Application No
-                        </th>
-                        <th>
-                          No. of days
-                        </th>
-                        <th>
-                          Type of leave
-                        </th>
-                        <th>
-                          Status
-                        </th>
 
-                        <th>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
-                          </th>
-                      </thead>
-                      <tbody>
-                      <?php
-                      for($i=0;$i<$data['total_data_rows'];$i++)
-                        {
-                            $app_no = $data['data']["$i"]['app_no'];
-                            $reason = $data['data']["$i"]['reason'];
-                            $to = new DateTime($data['data']["$i"]['to_date']);
-                            $from = new DateTime($data['data']["$i"]['from_date']);
-                            $type = $data['data']["$i"]['leave_type'];
-                            $hr = $data['data']["$i"]['hr_approved'];
-                            $hod = $data['data']["$i"]['hod_approved'];
-                          //  $co = $data['data']["$i"]['leave_type'];
-                          $diff=date_diff($to,$from);
-                          echo "<tr><td>$app_no</td><td>$diff->days</td><td>$type</td>";
-                        // echo "<td>$hr,$hod</td></tr>";
-                          if($hod=='-1')
-                          echo "<td>In process with HOD</td>";
-                          else if($hod==0 and $hr==-1)
-                          echo "<td><input id=\"app_$app_no\" type=\"button\" class='btn btn-primary pull-center' onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td>";
-                          else if($hr==-1 && $hod==2)
-                          echo "<td>Forwarded by HOD. In process with HR</td>";
-                          else if($hr==3)
-                          echo "<td>Declined By HOD. IN process with HR</td>";
-                          echo "<td>
-                          <button type='submit' class='btn btn-primary pull-center' name='submit'>View/Download</button>
-                            </td></tr>";
 
-                        }
 
-                      ?>
-                      </tbody>
+                    <form method="post">
+                    <table class="table">
+                        <tr>
+                          <td>
+                          Employee id
+                        <input type="text" name="id" class="form-control" value="<?php echo $id?>" disabled>
+                        </td>
+                        <td>
+                        Employee name<input type="text" name="name" class="form-control" value="<?php echo $uname?>" disabled>
+                      </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Email<input type="text" name="email" class="form-control"  value="<?php echo $email?>" disabled>
+                          </td>
+                          <td>
+                            Contact<input type="text" name="contact" class="form-control" value="<?php echo $contact?>">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Department<input type="text" name="department" class="form-control" value="<?php echo $dept?>">
+                          </td>
+                          <td>
+                            Team no.<input type="text" name="team_no" class="form-control" value="<?php echo $team?>">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Change Password
+                          </td>
+
+                        </tr>
+
                     </table>
+                    <input type="submit" class="btn btn-primary pull-right" name="save" value="Save" id="save"/>
+                  </form>
                   </div>
                 </div>
               </div>
