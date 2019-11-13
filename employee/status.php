@@ -1,18 +1,3 @@
---
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +16,17 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script>
+  function forward(appnid)
+{
+    var y = appnid.substring(4);
+    var hid = document.getElementById("applicationid");
+    hid.value = y;
+    var operation = appnid.substring(0,3);
+    var op = document.getElementById("operation");
+    op.value= operation;
+}
+  </script>
 </head>
 
 <body class="">
@@ -80,7 +76,6 @@ WorkFlow  </title>
       <?php
       session_start();
       include('../functions/connection.php');
-
       $id=$_SESSION['loggedin'];
       $sql= "SELECT ename from employee where eid= '$id'";
 
@@ -93,49 +88,13 @@ WorkFlow  </title>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
+            <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
+         
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
+            
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
-                  <p class="d-lg-none d-md-block">
-                    Stats
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
-              </li>
+              
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -147,7 +106,7 @@ WorkFlow  </title>
                   <a class="dropdown-item" href="profile.php">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
@@ -157,7 +116,7 @@ WorkFlow  </title>
       <!-- End Navbar -->
       <div class="content">
       <?php
-      $query = "SELECT * FROM application WHERE eid='$eid' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
+      $query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
 //echo $query;
 $data = array();
 $q = mysqli_query($conn,$query);
@@ -187,6 +146,9 @@ $q = mysqli_query($conn,$query);
                   <p class="card-category"> Your leave application is in process</p>
                 </div>
                 <div class="card-body">
+                <form  action="for_process.php" method="post" id="mainform">
+                  <input type="hidden" id="applicationid" name="applicationid" value="0">
+                  <input type="hidden" id="operation" name="operation" value="0">
                   <div class="table-responsive">
                     <table class="table" style=" table-layout: auto;">
                       <thead class=" text-primary">
@@ -225,7 +187,7 @@ $q = mysqli_query($conn,$query);
                           if($hod=='-1')
                           echo "<td>In process with HOD</td>";
                           else if($hod==0 and $hr==-1)
-                          echo "<td><input id=\"app_$app_no\" type=\"button\" class='btn btn-primary pull-center' onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td>";
+                          echo "<td> <button id='fwd_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick='javascript:forward(this.id);' name=\"submit\">Forward to HR</button></td>";
                           else if($hr==-1 && $hod==2)
                           echo "<td>Forwarded by HOD. In process with HR</td>";
                           else if($hr==3)
@@ -240,6 +202,7 @@ $q = mysqli_query($conn,$query);
                       </tbody>
                     </table>
                   </div>
+                  </form>
                 </div>
               </div>
             </div>
