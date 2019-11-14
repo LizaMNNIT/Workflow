@@ -199,6 +199,7 @@ WorkFlow  </title>
                         <td>
                         Employee name<input type="text" name="name" class="form-control" value="<?php echo $uname?>" disabled>
                       </td>
+                      
                         </tr>
                         <tr>
                           <td>
@@ -207,6 +208,7 @@ WorkFlow  </title>
                           <td>
                             Contact<input type="text" name="contact" class="form-control" value="<?php echo $contact?>">
                           </td>
+                        
                         </tr>
                         <tr>
                           <td>

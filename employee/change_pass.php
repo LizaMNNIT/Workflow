@@ -162,8 +162,10 @@ WorkFlow  </title>
 
                     <form method="post">
                       Old Password<input type="password" name="old" class="form-control">
+                      <br>
                       New Password<input type="password" name="new" class="form-control">
-                      Confirm new Password<input type="password" name="cnew" class="form-control">
+                      <br>
+                      Confirm new Password<input type="password" name="cnew" class="form-control"><br>
                     <input type="submit" class="btn btn-primary pull-right" name="change" value="Change" id="change"/>
                   </form>
                   </div>
