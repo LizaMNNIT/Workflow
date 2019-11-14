@@ -31,6 +31,31 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+<script type="text/javascript">
+function approve(appnid)
+{
+    var y = appnid.substring(4);
+    var hid = document.getElementById("applicationid");
+    hid.value = y;
+    var operation = appnid.substring(0,3);
+    var op = document.getElementById("operation");
+    op.value= operation;
+    var form = document.getElementById("mainform");
+    form.submit();
+}
+function reject(appnid)
+{
+    var y = appnid.substring(4);
+    var hid = document.getElementById("applicationid");
+    hid.value = y;
+    var operation = appnid.substring(0,3);
+    var op = document.getElementById("operation");
+    op.value= operation;
+    var form = document.getElementById("mainform");
+    form.submit();
+}
+
+</script>
 </head>
 
 <body class="">
@@ -49,25 +74,31 @@ WorkFlow  </title>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.html">
+            <a class="nav-link" href="./employee.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./curr_app.html">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">person</i>
-              <p>Current Applications</p>
+              <p>Pending Applications by HOD</p>
             </a>
           </li>
-		  <li class="nav-item ">
-            <a class="nav-link" href="./approve.html">
+           <li class="nav-item ">
+            <a class="nav-link" href="./curr_app_hr_by_emp.php">
               <i class="material-icons">person</i>
-              <p>Approved Applications</p>
+              <p>Pending Applications by Employees</p>
+            </a>
+          </li
+		  <li class="nav-item ">
+            <a class="nav-link" href="./approve_hr.php">
+              <i class="material-icons">content_paste</i>
+              <p>Approved Application</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./reject.html">
+            <a class="nav-link" href="./reject_hr.php">
               <i class="material-icons">content_paste</i>
               <p>Rejected Applications</p>
             </a>
@@ -77,10 +108,35 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <?php
+include('../functions/connection.php');
+
+//if we reach this line, we are connected to the database
+
+$query = "SELECT * FROM `application`,`employee` WHERE application.hr_approved= -1 AND application.hod_approved = 2 AND employee.eid = application.eid";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+			$data['total_data_rows'] = $rowcount;
+			while($row = mysqli_fetch_assoc($q)) 
+			{
+				$data['data'][] = $row;
+			}
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+        }
+        else
+        {
+            $data = null;
+        }
+?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
+            <a class="navbar-brand" href="#pablo">Hello,HR></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -89,7 +145,7 @@ WorkFlow  </title>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+             <form class="navbar-form">
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -143,130 +199,72 @@ WorkFlow  </title>
       </nav>
       <!-- End Navbar -->
       <div class="content">
-        <div class="container-fluid">
+      
+        <div class="container-fluid" name="d">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Approved Applications</h4>
-                  <p class="card-category"> Here is the list of the Approved Applications</p>
+                  <h4 class="card-title ">Pending Applications</h4>
+                  <p class="card-category">List of applications pending for approval forwarded by HOD. </p>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
+                <!-- <iframe width="0" height="0" name="dummyframe" id="dummyframe"></iframe> -->
+                <form  action="process_hr_hod.php" method="post" id="mainform">
+<input type="hidden" id="applicationid" name="applicationid" value="0">
+<input type="hidden" id="operation" name="operation" value="0">
+                  <div class="table-responsive" name="tab">
                     <table class="table">
                       <thead class=" text-primary">
-                            <th>
-                          Application ID
+                        <th>
+                         Application ID
                         </th>
                         <th>
-                        Employee Name
+                          Employee Name
                         </th>
                         <th>
                           Reason
                         </th>
-                        
                         <th>
-                          Accepted/Rejected
+                          
                         </th>
+<th></th>
+<th></th>
+
+                   
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          
-                          <td class="text-primary">
-                            $36,738
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                         
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                         
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                         
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
-                      </tbody>
+                     <?php
+                      for($i=0;$i<$data['total_data_rows'];$i++)
+{
+    $app_no = $data['data']["$i"]['app_no'];
+    $emp = $data['data']["$i"]['ename'];
+    $sl = $data['data']["$i"]['reason'];
+  //  $co = $data['data']["$i"]['leave_type'];
+    
+    echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
+ echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
+echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
+
+echo "<td><button type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">View/Download</button>
+                            </td>
+			</tr>";
+  
+}
+
+?>
+
+
+ </tbody>
                     </table>
                   </div>
+  </form>
+  
                 </div>
               </div>
             </div>
-
+  </div>
+  </div></div>
 
 
   <!--   Core JS Files   -->

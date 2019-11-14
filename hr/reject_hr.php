@@ -1,3 +1,18 @@
+<!--
+=========================================================
+ Material Dashboard - v2.1.1
+=========================================================
+
+ Product Page: https://www.creative-tim.com/product/material-dashboard
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+ Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
+
+ Coded by Creative Tim
+
+=========================================================
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,17 +31,6 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-  <script>
-  function forward(appnid)
-{
-    var y = appnid.substring(4);
-    var hid = document.getElementById("applicationid");
-    hid.value = y;
-    var operation = appnid.substring(0,3);
-    var op = document.getElementById("operation");
-    op.value= operation;
-}
-  </script>
 </head>
 
 <body class="">
@@ -45,27 +49,33 @@ WorkFlow  </title>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.php">
+            <a class="nav-link" href="./employee.html">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.php">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">person</i>
-              <p>Apply for Leave</p>
+              <p>Applications by HOD</p>
+            </a>
+          </li>
+            <li class="nav-item ">
+            <a class="nav-link" href="./curr_app_hr_by_emp.php">
+              <i class="material-icons">person</i>
+              <p>Applications by Employees</p>
             </a>
           </li>
 		  <li class="nav-item ">
-            <a class="nav-link" href="./status.php">
-              <i class="material-icons">person</i>
-              <p>Application Status</p>
+            <a class="nav-link" href="./approve_hr.php">
+              <i class="material-icons">content_paste</i>
+              <p>Approved Applications</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.php">
+            <a class="nav-link" href="./reject_hr.php">
               <i class="material-icons">content_paste</i>
-              <p>Previous Applications</p>
+              <p>Rejected Applications</p>
             </a>
           </li>
         </ul>
@@ -73,28 +83,56 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <?php
-      session_start();
+     <?php
       include('../functions/connection.php');
-      $id=$_SESSION['loggedin'];
-      $sql= "SELECT ename from employee where eid= '$id'";
+     ?>
 
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $uname=$row['ename'];
-      }
-      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
+            <a class="navbar-brand" href="#pablo">Hello HR,</a>
           </div>
-
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
           <div class="collapse navbar-collapse justify-content-end">
-
+            <form class="navbar-form">
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
             <ul class="navbar-nav">
-
+              <li class="nav-item">
+                <a class="nav-link" href="#pablo">
+                  <i class="material-icons">dashboard</i>
+                  <p class="d-lg-none d-md-block">
+                    Stats
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">notifications</i>
+                  <span class="notification">5</span>
+                  <p class="d-lg-none d-md-block">
+                    Some Actions
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
+                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+                  <a class="dropdown-item" href="#">Another Notification</a>
+                  <a class="dropdown-item" href="#">Another One</a>
+                </div>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -103,10 +141,10 @@ WorkFlow  </title>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="profile.php">Profile</a>
+                  <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="logout.php">Log out</a>
+                  <a class="dropdown-item" href="#">Log out</a>
                 </div>
               </li>
             </ul>
@@ -115,98 +153,153 @@ WorkFlow  </title>
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      <?php
-      $query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
-//echo $query;
-      $data = array();
-      $q = mysqli_query($conn,$query);
-        if($q)
-        {
-            $rowcount=mysqli_num_rows($q);
-			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q))
-			{
-				$data['data'][] = $row;
-			}
-            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
-            mysqli_free_result($q);
-        }
-        else
-        {
-            $data = null;
-            echo("Error description: " . mysqli_error($conn));
-        }
-?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Application Status</h4>
-                  <p class="card-category"> Your leave application is in process</p>
+                  <h4 class="card-title ">Approved Applications</h4>
+                  <p class="card-category">List of the applications you have rejected.</p>
                 </div>
                 <div class="card-body">
-                <form  action="for_process.php" method="post" id="mainform">
-                  <input type="hidden" id="applicationid" name="applicationid" value="0">
-                  <input type="hidden" id="operation" name="operation" value="0">
                   <div class="table-responsive">
-                    <table class="table" style=" table-layout: auto;">
+                    <table class="table">
                       <thead class=" text-primary">
-                        <th>
-                          Application No
-                        </th>
-                        <th>
-                          No. of days
-                        </th>
-                        <th>
-                          Type of leave
-                        </th>
-                        <th>
-                          Status
+
+                         <th>
+                        Department
                         </th>
 
                         <th>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application
-                          </th>
+                        Application ID
+                        </th>
+
+                        <th>
+                        Employee Name
+                        </th>
+                         
+                        
+         
+                        <th>
+                         Leave Reason
+                        </th>
+                         
+                        <th>
+                          Leave Type
+                        </th>
+                        
+                         <th>
+                          From Date
+                        </th>
+
+                         <th>
+                          Till Date
+                        </th>
+
                       </thead>
                       <tbody>
-                      <?php
-                      for($i=0;$i<$data['total_data_rows'];$i++)
-                        {
-                            $app_no = $data['data']["$i"]['app_no'];
-                            $paths = $data['data']["$i"]['paths'];
-                            $reason = $data['data']["$i"]['reason'];
-                            $to = new DateTime($data['data']["$i"]['to_date']);
-                            $from = new DateTime($data['data']["$i"]['from_date']);
-                            $type = $data['data']["$i"]['leave_type'];
-                            $hr = $data['data']["$i"]['hr_approved'];
-                            $hod = $data['data']["$i"]['hod_approved'];
-                          //  $co = $data['data']["$i"]['leave_type'];
-                          $diff=date_diff($to,$from);
-                          echo "<tr><td>$app_no</td><td>$diff->days</td><td>$type</td>";
-                        // echo "<td>$hr,$hod</td></tr>";
+                       <tr>
+                             <td>
+                            <?php
+                            
+                            $sql="select department from employee join application where employee.eid = application.eid AND application.hr_approved = '0' ";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['department']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                            </td>
+                          <td>
+                            <?php
+                            
+                            $sql="select app_no from application where hr_approved=0;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['app_no']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                           </td>
+                             
+                           <td>
+                            <?php
+                            
+                            $sql="select ename from employee join application where employee.eid = application.eid AND application.hr_approved = '0' ";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['ename']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                           </td>
+                            
+                            
+                            <td>
+                            <?php
+                            
+                            $sql="select reason from application where hr_approved='0'";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                          </td>
 
-                          $file=substr($paths,24);
-                          $fname="..".$file;
-                          if($hod=='-1')
-                          echo "<td>In process with HOD</td>";
-                          else if($hod==0 and $hr==-1)
-                          echo "<td> <button id='fwd_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick='javascript:forward(this.id);' name=\"submit\">Forward to HR</button></td>";
-                          else if($hr==-1 && $hod==2)
-                          echo "<td>Forwarded by HOD. In process with HR</td>";
-                          else if($hr==3)
-                          echo "<td>Declined By HOD. IN process with HR</td>";
-                          echo "<td><a href=$fname> <button type='submit' class='btn btn-primary pull-center' name='submit' >View/Download</button></a></td></tr>";
+                            <td>
+                            <?php
+                            
+                            $sql="select leave_type from application where application.hr_approved = '0' ";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['leave_type']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                           </td>
+                             
+                            <td>
+                            <?php
+                            
+                            $sql="select from_date from application where hr_approved='0'";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['from_date']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                          </td>
+                            <td>
+                            <?php
+                            
+                            $sql="select to_date from application where hr_approved='0'";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['to_date']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                          </td>
 
-
-
-                        }
-
-                      ?>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
-                  </form>
                 </div>
               </div>
             </div>

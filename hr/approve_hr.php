@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 =========================================================
  Material Dashboard - v2.1.1
 =========================================================
@@ -55,21 +55,27 @@ WorkFlow  </title>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.html">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">person</i>
-              <p>Apply for Leave</p>
+              <p>Applications by HOD</p>
+            </a>
+          </li>
+            <li class="nav-item ">
+            <a class="nav-link" href="./curr_app_hr_by_emp.php">
+              <i class="material-icons">person</i>
+              <p>Applications by Employees</p>
             </a>
           </li>
 		  <li class="nav-item ">
-            <a class="nav-link" href="./status.php">
-              <i class="material-icons">person</i>
-              <p>Application Status</p>
+            <a class="nav-link" href="./approve_hr.php">
+              <i class="material-icons">content_paste</i>
+              <p>Approved Applications</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./records.html">
+            <a class="nav-link" href="./reject_hr.php">
               <i class="material-icons">content_paste</i>
-              <p>Previous Applications</p>
+              <p>Rejected Applications</p>
             </a>
           </li>
         </ul>
@@ -77,10 +83,14 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+     <?php
+      include('../functions/connection.php');
+     ?>
+
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
+            <a class="navbar-brand" href="#pablo">Hello HR,</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -148,131 +158,144 @@ WorkFlow  </title>
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Previous Applications</h4>
-                  <p class="card-category"> You have applied for following leaves</p>
+                  <h4 class="card-title ">Approved Applications</h4>
+                  <p class="card-category"> Here is the list of the Approved Applications</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
-                        <th>
-                          S no.
+
+                         <th>
+                        Department
                         </th>
+
                         <th>
-                          Purpose of leave
+                        Application ID
                         </th>
+
                         <th>
-                          No. of days
+                        Employee Name
                         </th>
+                         
+                        
+         
                         <th>
-                          Type of leave
+                         Leave Reason
                         </th>
+                         
                         <th>
-                          Accepted/Rejected
+                          Leave Type
                         </th>
+                        
+                         <th>
+                          From Date
+                        </th>
+
+                         <th>
+                          Till Date
+                        </th>
+
                       </thead>
                       <tbody>
-                        <tr>
+                       <tr>
+                             <td>
+                            <?php
+                            
+                            $sql="select department from employee join application where employee.eid = application.eid AND application.hr_approved = '1' ";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['department']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                            </td>
                           <td>
-                            1
+                            <?php
+                            
+                            $sql="select app_no from application where hr_approved=1;";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['app_no']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                           </td>
+                             
+                           <td>
+                            <?php
+                            
+                            $sql="select ename from employee join application where employee.eid = application.eid AND application.hr_approved = '1' ";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['ename']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                           </td>
+                            
+                            
+                            <td>
+                            <?php
+                            
+                            $sql="select reason from application where hr_approved='1'";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['reason']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
                           </td>
-                          <td>
-                            Dakota Rice
+
+                            <td>
+                            <?php
+                            
+                            $sql="select leave_type from application where application.hr_approved = '1' ";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['leave_type']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
+                           </td>
+                             
+                            <td>
+                            <?php
+                            
+                            $sql="select from_date from application where hr_approved='1'";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['from_date']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
                           </td>
-                          <td>
-                            Niger
+                            <td>
+                            <?php
+                            
+                            $sql="select to_date from application where hr_approved='1'";
+                            $result=mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            echo "{$row['to_date']}";
+                            echo "<br>"; echo "<br>";
+                            }
+                         
+                            ?>
                           </td>
-                          <td>
-                            Oud-Turnhout
-                          </td>
-                          <td class="text-primary">
-                            $36,738
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
+
                         </tr>
                       </tbody>
                     </table>
