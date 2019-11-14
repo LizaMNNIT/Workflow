@@ -96,7 +96,7 @@ $q = mysqli_query($conn,$query);
         {
             $rowcount=mysqli_num_rows($q);
 			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
+			while($row = mysqli_fetch_assoc($q))
 			{
 				$data['data'][] = $row;
 			}
@@ -114,11 +114,11 @@ $q = mysqli_query($conn,$query);
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="profile.php">Hello, <?php echo $uname;?></a>
           </div>
-          
+
           <div class="collapse navbar-collapse justify-content-end">
-            
+
             <ul class="navbar-nav">
-              
+
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -128,7 +128,6 @@ $q = mysqli_query($conn,$query);
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
@@ -139,7 +138,7 @@ $q = mysqli_query($conn,$query);
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      
+
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
