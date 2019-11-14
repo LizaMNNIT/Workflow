@@ -184,10 +184,11 @@ $q = mysqli_query($conn,$query);
  // echo "<td>$hr,$hod</td></tr>";
   if($hr=='1'||$hod=='1')
   echo "<td><b style='color:green;font-size:20px'>Accepted</b></td></tr>";
-  else if($hod==0)
-  echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
   else if($hr==0 && $hod==0)
   echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
+  else if($hod==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
+ 
   // else
   // echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
 
