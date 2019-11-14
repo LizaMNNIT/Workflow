@@ -184,10 +184,10 @@
               echo "<script>";
               echo "alert('Fill Dates Properly!! From Date cannot be before Current date')";
               echo "</script>";}
-             
+
         else{
 
-          
+
 		  $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
 
 
@@ -199,7 +199,7 @@
        		}
        		else
        		{
-<<<<<<< HEAD
+
        			echo "<script>";
        			echo "alert('Leave applied Successfully')";
        			echo "</script>";
@@ -207,23 +207,23 @@
 
 
        		}
-=======
+
        		  	echo "<script>";
        			 echo "alert('Leave applied Successfully')";
              echo "</script>";
-            
+
              $sql="SELECT * FROM application ORDER BY app_no DESC LIMIT 1";
-             
+
               $result = mysqli_query($conn,$sql);
               while($row = mysqli_fetch_assoc($result))
               {
                 $app_no=$row['app_no'];
               }
-            
+
 
              $date=date("d/m/Y");
 
-             require('fpdf181/fpdf.php');
+             require('fpdf/fpdf.php');
              $pdf= new FPDF();
              $pdf->AddPage();
              $pdf->SetFont("Arial","","14");
@@ -257,18 +257,15 @@
             }
             else
             {
-<<<<<<< HEAD
-                echo "success!";
-=======
->>>>>>> 80aa8acb13c167ffa8b17185bf7ab365eff0e5ec
 
->>>>>>> eaa0094c8c653b9a3c24e4dd83b1b7d810505549
+                echo "success!";
+
             }
-          
-       
+
+
         }
     }
-  
+
 	  ?>
         <div class="container-fluid">
           <div class="row">
@@ -279,11 +276,9 @@
                   <p class="card-category">&nbsp;&nbsp;Fill the details</p>
                 </div>
                 <div class="card-body">
-<<<<<<< HEAD
-                  <form action="convert_to_pdf.php" method="post">
-=======
                   <form method="post">
->>>>>>> 80aa8acb13c167ffa8b17185bf7ab365eff0e5ec
+                  <form method="post">
+
 
                     <div class="row">
                       <div class="col-md-5">

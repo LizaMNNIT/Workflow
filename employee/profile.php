@@ -1,22 +1,10 @@
-<!--
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
@@ -35,6 +23,7 @@ WorkFlow  </title>
 </head>
 
 <body class="">
+
 
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -216,13 +205,13 @@ WorkFlow  </title>
            		}
            		else
            		{
-               
+
            	    echo "<script>";
            			echo "alert('Profile updated Successfully')";
-                 echo "</script>";          
+                 echo "</script>";
                  echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
            		}
-              
+
     	  }
     	  ?>
         <div class="container-fluid">
@@ -263,11 +252,6 @@ WorkFlow  </title>
                           </td>
                           <td>
                             Team no.<input type="text" name="team_no" class="form-control" value="<?php echo $team?>">
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Change Password
                           </td>
                         </tr>
                     </table>
@@ -494,6 +478,7 @@ WorkFlow  </title>
       });
     });
   </script>
+
 </body>
 
 </html>

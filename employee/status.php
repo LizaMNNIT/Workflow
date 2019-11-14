@@ -1,17 +1,3 @@
---
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +17,7 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -157,15 +144,15 @@ WorkFlow  </title>
       <!-- End Navbar -->
       <div class="content">
       <?php
-      $query = "SELECT * FROM application WHERE eid='$eid' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
+      $query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
 //echo $query;
-$data = array();
-$q = mysqli_query($conn,$query);
+      $data = array();
+      $q = mysqli_query($conn,$query);
         if($q)
         {
             $rowcount=mysqli_num_rows($q);
 			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
+			while($row = mysqli_fetch_assoc($q))
 			{
 				$data['data'][] = $row;
 			}
@@ -212,6 +199,7 @@ $q = mysqli_query($conn,$query);
                       for($i=0;$i<$data['total_data_rows'];$i++)
                         {
                             $app_no = $data['data']["$i"]['app_no'];
+                            $paths = $data['data']["$i"]['paths'];
                             $reason = $data['data']["$i"]['reason'];
                             $to = new DateTime($data['data']["$i"]['to_date']);
                             $from = new DateTime($data['data']["$i"]['from_date']);
@@ -222,6 +210,9 @@ $q = mysqli_query($conn,$query);
                           $diff=date_diff($to,$from);
                           echo "<tr><td>$app_no</td><td>$diff->days</td><td>$type</td>";
                         // echo "<td>$hr,$hod</td></tr>";
+
+                          $file=substr($paths,24);
+                          $fname="..".$file;
                           if($hod=='-1')
                           echo "<td>In process with HOD</td>";
                           else if($hod==0 and $hr==-1)
@@ -230,9 +221,9 @@ $q = mysqli_query($conn,$query);
                           echo "<td>Forwarded by HOD. In process with HR</td>";
                           else if($hr==3)
                           echo "<td>Declined By HOD. IN process with HR</td>";
-                          echo "<td>
-                          <button type='submit' class='btn btn-primary pull-center' name='submit'>View/Download</button>
-                            </td></tr>";
+                          echo "<td><a href=$fname> <button type='submit' class='btn btn-primary pull-center' name='submit' >View/Download</button></a></td></tr>";
+
+
 
                         }
 
