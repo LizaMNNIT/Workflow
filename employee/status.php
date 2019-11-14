@@ -151,6 +151,7 @@ WorkFlow  </title>
                   <input type="hidden" id="operation" name="operation" value="0">
                   <div class="table-responsive">
                     <table class="table" style=" table-layout: auto;">
+                    
                       <thead class=" text-primary">
                         <th>
                           Application No
@@ -170,6 +171,7 @@ WorkFlow  </title>
                           </th>
                       </thead>
                       <tbody>
+                    
                       <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
                         {
@@ -196,7 +198,7 @@ WorkFlow  </title>
                           echo "<td>Forwarded by HOD. In process with HR</td>";
                           else if($hr==3)
                           echo "<td>Declined By HOD. IN process with HR</td>";
-                          echo "<td><a href=$fname> <button type='submit' class='btn btn-primary pull-center' name='submit' >View/Download</button></a></td></tr>";
+                          echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
 
 
 
