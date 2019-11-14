@@ -128,6 +128,7 @@ $q = mysqli_query($conn,$query);
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
@@ -188,7 +189,7 @@ $q = mysqli_query($conn,$query);
   echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
   else if($hod==0)
   echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
- 
+
   // else
   // echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
 

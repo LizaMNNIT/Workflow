@@ -1,28 +1,15 @@
-<!--
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    WorkFlow
-  </title>
+WorkFlow  </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -31,9 +18,12 @@
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="">
+
+
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -41,6 +31,7 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
+
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           WORKFLOW
@@ -82,17 +73,21 @@
       include('../functions/connection.php');
 
       $id=$_SESSION['loggedin'];
-      $sql= "SELECT * from employee where eid= '$id'";
+      $sql= "SELECT ename from employee where eid= '$id'";
 
       $result = mysqli_query($conn,$sql);
       while($row = mysqli_fetch_assoc($result))
       {
         $uname=$row['ename'];
-        $department=$row['department'];
-        $team_no=$row['team_no'];
-        $sign=$row['sign'];
       }
 
+      $sql= "SELECT pswd from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $pswd=$row['pswd'];
+      }
       ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
@@ -121,183 +116,60 @@
         </div>
       </nav>
       <!-- End Navbar -->
-
       <div class="content">
-	  <?php
-	  if(isset($_POST['apply']) && ($_POST['apply']))
-	  {
-			$reason = @$_POST["reason"];
-			$leave = @$_POST["leave"];
-			$from_date = @$_POST["from_date"];
-      $to_date = @$_POST["to_date"];
-      $hr='-1';
-      $hod='-1';
-      $now = date("Y/m/d");
-      $stamp1=strtotime($now);
-  $stamp2=strtotime($from_date);
-      echo"<script>console.log($now);</script>";
-      if($from_date > $to_date)
-      {
-				echo "<script>";
-       			echo "alert('Fill Dates Properly!! To Date cannot be before From Date')";
-             echo "</script>";
-            }
-             else if($stamp1 > $stamp2)
-             {
-              echo "<script>";
-              echo "alert('Fill Dates Properly!! From Date cannot be before Current date')";
-              echo "</script>";}
-
-        else{
-
-
-		  $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
-
-
-      if( !mysqli_query($conn,$sql) )
-       		{
-
-         echo("Error description: " . mysqli_error($conn));
-            // unsuccessful("Error: " . $query . "<br>" . $con->error);
-       		}
-       		else
-       		{
-       		  	echo "<script>";
-       			 echo "alert('Leave applied Successfully')";
-             echo "</script>";
-           }
-             $sql="SELECT * FROM application WHERE eid='$id' ORDER BY app_no DESC LIMIT 1";
-
-              $result = mysqli_query($conn,$sql);
-              while($row = mysqli_fetch_assoc($result))
-              {
-                $app_no=$row['app_no'];
-              }
-
-
-             $date=date("d/m/Y");
-
-             require('fpdf/fpdf.php');
-             $pdf= new FPDF();
-             $pdf->AddPage();
-             $pdf->SetFont("Arial","","14");
-             $pdf->Cell(100,10,"Head of Department",0,1);
-             $pdf->Cell(100,10,"{$department} Department",0,1);
-             $pdf->Cell(100,10,"XYZ Company",0,1);
-             $pdf->Cell(300,10,"",0,1);
-             $pdf->Cell(100,10,"Date: {$date}",0,1);
-             $pdf->Cell(300,10,"",0,1);
-             $pdf->Cell(100,10,"Subject: {$leave} Leave Application",0,1);
-             $pdf->Cell(300,10,"",0,1);
-             $pdf->Cell(100,10,"Dear Sir,",0,1);
-             $pdf->Cell(300,10,"My name is {$uname}, employee id {$id}, of {$department} Department, team number {$team_no}.",0,1);
-             $pdf->Cell(300,10,"I want to apply for leave from {$from_date} to {$to_date} due to {$reason}.",0,1);
-             $pdf->Cell(300,10,"I will be obliged if you consider my application for approval.",0,1);
-             $pdf->Cell(300,10,"",0,1);
-             $pdf->Cell(300,10,"Yours sincerely,",0,1);
-             $pdf->Image($sign,10,160,20,20);
-             $pdf->Cell(300,10,"{$uname}",0,1);
-             $filename="C:/xampp/htdocs/Workflow/files/PDF/{$app_no}.pdf";
-             $pdf->Output($filename,'F');
-
-             $sql="UPDATE application SET paths='$filename' WHERE app_no='$app_no'";
-
-
-            if( !mysqli_query($conn,$sql) )
+        <?php
+    	  if(isset($_POST['change']) && ($_POST['change']))
+    	  {
+          $oldpassword = $_POST['old'];
+          $newpassword = $_POST['new'];
+          $confirmnewpassword = $_POST['cnew'];
+          if($oldpassword!= $pswd)
+          {
+            echo "<script>";
+            echo "alert('You entered an incorrect password')";
+            echo "</script>";
+          }
+          if($newpassword=$confirmnewpassword)
+          {
+            $sql=mysqli_query($conn,"UPDATE employee SET pswd='$newpassword' where eid='$id'");
+            if($sql)
             {
-
-                echo("Error description: " . mysqli_error($conn));
-              // unsuccessful("Error: " . $query . "<br>" . $con->error);
+              echo "<script>";
+              echo "alert('Congratulations You have successfully changed your password')";
+              echo "</script>";
             }
-
-
-        }
-    }
-
-	  ?>
+            else
+            {
+              echo "<script>";
+              echo "alert('Passwords do not match')";
+              echo "</script>";
+            }
+          }
+       }
+      ?>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-6">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Leave Application</h4>
-                  <p class="card-category">&nbsp;&nbsp;Fill the details</p>
+                  <h4 class="card-title ">Change Password</h4>
+
                 </div>
                 <div class="card-body">
-                  <form method="post">
+                  <div class="table-responsive">
 
-
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-
-                          <input type="text" name="ename" class="form-control" value="<?php echo $uname?>" disabled>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-
-                          <input type="text" name="eid" class="form-control" value="<?php echo $id?>" disabled>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-
-                          <input type="text" name="department" class="form-control" value="<?php echo $department?>" disabled>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input type="text" name="team_no" class="form-control" value="<?php echo $team_no?>" disabled>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Reason</label>
-                          <input type="text" name="reason" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-					<div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                         <label class="bmd-label-floating"> Type of Leave </label><br><br>
-						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="sick">Sick Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="casual">Casual Leave &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="radio" name="leave" value="earned">Earned Leave  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						  <br>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> From Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <input type="date" name="from_date" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> To Date </label></br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                          <input type="date" name="to_date" class="form-control">
-                        </div>
-                      </div>
-                      </div>
-                    <input type="submit" class="btn btn-primary pull-right" name="apply" value="Apply" id="apply"/>
-
+                    <form method="post">
+                      Old Password<input type="password" name="old" class="form-control">
+                      New Password<input type="password" name="new" class="form-control">
+                      Confirm new Password<input type="password" name="cnew" class="form-control">
+                    <input type="submit" class="btn btn-primary pull-right" name="change" value="Change" id="change"/>
                   </form>
+                  </div>
                 </div>
               </div>
             </div>
-
 
 
 

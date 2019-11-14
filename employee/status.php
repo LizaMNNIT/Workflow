@@ -104,6 +104,7 @@ WorkFlow  </title>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
@@ -150,7 +151,7 @@ WorkFlow  </title>
                   <input type="hidden" id="operation" name="operation" value="0">
                   <div class="table-responsive">
                     <table class="table" style=" table-layout: auto;">
-                    
+
                       <thead class=" text-primary">
                         <th>
                           Application No
@@ -170,7 +171,7 @@ WorkFlow  </title>
                           </th>
                       </thead>
                       <tbody>
-                    
+
                       <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
                         {
