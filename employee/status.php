@@ -90,11 +90,11 @@ WorkFlow  </title>
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
-         
+
           <div class="collapse navbar-collapse justify-content-end">
-            
+
             <ul class="navbar-nav">
-              
+
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -104,7 +104,7 @@ WorkFlow  </title>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
@@ -118,13 +118,13 @@ WorkFlow  </title>
       <?php
       $query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='1' AND hr_approved!='1' AND hr_approved!='0'";
 //echo $query;
-$data = array();
-$q = mysqli_query($conn,$query);
+      $data = array();
+      $q = mysqli_query($conn,$query);
         if($q)
         {
             $rowcount=mysqli_num_rows($q);
 			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
+			while($row = mysqli_fetch_assoc($q))
 			{
 				$data['data'][] = $row;
 			}
@@ -151,6 +151,7 @@ $q = mysqli_query($conn,$query);
                   <input type="hidden" id="operation" name="operation" value="0">
                   <div class="table-responsive">
                     <table class="table" style=" table-layout: auto;">
+
                       <thead class=" text-primary">
                         <th>
                           Application No
@@ -170,10 +171,12 @@ $q = mysqli_query($conn,$query);
                           </th>
                       </thead>
                       <tbody>
+
                       <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
                         {
                             $app_no = $data['data']["$i"]['app_no'];
+                            $paths = $data['data']["$i"]['paths'];
                             $reason = $data['data']["$i"]['reason'];
                             $to = new DateTime($data['data']["$i"]['to_date']);
                             $from = new DateTime($data['data']["$i"]['from_date']);
@@ -184,6 +187,9 @@ $q = mysqli_query($conn,$query);
                           $diff=date_diff($to,$from);
                           echo "<tr><td>$app_no</td><td>$diff->days</td><td>$type</td>";
                         // echo "<td>$hr,$hod</td></tr>";
+
+                          $file=substr($paths,24);
+                          $fname="..".$file;
                           if($hod=='-1')
                           echo "<td>In process with HOD</td>";
                           else if($hod==0 and $hr==-1)
@@ -192,9 +198,9 @@ $q = mysqli_query($conn,$query);
                           echo "<td>Forwarded by HOD. In process with HR</td>";
                           else if($hr==3)
                           echo "<td>Declined By HOD. IN process with HR</td>";
-                          echo "<td>
-                          <button type='submit' class='btn btn-primary pull-center' name='submit'>View/Download</button>
-                            </td></tr>";
+                          echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
+
+
 
                         }
 

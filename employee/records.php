@@ -88,7 +88,7 @@ $id=$_SESSION['loggedin'];
       {
         $uname=$row['ename'];
       }
-$query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='-1'";
+$query = "SELECT * FROM application WHERE eid='$id' AND (hod_approved=0 OR hod_approved=1 OR hr_approved=0 OR hr_approved=1)";
 //echo $query;
 $data = array();
 $q = mysqli_query($conn,$query);
@@ -96,7 +96,7 @@ $q = mysqli_query($conn,$query);
         {
             $rowcount=mysqli_num_rows($q);
 			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
+			while($row = mysqli_fetch_assoc($q))
 			{
 				$data['data'][] = $row;
 			}
@@ -114,11 +114,11 @@ $q = mysqli_query($conn,$query);
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="profile.php">Hello, <?php echo $uname;?></a>
           </div>
-          
+
           <div class="collapse navbar-collapse justify-content-end">
-            
+
             <ul class="navbar-nav">
-              
+
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -128,7 +128,7 @@ $q = mysqli_query($conn,$query);
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
@@ -139,7 +139,7 @@ $q = mysqli_query($conn,$query);
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      
+
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
@@ -167,30 +167,37 @@ $q = mysqli_query($conn,$query);
                         <th>
                           Accepted/Rejected
                         </th>
+                        <th>
+                        Application
+                          </th>
                       </thead>
                       <tbody>
                       <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
 {
   $app_no = $data['data']["$i"]['app_no'];
+  $paths = $data['data']["$i"]['paths'];
     $reason = $data['data']["$i"]['reason'];
     $to = new DateTime($data['data']["$i"]['to_date']);
      $from = new DateTime($data['data']["$i"]['from_date']);
     $type = $data['data']["$i"]['leave_type'];
     $hr = $data['data']["$i"]['hr_approved'];
     $hod = $data['data']["$i"]['hod_approved'];
+    $file=substr($paths,24);
+    $fname="..".$file;
   //  $co = $data['data']["$i"]['leave_type'];
   $diff=date_diff($to,$from);
   echo "<tr><td>$app_no</td><td>$reason</td><td>$diff->days</td><td>$type</td>";
  // echo "<td>$hr,$hod</td></tr>";
   if($hr=='1'||$hod=='1')
-  echo "<td><b style='color:green;font-size:20px'>Accepted</b></td></tr>";
-  else if($hod==0)
-  echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
+  echo "<td><b style='color:green;font-size:20px'>Accepted</b></td>";
   else if($hr==0 && $hod==0)
-  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
-  // else
-  // echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td>";
+  else if($hod==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td>";
+  else if($hod==2 && $hr==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td>";
+  echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
 
 }
 

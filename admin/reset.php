@@ -1,3 +1,58 @@
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+include("../functions/connection.php");
+include("../functions/functions.php");
+session_start();
+
+
+ if( isset($_GET['code1']) && isset($_GET['user1']) )
+      {
+        if(isset($_POST['change']) && $_POST['change'])
+        {
+          echo"<script>console.log('reset');</script>";
+        try{
+             $eid= $_GET['user1'];
+          $pass1= $_POST['pass1'];
+          $pass2=$_POST['pass2'];
+          if($pass1!=$pass2)
+          {
+            echo "<script>";
+            echo "alert('Passwords do not match')";
+            echo "</script>";
+          }
+          else {
+          $sql= "UPDATE employee SET pswd='$pass1' WHERE eid='$eid'";
+          if( !mysqli_query($conn,$sql) )
+          {
+          echo "<script>";
+          echo("Error description: " . mysqli_error($conn));
+          echo "</script>";
+          }
+     else{
+
+           echo "<script>
+   alert(' Password Reset, You can now login to continue');
+             window.location.href='register.php';
+
+           </script>";
+
+         }
+        }
+      }
+
+        catch(PDOException $e){
+           echo "<script>";
+           echo "alert($e->getmessage())";
+           echo "</script>";
+        }
+      }
+    }
+?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,200 +81,39 @@ WorkFlow  </title>
 
 
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-        Tip 2: you can also add an image using data-image tag
-    -->
-
-      <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          WORKFLOW
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.php">
-              <i class="material-icons">dashboard</i>
-              <p>WELCOME!!</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./apply.php">
-              <i class="material-icons">person</i>
-              <p>Apply for Leave</p>
-            </a>
-          </li>
-		  <li class="nav-item ">
-            <a class="nav-link" href="./status.php">
-              <i class="material-icons">person</i>
-              <p>Application Status</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./records.php">
-              <i class="material-icons">content_paste</i>
-              <p>Previous Applications</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <?php
-      session_start();
-      include('../functions/connection.php');
 
-      $id=$_SESSION['loggedin'];
-      $sql= "SELECT ename from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $uname=$row['ename'];
-      }
-
-      $sql= "SELECT email from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $email=$row['email'];
-      }
-
-      $sql= "SELECT contact from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $contact=$row['contact'];
-      }
-
-      $sql= "SELECT department from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $dept=$row['department'];
-      }
-
-      $sql= "SELECT team_no from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $team=$row['team_no'];
-      }
-
-      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
+
           </div>
 
-          <div class="collapse navbar-collapse justify-content-end">
-          <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Account
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="profile.php">Profile</a>
-                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="logout.php">Log out</a>
-                </div>
-              </li>
-            </ul>
-          </div>
+
         </div>
       </nav>
       <!-- End Navbar -->
       <div class="content">
-        <?php
-    	  if(isset($_POST['save']) && ($_POST['save']))
-    	  {
 
-          echo "<script>console.log('somya bahut gndi hai');</script>";
-    			$department = @$_POST["department"];
-    			$team_no = @$_POST["team_no"];
-    			$contact = @$_POST["contact"];
-
-    			//if($from_date > $to_date){
-    				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }
-            //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
-
-    		 $sql="UPDATE employee SET department='$department', team_no='$team_no', contact='$contact' where eid='$id';";
-
-
-          if( !mysqli_query($conn,$sql) )
-           		{
-
-             echo("Error description: " . mysqli_error($conn));
-                // unsuccessful("Error: " . $query . "<br>" . $con->error);
-           		}
-           		else
-           		{
-
-           	    echo "<script>";
-           			echo "alert('Profile updated Successfully')";
-                 echo "</script>";
-                 echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
-           		}
-
-    	  }
-    	  ?>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-6">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Employee Profile</h4>
+                  <h4 class="card-title ">Reset Password</h4>
 
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
 
-
-
-                    <form method="post">
-                    <table class="table">
-                        <tr>
-                          <td>
-                          Employee id
-                        <input type="text" name="id" class="form-control" value="<?php echo $id?>" disabled>
-                        </td>
-                        <td>
-                        Employee name<input type="text" name="name" class="form-control" value="<?php echo $uname?>" disabled>
-                      </td>
-                      
-                        </tr>
-                        <tr>
-                          <td>
-                            Email<input type="text" name="email" class="form-control"  value="<?php echo $email?>" disabled>
-                          </td>
-                          <td>
-                            Contact<input type="text" name="contact" class="form-control" value="<?php echo $contact?>">
-                          </td>
-                        
-                        </tr>
-                        <tr>
-                          <td>
-                            Department<input type="text" name="department" class="form-control" value="<?php echo $dept?>">
-                          </td>
-                          <td>
-                            Team no.<input type="text" name="team_no" class="form-control" value="<?php echo $team?>">
-                          </td>
-                        </tr>
-                    </table>
-                    <input type="submit" class="btn btn-primary pull-right" name="save" value="Save" id="save"/>
+                    <form method="post" if="form6">
+                      New Password<input type="password" name="pass1" class="form-control">
+                      Confirm new Password<input type="password" name="pass2" class="form-control">
+                    <input type="submit" class="btn btn-primary pull-right" name="change" value="Change" id="change"/>
                   </form>
                   </div>
                 </div>

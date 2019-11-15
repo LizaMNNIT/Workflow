@@ -99,7 +99,7 @@
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
-          
+
           <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav">
               <li class="nav-item dropdown">
@@ -111,7 +111,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
@@ -147,10 +147,10 @@
               echo "<script>";
               echo "alert('Fill Dates Properly!! From Date cannot be before Current date')";
               echo "</script>";}
-             
+
         else{
 
-          
+
 		  $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
 
 
@@ -166,14 +166,14 @@
        			 echo "alert('Leave applied Successfully')";
              echo "</script>";
            }
-             $sql="SELECT * FROM application ORDER BY app_no DESC LIMIT 1";
-             
+             $sql="SELECT * FROM application WHERE eid='$id' ORDER BY app_no DESC LIMIT 1";
+
               $result = mysqli_query($conn,$sql);
               while($row = mysqli_fetch_assoc($result))
               {
                 $app_no=$row['app_no'];
               }
-            
+
 
              $date=date("d/m/Y");
 
@@ -209,11 +209,11 @@
                 echo("Error description: " . mysqli_error($conn));
               // unsuccessful("Error: " . $query . "<br>" . $con->error);
             }
-          
-       
+
+
         }
     }
-  
+
 	  ?>
         <div class="container-fluid">
           <div class="row">
@@ -226,16 +226,17 @@
                 <div class="card-body">
                   <form method="post">
 
+
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          
+
                           <input type="text" name="ename" class="form-control" value="<?php echo $uname?>" disabled>
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          
+
                           <input type="text" name="eid" class="form-control" value="<?php echo $id?>" disabled>
                         </div>
                       </div>
@@ -243,7 +244,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          
+
                           <input type="text" name="department" class="form-control" value="<?php echo $department?>" disabled>
                         </div>
                       </div>
