@@ -1,22 +1,9 @@
-<!--
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
@@ -31,35 +18,12 @@ WorkFlow  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-<script type="text/javascript">
-function approve(appnid)
-{
-    var y = appnid.substring(4);
-    var hid = document.getElementById("applicationid");
-    hid.value = y;
-    var operation = appnid.substring(0,3);
-    var op = document.getElementById("operation");
-    op.value= operation;
-    var form = document.getElementById("mainform");
 
-    form.submit();
-}
-function reject(appnid)
-{
-    var y = appnid.substring(4);
-    var hid = document.getElementById("applicationid");
-    hid.value = y;
-    var operation = appnid.substring(0,3);
-    var op = document.getElementById("operation");
-    op.value= operation;
-    var form = document.getElementById("mainform");
-    form.submit();
-}
-
-</script>
 </head>
 
 <body class="">
+
+
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -67,6 +31,7 @@ function reject(appnid)
 
         Tip 2: you can also add an image using data-image tag
     -->
+
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           WORKFLOW
@@ -81,27 +46,21 @@ function reject(appnid)
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./curr_app_hr_by_hod.php">
+            <a class="nav-link" href="./apply.php">
               <i class="material-icons">person</i>
-              <p>Applications by HOD</p>
+              <p>Apply for Leave</p>
             </a>
           </li>
-           <li class="nav-item ">
-            <a class="nav-link" href="./curr_app_hr_by_emp.php">
-              <i class="material-icons">person</i>
-              <p>Applications by Employees</p>
-            </a>
-          </li
 		  <li class="nav-item ">
-            <a class="nav-link" href="./approve_hr.php">
-              <i class="material-icons">content_paste</i>
-              <p>Approved Application</p>
+            <a class="nav-link" href="./status.php">
+              <i class="material-icons">person</i>
+              <p>Application Status</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./reject_hr.php">
+            <a class="nav-link" href="./records.php">
               <i class="material-icons">content_paste</i>
-              <p>Rejected Applications</p>
+              <p>Previous Applications</p>
             </a>
           </li>
         </ul>
@@ -110,76 +69,34 @@ function reject(appnid)
     <div class="main-panel">
       <!-- Navbar -->
       <?php
-include('../functions/connection.php');
+      session_start();
+      include('../functions/connection.php');
 
-//if we reach this line, we are connected to the database
+      $id=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$id'";
 
-$query = "SELECT * FROM `application`,`employee` WHERE  application.hod_approved = 2 AND  application.hr_approved=-1 AND employee.eid = application.eid";
-//echo $query;
-$data = array();
-$q = mysqli_query($conn,$query);
-        if($q)
-        {
-            $rowcount=mysqli_num_rows($q);
-			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
-			{
-				$data['data'][] = $row;
-			}
-            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
-            mysqli_free_result($q);
-        }
-        else
-        {
-            $data = null;
-        }
-?>
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
+
+      $sql= "SELECT pswd from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $pswd=$row['pswd'];
+      }
+      ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello AAYUSHI,</a>
+            <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
+
           <div class="collapse navbar-collapse justify-content-end">
-             <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
-                  <p class="d-lg-none d-md-block">
-                    Stats
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
-              </li>
+          <ul class="navbar-nav">
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -188,8 +105,7 @@ $q = mysqli_query($conn,$query);
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="profile.php">Profile</a>
                   <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Log out</a>
@@ -201,75 +117,62 @@ $q = mysqli_query($conn,$query);
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      
-        <div class="container-fluid" name="d">
+        <?php
+    	  if(isset($_POST['change']) && ($_POST['change']))
+    	  {
+          $oldpassword = $_POST['old'];
+          $newpassword = $_POST['new'];
+          $confirmnewpassword = $_POST['cnew'];
+          if($oldpassword!= $pswd)
+          {
+            echo "<script>";
+            echo "alert('You entered an incorrect password')";
+            echo "</script>";
+          }
+          if($newpassword=$confirmnewpassword)
+          {
+            $sql=mysqli_query($conn,"UPDATE employee SET pswd='$newpassword' where eid='$id'");
+            if($sql)
+            {
+              echo "<script>";
+              echo "alert('Congratulations You have successfully changed your password')";
+              echo "</script>";
+            }
+            else
+            {
+              echo "<script>";
+              echo "alert('Passwords do not match')";
+              echo "</script>";
+            }
+          }
+       }
+      ?>
+        <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-6">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Pending Applications</h4>
-                  <p class="card-category">List of applications pending for approval forwarded by HOD. </p>
+                  <h4 class="card-title ">Change Password</h4>
+
                 </div>
                 <div class="card-body">
-                <!-- <iframe width="0" height="0" name="dummyframe" id="dummyframe"></iframe> -->
-                <form  action="process_hr_hod.php" method="post" id="mainform">
-<input type="hidden" id="applicationid" name="applicationid" value="0">
-<input type="hidden" id="operation" name="operation" value="0">
-                  <div class="table-responsive" name="tab">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                         Application ID
-                        </th>
-                        <th>
-                          Employee Name
-                        </th>
-                        <th>
-                          Reason
-                        </th>
-                        <th>
-                          
-                        </th>
-<th></th>
-<th></th>
+                  <div class="table-responsive">
 
-                   
-                      </thead>
-                      <tbody>
-                     <?php
-                      for($i=0;$i<$data['total_data_rows'];$i++)
-{
-    $app_no = $data['data']["$i"]['app_no'];
-    $emp = $data['data']["$i"]['ename'];
-    $paths = $data['data']["$i"]['paths'];
-    $sl = $data['data']["$i"]['reason'];
-  //  $co = $data['data']["$i"]['leave_type'];
-    
-    echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
-    $file=substr($paths,24);
-     $fname="..".$file;
- echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
-echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
-
-
-
-			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";;
-  
-}
-
-?>
-
-
- </tbody>
-                    </table>
+                    <form method="post">
+                      Old Password<input type="password" name="old" class="form-control">
+                      <br>
+                      New Password<input type="password" name="new" class="form-control">
+                      <br>
+                      Confirm new Password<input type="password" name="cnew" class="form-control"><br>
+                    <input type="submit" class="btn btn-primary pull-right" name="change" value="Change" id="change"/>
+                  </form>
                   </div>
-  </form>
-  
                 </div>
               </div>
             </div>
-  </div>
-  </div></div>
+
 
 
   <!--   Core JS Files   -->
@@ -486,6 +389,7 @@ echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull
       });
     });
   </script>
+
 </body>
 
 </html>
