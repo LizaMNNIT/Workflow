@@ -218,9 +218,6 @@ $q1 = mysqli_query($conn,$query1);
                     <table class="table">
                       <thead class=" text-primary">
 
-                         <th>
-                        Department
-                        </th>
 
                         <th>
                         Application ID
@@ -230,7 +227,9 @@ $q1 = mysqli_query($conn,$query1);
                         Employee Name
                         </th>
                          
-                        
+                        <th>
+                        Department
+                        </th>
          
                         <th>
                          Leave Reason
@@ -247,6 +246,9 @@ $q1 = mysqli_query($conn,$query1);
                          <th>
                           Till Date
                         </th>
+                        <th>
+                        
+                        </th>
 
                       </thead>
                       <tbody>
@@ -255,18 +257,21 @@ $q1 = mysqli_query($conn,$query1);
                              
 for($i=0;$i<$data['total_data_rows'];$i++)
 { $dept=$data1['data']["$i"]['department'];
+  $paths = $data['data']["$i"]['paths'];
   $app_no = $data['data']["$i"]['app_no'];
    $empname = $data1['data']["$i"]['ename'];
     $reason = $data['data']["$i"]['reason'];
      $type = $data['data']["$i"]['leave_type'];
     $to = $data['data']["$i"]['to_date'];
      $from = $data['data']["$i"]['from_date'];
-   
+     $file=substr($paths,24);
+     $fname="..".$file;
    
   //  $co = $data['data']["$i"]['leave_type'];
 
-  echo "<tr><td>$dept</td><td>$app_no</td><td>$empname</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td></tr>";
+  echo "<tr><td>$app_no</td><td>$empname</td><td>$dept</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td>";
  // echo "<td>$hr,$hod</td></tr>";
+ echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
   
 }
  

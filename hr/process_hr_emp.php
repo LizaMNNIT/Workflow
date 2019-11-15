@@ -45,9 +45,9 @@ $sql="SELECT * FROM application WHERE app_no=$t";
               else if($leave=='earned')
                 $rem_days=$row1['earned'];
               }
-$q4="UPDATE leave_info set $leave=$rem_days-$diff->days where eid=(SELECT eid from application WHERE app_no=$t)";
+              $days=CEIL(1.25*($diff->days)); 
+$q4="UPDATE leave_info set $leave=$rem_days-$days where eid=(SELECT eid from application WHERE app_no=$t)";
 $q3 = mysqli_query($conn,$q4); 
-
  
 
 $query = "UPDATE `application` SET `hr_approved` = 1 WHERE `app_no`=$t";
