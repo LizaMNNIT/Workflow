@@ -197,7 +197,7 @@ $q = mysqli_query($conn,$query);
   echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td>";
   else if($hod==2 && $hr==0)
   echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td>";
-  echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
+  echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/Download' /></a></td></tr>";
 
 }
 

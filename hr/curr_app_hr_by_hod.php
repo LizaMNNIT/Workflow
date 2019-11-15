@@ -250,7 +250,7 @@ echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull
 
 
 
-			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";;
+			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";;
   
 }
 

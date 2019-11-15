@@ -260,19 +260,41 @@ $q = mysqli_query($conn,$query);
     $paths = $data['data']["$i"]['paths'];
     $sl = $data['data']["$i"]['reason'];
     $id1= $data['data']["$i"]['eid'];
-  //  $co = $data['data']["$i"]['leave_type'];
+    $to = new DateTime($data['data']["$i"]['to_date']);
+    $from = new DateTime($data['data']["$i"]['from_date']);
+  $co = $data['data']["$i"]['leave_type'];
+  $diff=date_diff($to,$from);
+  $sql1="SELECT * from leave_info where eid='$id1'";
+  $result1=mysqli_query($conn,$sql1);
+  while($row1 = mysqli_fetch_assoc($result1))
+  {
+    
+    if($co=='sick')
+    $rem_days=$row1['sick'];
+    else if($co=='casual')
+    $rem_days=$row1['casual'];
+  else if($co=='earned')
+    $rem_days=$row1['earned'];
+  }
     
     echo "<tr><td>$app_no</td>
    <td><button id='det_$id1' type=\"submit\"  class=\"btn btn-link\" name=\"submit\" onclick=\"javascript:approve(this.id);\">$emp</button></td>
     <td>$sl</td>";
     $file=substr($paths,24);
      $fname="..".$file;
- echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
+     if($rem_days < $diff->days)
+     {
+ echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\" disabled>Approve</button></td>";
+     }
+     else
+     {
+      echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
+     }
 echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
 
 echo "<td> <button id='fwd_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:forward(this.id);\" name=\"submit\">Forward</button></td>";
 
-      echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
+      echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
   
 }
 
