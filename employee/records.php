@@ -88,7 +88,7 @@ $id=$_SESSION['loggedin'];
       {
         $uname=$row['ename'];
       }
-$query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='-1'";
+$query = "SELECT * FROM application WHERE eid='$id' AND (hod_approved=0 OR hod_approved=1 OR hr_approved=0 OR hr_approved=1)";
 //echo $query;
 $data = array();
 $q = mysqli_query($conn,$query);
@@ -195,6 +195,8 @@ $q = mysqli_query($conn,$query);
   echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td>";
   else if($hod==0)
   echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td>";
+  else if($hod==2 && $hr==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td>";
   echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
 
 }
