@@ -49,7 +49,7 @@ WorkFlow  </title>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.html">
+            <a class="nav-link" href="./curr_app.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
@@ -57,12 +57,15 @@ WorkFlow  </title>
           <li class="nav-item ">
             <a class="nav-link" href="./curr_app.php">
               <i class="material-icons">person</i>
-              <p>Current Applications</p>
+              <p>Curent Applications</p>
             </a>
           </li>
-		  <li class="nav-item ">
+           
+            </a>
+          </li>
+      <li class="nav-item ">
             <a class="nav-link" href="./approve1.php">
-              <i class="material-icons">person</i>
+              <i class="material-icons">content_paste</i>
               <p>Approved Applications</p>
             </a>
           </li>
@@ -75,15 +78,47 @@ WorkFlow  </title>
         </ul>
       </div>
     </div>
-<?php
-include('../functions/connection.php');
-?>
     <div class="main-panel">
       <!-- Navbar -->
+     <?php
+      session_start();
+include('../functions/connection.php');
+$id=$_SESSION['loggedin'];
+      $sql= "SELECT * from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+        $dept=$row['department'];
+      }
+$query = "SELECT distinct * FROM application join employee WHERE application.eid=employee.eid and hod_approved=0 and department='$dept'";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+      $data['total_data_rows'] = $rowcount;
+      while($row = mysqli_fetch_assoc($q)) 
+      {
+        $data['data'][] = $row;
+      }
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+         // echo  "{$data['data'][1]['reason']}";
+        }
+        else
+        {
+            $data = null;
+            echo("Error description: " . mysqli_error($conn));
+        }
+?>
+
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
+                  <a class="navbar-brand" href="profile.php">Hello, <?php echo $uname;?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -137,7 +172,7 @@ include('../functions/connection.php');
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
@@ -151,119 +186,71 @@ include('../functions/connection.php');
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Approved Applications</h4>
-                  <p class="card-category"> Here is the list of the Approved Applications</p>
+                  <h4 class="card-title ">Rejected Applications</h4>
+                  <p class="card-category"> Here is the list of the Rejected Applications</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
-                            <th>
-                          Application ID
+
+                         <th>
+                        Department
                         </th>
+
+                        <th>
+                        Application ID
+                        </th>
+
                         <th>
                         Employee Name
                         </th>
+                         
+                        
+         
                         <th>
-                          Reason
+                         Leave Reason
+                        </th>
+                         
+                        <th>
+                          Leave Type
                         </th>
                         
-                        <th>
-			Type of leave
-			</th>
-			<th>
-                          From date
+                         <th>
+                          From Date
                         </th>
-			<th>
-                          To date
+
+                         <th>
+                          Till Date
                         </th>
+
                       </thead>
                       <tbody>
-                        <tr>
+                       <tr>
+                        <?php
+                             
+for($i=0;$i<$data['total_data_rows'];$i++)
+{ $dept=$data['data']["$i"]['department'];
+  $app_no = $data['data']["$i"]['app_no'];
+   $empname = $data['data']["$i"]['ename'];
+    $reason = $data['data']["$i"]['reason'];
+     $type = $data['data']["$i"]['leave_type'];
+    $to = $data['data']["$i"]['to_date'];
+     $from = $data['data']["$i"]['from_date'];
+   
+   
+  //  $co = $data['data']["$i"]['leave_type'];
 
-                          <td>
-                            <?php
+  echo "<tr><td>$dept</td><td>$app_no</td><td>$empname</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td></tr>";
+ // echo "<td>$hr,$hod</td></tr>";
+  
+}
+ 
+?>
                             
-                            $sql="select app_no from application where  hod_approved=0;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['app_no']}";
-echo "<br>";
-echo "<br>";
-                          }
-                             ?>
-                          </td>
- <td>
-                            <?php
+                            
+                         
 
-                            $sql="select ename from employee join application where employee.eid= application.eid and hod_approved=0;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['ename']}";
-echo "<br>";
-echo "<br>";
-                          }
-                             ?>
-
-                          </td>
- <td>
-                            <?php
-                            
-                            $sql="select reason from application where hod_approved=0;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-echo "<br>";
-echo "<br>";
-                          }
-                             ?>
-                          </td>
- 				<td>
-                            <?php
-                            
-                            $sql="select leave_type from application where hod_approved=0;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['leave_type']}";
-echo "<br>";
-echo "<br>";
-                          }
-                             ?>
-                          </td>
-<td>
-                            <?php
-                            
-                            $sql="select from_date from application where hod_approved=0;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['from_date']}";
-echo "<br>";
-echo "<br>";
-                          }
-                             ?>
-                          </td>
-<td>
-                            <?php
-                            
-                            $sql="select to_date from application where hod_approved=0;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['to_date']}";
-echo "<br>";
-echo "<br>";
-                          }
-                             ?>
-                          </td>
-                          <td class="text-primary">
-                            
-                          </td>    
-			</tr>                  
                       </tbody>
                     </table>
                   </div>
@@ -286,13 +273,13 @@ echo "<br>";
   <script src="../assets/js/plugins/jquery.validate.min.js"></script>
   <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
   <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
   <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
   <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
   <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
   <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
   <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
-  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
   <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
   <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
   <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
