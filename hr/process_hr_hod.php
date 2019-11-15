@@ -8,11 +8,7 @@ if($_POST['operation'] == "app")
     
 $t = $_POST['applicationid'];
 
-//$q3="SELECT leave_type from application where app_no=$t";
-// $to = ($data['to_date']);
-// $from = ($data['from_date']);
-  //
-  //$q4="UPDATE application set $q3 = $q3 - $diff where app_no=$t";
+
 $sql="SELECT * FROM employee WHERE eid=(SELECT eid from application WHERE app_no=$t)";
              
               $result = mysqli_query($conn,$sql);
@@ -31,7 +27,7 @@ $sql="SELECT * FROM application WHERE app_no=$t";
               while($row = mysqli_fetch_assoc($result))
               {
                                 $leave=$row['leave_type'];
-			                        	$to_date=$row['to_date'];
+			        $to_date=$row['to_date'];
 			                        	$from_date=$row['from_date'];
 				                        $reason=$row['reason'];
 			                        	$to = new DateTime($to_date);
@@ -42,8 +38,7 @@ $sql="SELECT * FROM application WHERE app_no=$t";
               $result1=mysqli_query($conn,$sql1);
               while($row1 = mysqli_fetch_assoc($result1))
               {
-                // echo $leave;
-                // echo $row1['sick'];
+                
                 if($leave=='sick')
                 $rem_days=$row1['sick'];
                 else if($leave=='casual')
@@ -53,14 +48,7 @@ $sql="SELECT * FROM application WHERE app_no=$t";
               }
 $q4="UPDATE leave_info set $leave=$rem_days-$diff->days where eid=(SELECT eid from application WHERE app_no=$t)";
 $q3 = mysqli_query($conn,$q4); 
-if(!$q3)
-{
-  echo "<script>console.log('Error');</script>";
-}
-else
-{
-  echo "<script>console.log('Al ok');</script>";
-}
+
 
 $query = "UPDATE `application` SET `hr_approved` = 1 WHERE `app_no`=$t";
 $q = mysqli_query($conn,$query);
