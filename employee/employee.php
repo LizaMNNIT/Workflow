@@ -60,7 +60,7 @@ WorkFlow  </title>
               <p>Apply for Leave</p>
             </a>
           </li>
-		  <li class="nav-item ">
+      <li class="nav-item ">
             <a class="nav-link" href="./status.php">
               <i class="material-icons">person</i>
               <p>Application Status</p>
@@ -129,8 +129,8 @@ WorkFlow  </title>
             <div class="col-md-4">
               <div class="card ">
                 <div class="card-header card-header-success">
-				<div class="card-category">
-				<br>
+        <div class="card-category">
+        <br>
                   <b style="color:purple;font-size:50px">
                   <?php
 
@@ -155,8 +155,8 @@ WorkFlow  </title>
             <div class="col-md-4">
               <div class="card">
                 <div class="card-header card-header-warning ">
-				<div class="card-category">
-				<br>
+        <div class="card-category">
+        <br>
                   <b style="color:purple;font-size:50px"> <?php
 
                             $sql= "SELECT casual from leave_info where eid= '$eid'";
@@ -178,8 +178,8 @@ WorkFlow  </title>
             <div class="col-md-4">
               <div class="card">
                 <div class="card-header card-header-danger ">
-				<div class="card-category">
-				<br>
+        <div class="card-category">
+        <br>
                   <b style="color:purple;font-size:50px"> <?php
 
                             $sql= "SELECT earned from leave_info where eid= '$eid'";
@@ -213,13 +213,13 @@ WorkFlow  </title>
   <script src="../assets/js/plugins/jquery.validate.min.js"></script>
   <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
   <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
   <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
   <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
   <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
   <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
   <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
-  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
   <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
   <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
   <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
