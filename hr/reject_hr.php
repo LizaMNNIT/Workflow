@@ -186,7 +186,7 @@ $q1 = mysqli_query($conn,$query1);
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                  
                   <a class="dropdown-item" href="change_pass.php">Change Password</a>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
