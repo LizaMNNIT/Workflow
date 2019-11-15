@@ -40,7 +40,7 @@ function approve(appnid)
     var operation = appnid.substring(0,3);
     var op = document.getElementById("operation");
     op.value= operation;
-    var form = document.getElementById("mainform");
+  var form = document.getElementById("mainform");
     form.submit();
 }
 function reject(appnid)
@@ -69,6 +69,44 @@ function forward(appnid)
 </head>
 
 <body class="">
+  <?php
+      session_start();
+      include('../functions/connection.php');
+
+      $id=$_SESSION['loggedin'];
+      $sql= "SELECT * from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+        $dept=$row['department'];
+       
+      }
+     ?>
+
+
+<?php
+$query = "SELECT * FROM `application`,`employee` WHERE application.hod_approved=-1 AND employee.eid = application.eid AND                    employee.department='$dept'";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+      $data['total_data_rows'] = $rowcount;
+      while($row = mysqli_fetch_assoc($q)) 
+      {
+        $data['data'][] = $row;
+      }
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+        }
+        else
+        {
+            $data = null;
+        }
+?>
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -84,25 +122,25 @@ function forward(appnid)
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.php">
+            <a class="nav-link" href="./curr_app.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./curr_app.html">
+            <a class="nav-link" href="./curr_app.php">
               <i class="material-icons">person</i>
               <p>Current Applications</p>
             </a>
           </li>
 		  <li class="nav-item ">
-            <a class="nav-link" href="./approve.html">
+            <a class="nav-link" href="./approve1.php">
               <i class="material-icons">person</i>
               <p>Approved Application</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./reject.html">
+            <a class="nav-link" href="./reject1.php">
               <i class="material-icons">content_paste</i>
               <p>Rejected Applications</p>
             </a>
@@ -112,35 +150,10 @@ function forward(appnid)
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <?php
-include('../functions/connection.php');
-
-//if we reach this line, we are connected to the database
-
-$query = "SELECT * FROM `application`,`employee` WHERE application.hod_approved=-1 AND employee.eid = application.eid";
-//echo $query;
-$data = array();
-$q = mysqli_query($conn,$query);
-        if($q)
-        {
-            $rowcount=mysqli_num_rows($q);
-			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
-			{
-				$data['data'][] = $row;
-			}
-            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
-            mysqli_free_result($q);
-        }
-        else
-        {
-            $data = null;
-        }
-?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname?></a>
+            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -193,8 +206,9 @@ $q = mysqli_query($conn,$query);
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <div class="dropdown-divider"></div>  
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
@@ -243,16 +257,19 @@ $q = mysqli_query($conn,$query);
 {
     $app_no = $data['data']["$i"]['app_no'];
     $emp = $data['data']["$i"]['ename'];
+    $paths = $data['data']["$i"]['paths'];
     $sl = $data['data']["$i"]['reason'];
   //  $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
+    $file=substr($paths,24);
+     $fname="..".$file;
  echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
 echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
+
 echo "<td> <button id='fwd_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:forward(this.id);\" name=\"submit\">Forward</button></td>";
-echo "<td><button type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">View/Download</button>
-                            </td>
-			</tr>";
+
+      echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
   
 }
 

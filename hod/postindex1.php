@@ -92,10 +92,9 @@ for($i=0;$i<$data['total_data_rows'];$i++)
   //  $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
-    echo "<td><input id=\"app_$app_no\" type=\"button\" onclick=\"javascript:approve(this.id);\" value=\"Approve\">";
-    echo "<input id=\"rej_$app_no\" type=\"button\" onclick=\"javascript:reject(this.id);\" value=\"Reject\">";
-    echo "<input id=\"fwd_$app_no\" type=\"button\" onclick=\"javascript:forward(this.id);\" value=\"Forward\"></td></tr>";
-   // echo "<input id=\"vie_$app_no\" type=\"button\" onclick=\"javascript:view(this.id);\" value=\"View\">";";
+    echo "<td><input id=\"app_$app_no\" type=\"button\" type=\"button\" onclick=\"javascript:approve(this.id);\" value=\"Approve\"></td>";
+    echo "<td><input id=\"rej_$app_no\" type=\"button\" type=\"button\" onclick=\"javascript:reject(this.id);\" value=\"Reject\"></td>";
+    echo "<td><input id=\"fwd_$app_no\" type=\"button\" type=\"button\" onclick=\"javascript:forward(this.id);\" value=\"Forward\">;</td></tr>";
 }
 
 ?>
