@@ -247,17 +247,10 @@ $q1 = mysqli_query($conn,$query1);
                         <?php
                              
 for($i=0;$i<$data['total_data_rows'];$i++)
-<<<<<<< HEAD
 { $dept=$data1['data']["$i"]['department'];
   $paths = $data['data']["$i"]['paths'];
   $app_no = $data['data']["$i"]['app_no'];
    $empname = $data1['data']["$i"]['ename'];
-=======
-{ 
-    $dept=$data1['data']["$i"]['department'];
-    $app_no = $data['data']["$i"]['app_no'];
-    $empname = $data1['data']["$i"]['ename'];
->>>>>>> 0e5db6dc4d5ea5da3b974d9f12c2694e896e187f
     $reason = $data['data']["$i"]['reason'];
      $type = $data['data']["$i"]['leave_type'];
     $to = $data['data']["$i"]['to_date'];
@@ -269,7 +262,7 @@ for($i=0;$i<$data['total_data_rows'];$i++)
 
   echo "<tr><td>$app_no</td><td>$empname</td><td>$dept</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td>";
  // echo "<td>$hr,$hod</td></tr>";
- echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
+ echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
   
 }
  

@@ -57,7 +57,7 @@ WorkFlow  </title>
           <li class="nav-item ">
             <a class="nav-link" href="./curr_app.php">
               <i class="material-icons">person</i>
-              <p>Curent Applications</p>
+              <p>Current Applications</p>
             </a>
           </li>
            
@@ -183,10 +183,6 @@ $q = mysqli_query($conn,$query);
                     <table class="table">
                       <thead class=" text-primary">
 
-                         <th>
-                        Department
-                        </th>
-
                         <th>
                         Application ID
                         </th>
@@ -195,11 +191,6 @@ $q = mysqli_query($conn,$query);
                         Employee Name
                         </th>
                          
-                        
-         
-                        <th>
-                         Leave Reason
-                        </th>
                          
                         <th>
                           Leave Type
@@ -212,7 +203,8 @@ $q = mysqli_query($conn,$query);
                          <th>
                           Till Date
                         </th>
-
+        <th>
+        Applications</th>
                       </thead>
                       <tbody>
                        <tr>
@@ -226,11 +218,15 @@ for($i=0;$i<$data['total_data_rows'];$i++)
      $type = $data['data']["$i"]['leave_type'];
     $to = $data['data']["$i"]['to_date'];
      $from = $data['data']["$i"]['from_date'];
-   
+     $paths = $data['data']["$i"]['paths'];
+     $file=substr($paths,24);
+     $fname="..".$file;
    
   //  $co = $data['data']["$i"]['leave_type'];
 
-  echo "<tr><td>$dept</td><td>$app_no</td><td>$empname</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td></tr>";
+  echo "<tr><td>$app_no</td><td>$empname</td><td>$type</td><td>$to</td><td>$from</td>";
+  echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
+
  // echo "<td>$hr,$hod</td></tr>";
   
 }

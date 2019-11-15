@@ -262,7 +262,7 @@ for($i=0;$i<$data['total_data_rows'];$i++)
 
   echo "<tr><td>$app_no</td><td>$empname</td><td>$dept</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td>";
  // echo "<td>$hr,$hod</td></tr>";
- echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
+ echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
   
 }
  

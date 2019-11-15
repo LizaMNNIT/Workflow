@@ -198,7 +198,7 @@ WorkFlow  </title>
                           echo "<td>Forwarded by HOD. In process with HR</td>";
                           else if($hr==3)
                           echo "<td>Declined By HOD. IN process with HR</td>";
-                          echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
+                          echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/Download' /></a></td></tr>";
 
 
 
