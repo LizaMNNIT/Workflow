@@ -97,49 +97,11 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
+            <a class="navbar-brand" href="profile.php"><b style="font-size:'13px';color:'purple'">Hello, <?php echo $uname?></b></a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
+
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
-                  <p class="d-lg-none d-md-block">
-                    Stats
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
-              </li>
+          <ul class="navbar-nav">
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -149,9 +111,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
@@ -170,22 +132,25 @@
       $to_date = @$_POST["to_date"];
       $hr='-1';
       $hod='-1';
-      $now = new DateTime();
+      $now = date("Y/m/d");
+      $stamp1=strtotime($now);
+  $stamp2=strtotime($from_date);
+      echo"<script>console.log($now);</script>";
       if($from_date > $to_date)
       {
 				echo "<script>";
        			echo "alert('Fill Dates Properly!! To Date cannot be before From Date')";
              echo "</script>";
             }
-             else if($now > $from_date)
+             else if($stamp1 > $stamp2)
              {
               echo "<script>";
               echo "alert('Fill Dates Properly!! From Date cannot be before Current date')";
               echo "</script>";}
-             
+
         else{
 
-          
+
 		  $sql="INSERT INTO application (eid, reason, leave_type, from_date, to_date, hr_approved, hod_approved) VALUES ('$id', '$reason','$leave' ,'$from_date', '$to_date','-1','-1')";
 
 
@@ -201,18 +166,18 @@
        			 echo "alert('Leave applied Successfully')";
              echo "</script>";
            }
-             $sql="SELECT * FROM application ORDER BY app_no DESC LIMIT 1";
-             
+             $sql="SELECT * FROM application WHERE eid='$id' ORDER BY app_no DESC LIMIT 1";
+
               $result = mysqli_query($conn,$sql);
               while($row = mysqli_fetch_assoc($result))
               {
                 $app_no=$row['app_no'];
               }
-            
+
 
              $date=date("d/m/Y");
 
-             require('fpdf181/fpdf.php');
+             require('fpdf/fpdf.php');
              $pdf= new FPDF();
              $pdf->AddPage();
              $pdf->SetFont("Arial","","14");
@@ -244,15 +209,11 @@
                 echo("Error description: " . mysqli_error($conn));
               // unsuccessful("Error: " . $query . "<br>" . $con->error);
             }
-            else
-            {
-                echo "success!";
-            }
-          
-       
+
+
         }
     }
-  
+
 	  ?>
         <div class="container-fluid">
           <div class="row">
@@ -265,16 +226,17 @@
                 <div class="card-body">
                   <form method="post">
 
+
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating"></label>
+
                           <input type="text" name="ename" class="form-control" value="<?php echo $uname?>" disabled>
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label class="bmd-label-floating"></label>
+
                           <input type="text" name="eid" class="form-control" value="<?php echo $id?>" disabled>
                         </div>
                       </div>
@@ -282,14 +244,13 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $department?></label>
-                          <input type="text" name="department" class="form-control">
+
+                          <input type="text" name="department" class="form-control" value="<?php echo $department?>" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating"><?php echo $team_no?></label>
-                          <input type="text" name="team_no" class="form-control">
+                          <input type="text" name="team_no" class="form-control" value="<?php echo $team_no?>" disabled>
                         </div>
                       </div>
                     </div>

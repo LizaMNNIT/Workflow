@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,38 +81,13 @@ WorkFlow  </title>
         $uname=$row['ename'];
       }
 
-      $sql= "SELECT email from employee where eid= '$id'";
+      $sql= "SELECT pswd from employee where eid= '$id'";
 
       $result = mysqli_query($conn,$sql);
       while($row = mysqli_fetch_assoc($result))
       {
-        $email=$row['email'];
+        $pswd=$row['pswd'];
       }
-
-      $sql= "SELECT contact from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $contact=$row['contact'];
-      }
-
-      $sql= "SELECT department from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $dept=$row['department'];
-      }
-
-      $sql= "SELECT team_no from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $team=$row['team_no'];
-      }
-
       ?>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
@@ -144,82 +118,55 @@ WorkFlow  </title>
       <!-- End Navbar -->
       <div class="content">
         <?php
-    	  if(isset($_POST['save']) && ($_POST['save']))
+    	  if(isset($_POST['change']) && ($_POST['change']))
     	  {
-
-          echo "<script>console.log('somya bahut gndi hai');</script>";
-    			$department = @$_POST["department"];
-    			$team_no = @$_POST["team_no"];
-    			$contact = @$_POST["contact"];
-
-    			//if($from_date > $to_date){
-    				//  <div class="errorWrap"><strong>ERROR </strong>:ToDate should be greater than FromDate</div><?php }
-            //          else {<div class="succWrap"><strong>SUCCESS</strong> leave applied successfully</div><?php }
-
-    		 $sql="UPDATE employee SET department='$department', team_no='$team_no', contact='$contact' where eid='$id';";
-
-
-          if( !mysqli_query($conn,$sql) )
-           		{
-
-             echo("Error description: " . mysqli_error($conn));
-                // unsuccessful("Error: " . $query . "<br>" . $con->error);
-           		}
-           		else
-           		{
-
-           	    echo "<script>";
-           			echo "alert('Profile updated Successfully')";
-                 echo "</script>";
-                 echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
-           		}
-
-    	  }
-    	  ?>
+          $oldpassword = $_POST['old'];
+          $newpassword = $_POST['new'];
+          $confirmnewpassword = $_POST['cnew'];
+          if($oldpassword!= $pswd)
+          {
+            echo "<script>";
+            echo "alert('You entered an incorrect password')";
+            echo "</script>";
+          }
+          if($newpassword=$confirmnewpassword)
+          {
+            $sql=mysqli_query($conn,"UPDATE employee SET pswd='$newpassword' where eid='$id'");
+            if($sql)
+            {
+              echo "<script>";
+              echo "alert('Congratulations You have successfully changed your password')";
+              echo "</script>";
+            }
+            else
+            {
+              echo "<script>";
+              echo "alert('Passwords do not match')";
+              echo "</script>";
+            }
+          }
+       }
+      ?>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-6">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Employee Profile</h4>
+                  <h4 class="card-title ">Change Password</h4>
 
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
 
-
-
                     <form method="post">
-                    <table class="table">
-                        <tr>
-                          <td>
-                          Employee id
-                        <input type="text" name="id" class="form-control" value="<?php echo $id?>" disabled>
-                        </td>
-                        <td>
-                        Employee name<input type="text" name="name" class="form-control" value="<?php echo $uname?>" disabled>
-                      </td>
-                      
-                        </tr>
-                        <tr>
-                          <td>
-                            Email<input type="text" name="email" class="form-control"  value="<?php echo $email?>" disabled>
-                          </td>
-                          <td>
-                            Contact<input type="text" name="contact" class="form-control" value="<?php echo $contact?>">
-                          </td>
-                        
-                        </tr>
-                        <tr>
-                          <td>
-                            Department<input type="text" name="department" class="form-control" value="<?php echo $dept?>">
-                          </td>
-                          <td>
-                            Team no.<input type="text" name="team_no" class="form-control" value="<?php echo $team?>">
-                          </td>
-                        </tr>
-                    </table>
-                    <input type="submit" class="btn btn-primary pull-right" name="save" value="Save" id="save"/>
+                      Old Password<input type="password" name="old" class="form-control">
+                      <br>
+                      New Password<input type="password" name="new" class="form-control">
+                      <br>
+                      Confirm new Password<input type="password" name="cnew" class="form-control"><br>
+                    <input type="submit" class="btn btn-primary pull-right" name="change" value="Change" id="change"/>
                   </form>
                   </div>
                 </div>

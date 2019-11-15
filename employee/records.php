@@ -81,7 +81,13 @@ WorkFlow  </title>
       session_start();
 include('../functions/connection.php');
 $id=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$id'";
 
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+      }
 $query = "SELECT * FROM application WHERE eid='$id' AND hod_approved!='-1'";
 //echo $query;
 $data = array();
@@ -90,7 +96,7 @@ $q = mysqli_query($conn,$query);
         {
             $rowcount=mysqli_num_rows($q);
 			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
+			while($row = mysqli_fetch_assoc($q))
 			{
 				$data['data'][] = $row;
 			}
@@ -106,49 +112,13 @@ $q = mysqli_query($conn,$query);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello, $uname</a>
+            <a class="navbar-brand" href="profile.php">Hello, <?php echo $uname;?></a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
+
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
+
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
-                  <p class="d-lg-none d-md-block">
-                    Stats
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
-              </li>
+
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -158,9 +128,9 @@ $q = mysqli_query($conn,$query);
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="profile.php">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
@@ -169,7 +139,7 @@ $q = mysqli_query($conn,$query);
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      
+
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
@@ -183,7 +153,7 @@ $q = mysqli_query($conn,$query);
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
-                          S no.
+                          Application number
                         </th>
                         <th>
                           Purpose of leave
@@ -202,24 +172,26 @@ $q = mysqli_query($conn,$query);
                       <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
 {
+  $app_no = $data['data']["$i"]['app_no'];
     $reason = $data['data']["$i"]['reason'];
-    $to = $data['data']["$i"]['to_date'];
-    $from = $data['data']["$i"]['from_date'];
+    $to = new DateTime($data['data']["$i"]['to_date']);
+     $from = new DateTime($data['data']["$i"]['from_date']);
     $type = $data['data']["$i"]['leave_type'];
     $hr = $data['data']["$i"]['hr_approved'];
     $hod = $data['data']["$i"]['hod_approved'];
   //  $co = $data['data']["$i"]['leave_type'];
-    
-  echo "<tr><td>$i</td><td>$reason</td><td>$to-$from</td><td>$type</td>";
+  $diff=date_diff($to,$from);
+  echo "<tr><td>$app_no</td><td>$reason</td><td>$diff->days</td><td>$type</td>";
  // echo "<td>$hr,$hod</td></tr>";
   if($hr=='1'||$hod=='1')
-  echo "<td<b style='color:green;font-size:20px'>Accepted</b></td></tr>";
-  else if($hr==0)
-  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
+  echo "<td><b style='color:green;font-size:20px'>Accepted</b></td></tr>";
   else if($hr==0 && $hod==0)
-  echo "<td><b style='color:red;font-size:20px'>Rejected</b></td></tr>";
-  else
   echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
+  else if($hod==0)
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
+
+  // else
+  // echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
 
 }
 
