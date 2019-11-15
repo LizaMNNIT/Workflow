@@ -58,6 +58,11 @@
    }
 
 
+
+
+
+
+
    if(isset($_POST['register']) && $_POST['register'])
    {
     //echo "<script>window.open('admin/admin.php','_self')</script>";
@@ -272,6 +277,116 @@
          }
    }
 
+      else if( isset($_POST['enter']) && $_POST['enter'] )
+      {
+        echo"<script>console.log('hello2');</script>";
+        $id = $_POST['login_id12'];
+        $set='123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code=substr(str_shuffle($set), 0, 12);
+        $query = "select * from employee where email='$id'";
+
+             $result = mysqli_query($conn,$query);
+
+
+        if(!$result )
+        {
+        echo "<script>";
+       echo("Error description: " . mysqli_error($conn));
+       echo "</script>";
+          // unsuccessful("Error: " . $query . "<br>" . $con->error);
+        }
+        else
+        {
+          echo"<script>console.log('hello3');</script>";
+          $row = mysqli_fetch_assoc($result);
+         $rowcount=mysqli_num_rows($result);
+         if($rowcount)
+         {
+echo"<script>console.log('hello4');</script>";
+          try{
+         $eid=$row['eid'];
+            $message = "
+        <h2>Password Reset</h2>
+        <p>Please click the link below to reset your password.</p>
+        <a href='http://localhost/Workflow/admin/reset.php?code1=".$code."&user1=".$eid."'>Reset password</a>
+        ";
+
+      //Load phpmailer
+        require '../vendor/autoload.php';
+
+        $mail = new PHPMailer(true);
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'workflow1865@gmail.com';
+            $mail->Password = 'Andrew@1865';
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+                )
+            );
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
+
+            $mail->setFrom('workflow1865@gmail.com');
+
+            //Recipients
+            $mail->addAddress($id);
+
+
+            //Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Leave Application Portal Password Reset';
+            $mail->Body    = $message;
+
+            $mail->send();
+
+
+                  echo "<script>";
+                  echo "alert('Password reset link send to your Email')";
+                  echo "</script>";
+
+              }
+              catch (Exception $e) {
+                echo "catch1";
+                  $_SESSION['error'] = 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
+                  //header('location: register.php');
+                  //echo "<script>";
+                  echo "Message could not be sent. Mailer Error: ".$mail->ErrorInfo;
+                  //echo "</script>";
+              }
+
+
+          }
+          catch(PDOException $e){
+              echo "catch2";
+            $_SESSION['error'] = $e->getMessage();
+            //header('location: register.php');
+          }
+        }
+        else {
+
+            echo"<script>";
+            echo "This email_id is not registered";
+            echo"</script>";
+
+        }
+
+      }
+    }
+
+
+
+
+
+
+
+
+
    if(isset($_SESSION['loggedin']))
    {
      $eid= $_SESSION['loggedin'];
@@ -332,6 +447,22 @@
     <link rel="stylesheet" href="css/nivo-lightbox.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/responsive.css">
+
+
+
+
+
+
+<script>
+function modal_change()
+{
+console.log('ho jae bss');
+      $('#exampleModalCenter').modal('hide');
+      $('#forgot_password').modal('show');
+    }
+</script>
+
+
 
 
 
@@ -478,18 +609,96 @@
 
                          </div>
                          <div class="form-group">
-                      <input type="submit"  name="login"  value="SignIn" class="btn btn-primary submit mb-4" >
+                    <span>  <input type="submit"  name="login"  value="SignIn" class="btn btn-primary submit mb-4"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span>  <input  onclick="modal_change()" value="Forgot Password?" class="btn btn-secondary submit mb-4" ></span>
                          </div>
+                         <div class="form-group">
 
+                         </div>
 
                  </div>
 </form>
+
              </div>
 
          </div>
      </div>
  </div>
 </div>
+
+
+
+<div class="modal fade" id="forgot_password" tabindex="-1" role="dialog" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel"  >Reset Password</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+                 <div class="login px-4 mx-auto mw-100">
+                    <!-- <h5 class="text-center mb-4">Login Now</h5>-->
+              <form id="Form4" method="post" enctype="multipart/form-data" nonvalidate>
+
+                         <div class="form-group">
+                             <label class="col-form-label" ><h6>Registered Email Id</h6></label>
+                             <input type="email" class="form-control" id="exampleInputEmail2" name='login_id12' required>
+                        </div>
+                         <div class="form-group">
+                      <input type="submit"  name="enter"  value="Proceed" class="btn btn-primary submit mb-4" >
+                         </div>
+
+                 </div>
+</form>
+
+             </div>
+
+         </div>
+     </div>
+ </div>
+
+
+
+
+ <!--<div class="modal fade" id="Reset_password" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1"  >Reset Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div class="login px-4 mx-auto mw-100">
+
+               <form id="Form5" method="post" enctype="multipart/form-data" nonvalidate>
+
+                          <div class="form-group">
+                              <label class="col-form-label" ><h6>New Password</h6></label>
+                              <input type="password" class="form-control" id="pass1" name='pass1' required>
+                         </div>
+                         <div class="form-group">
+                             <label class="col-form-label" ><h6>Confirm Password</h6></label>
+                             <input type="password" class="form-control" id="pass2" name='pass2' required>
+                              <input type="hidden" id="custId" name="custId" >
+                        </div>
+                          <div class="form-group">
+                       <input type="submit"  name="reset"  value="Reset" class="btn btn-primary submit mb-4" >
+                          </div>
+
+                  </div>
+ </form>
+
+              </div>
+
+          </div>
+      </div>
+  </div>-->
 
 
 
@@ -525,5 +734,9 @@
     </header>
     <!-- Header Section End -->
 </form>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+
     </body>
     </html>
