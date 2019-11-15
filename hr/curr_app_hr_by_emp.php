@@ -86,7 +86,7 @@ function details(eid)
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.php">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
