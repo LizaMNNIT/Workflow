@@ -40,27 +40,34 @@ WorkFlow  </title>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.php">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
+          
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./apply.php">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">person</i>
-              <p>Apply for Leave</p>
+              <p>Applications by HOD</p>
             </a>
           </li>
-		  <li class="nav-item ">
-            <a class="nav-link" href="./status.php">
+           <li class="nav-item ">
+            <a class="nav-link" href="./curr_app_hr_by_emp.php">
               <i class="material-icons">person</i>
-              <p>Application Status</p>
+              <p>Applications by Employees</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./records.php">
+      <li class="nav-item ">
+            <a class="nav-link" href="./approve_hr.php">
               <i class="material-icons">content_paste</i>
-              <p>Previous Applications</p>
+              <p>Approved Application</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./reject_hr.php">
+              <i class="material-icons">content_paste</i>
+              <p>Rejected Applications</p>
             </a>
           </li>
         </ul>
@@ -105,9 +112,9 @@ WorkFlow  </title>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="profile.php">Profile</a>
+                  
                   <a class="dropdown-item" href="change_pass.php">Change Password</a>
-                  <div class="dropdown-divider"></div>
+                  
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
