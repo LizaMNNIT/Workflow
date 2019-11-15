@@ -91,7 +91,7 @@ function reject(appnid)
               <i class="material-icons">person</i>
               <p>Applications by Employees</p>
             </a>
-          </li
+          </li>
 		  <li class="nav-item ">
             <a class="nav-link" href="./approve_hr.php">
               <i class="material-icons">content_paste</i>
