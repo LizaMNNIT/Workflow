@@ -86,7 +86,7 @@ function details(eid)
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.php">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
@@ -159,8 +159,7 @@ $q = mysqli_query($conn,$query);
           <div class="collapse navbar-collapse justify-content-end">
              <form class="navbar-form">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+               
                   
                   <div class="ripple-container"></div>
                 </button>
@@ -169,7 +168,7 @@ $q = mysqli_query($conn,$query);
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
+                 
                   <p class="d-lg-none d-md-block">
                     Stats
                   </p>
@@ -251,7 +250,7 @@ echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull
 
 
 
-			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";;
+			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";;
   
 }
 

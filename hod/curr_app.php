@@ -65,6 +65,17 @@ function forward(appnid)
     var form = document.getElementById("mainform");
     form.submit();
 }
+function details(eid)
+{
+    var y = eid.substring(4);
+    var hid = document.getElementById("applicationid");
+    hid.value = y;
+    var operation = appnid.substring(0,3);
+    var op = document.getElementById("operation");
+    op.value= operation;
+    var form = document.getElementById("mainform");
+    form.submit();
+}
 </script>
 </head>
 
@@ -164,9 +175,7 @@ $q = mysqli_query($conn,$query);
           <div class="collapse navbar-collapse justify-content-end">
              <form class="navbar-form">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
+             
                   <div class="ripple-container"></div>
                 </button>
               </div>
@@ -174,7 +183,7 @@ $q = mysqli_query($conn,$query);
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
+                  
                   <p class="d-lg-none d-md-block">
                     Stats
                   </p>
@@ -182,19 +191,12 @@ $q = mysqli_query($conn,$query);
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
+                  
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
+                
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -204,10 +206,8 @@ $q = mysqli_query($conn,$query);
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
-                  <div class="dropdown-divider"></div>  
-                  <a class="dropdown-item" href="change_pass.php">Change Password</a>
+                
+                  <a class="dropdown-item" href="pass.php">Change Password</a>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
@@ -259,17 +259,42 @@ $q = mysqli_query($conn,$query);
     $emp = $data['data']["$i"]['ename'];
     $paths = $data['data']["$i"]['paths'];
     $sl = $data['data']["$i"]['reason'];
-  //  $co = $data['data']["$i"]['leave_type'];
+    $id1= $data['data']["$i"]['eid'];
+    $to = new DateTime($data['data']["$i"]['to_date']);
+    $from = new DateTime($data['data']["$i"]['from_date']);
+  $co = $data['data']["$i"]['leave_type'];
+  $diff=date_diff($to,$from);
+  $sql1="SELECT * from leave_info where eid='$id1'";
+  $result1=mysqli_query($conn,$sql1);
+  while($row1 = mysqli_fetch_assoc($result1))
+  {
     
-    echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
+    if($co=='sick')
+    $rem_days=$row1['sick'];
+    else if($co=='casual')
+    $rem_days=$row1['casual'];
+  else if($co=='earned')
+    $rem_days=$row1['earned'];
+  }
+    
+    echo "<tr><td>$app_no</td>
+   <td><button id='det_$id1' type=\"submit\"  class=\"btn btn-link\" name=\"submit\" onclick=\"javascript:approve(this.id);\">$emp</button></td>
+    <td>$sl</td>";
     $file=substr($paths,24);
      $fname="..".$file;
- echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
+     if($rem_days < $diff->days)
+     {
+ echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\" disabled>Approve</button></td>";
+     }
+     else
+     {
+      echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
+     }
 echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
 
 echo "<td> <button id='fwd_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:forward(this.id);\" name=\"submit\">Forward</button></td>";
 
-      echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
+      echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
   
 }
 

@@ -86,7 +86,7 @@ function details(eid)
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.php">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
@@ -248,7 +248,7 @@ $q = mysqli_query($conn,$query);
  echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
 echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
 
-			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";;
+			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";;
   
 }
 
