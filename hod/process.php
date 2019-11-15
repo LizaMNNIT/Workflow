@@ -30,4 +30,5 @@ $query = "UPDATE `application` SET `hod_approved` = 1 WHERE `app_no`=$t";
 $q = mysqli_query($conn,$query);
 header("location:../hod/curr_app.php");
 }
+
 ?>

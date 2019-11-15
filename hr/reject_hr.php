@@ -83,14 +83,66 @@ WorkFlow  </title>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-     <?php
-      include('../functions/connection.php');
-     ?>
+    <?php
+      session_start();
+include('../functions/connection.php');
+$id=$_SESSION['loggedin'];
+      $sql= "SELECT ename from employee where eid= '$id'";
+
+      $result = mysqli_query($conn,$sql);
+      while($row = mysqli_fetch_assoc($result))
+      {
+        $uname=$row['ename'];
+        
+      }
+$query = "SELECT * FROM application WHERE  hr_approved=1";
+//echo $query;
+$data = array();
+$q = mysqli_query($conn,$query);
+        if($q)
+        {
+            $rowcount=mysqli_num_rows($q);
+      $data['total_data_rows'] = $rowcount;
+      while($row = mysqli_fetch_assoc($q)) 
+      {
+        $data['data'][] = $row;
+      }
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q);
+         // echo  "{$data['data'][1]['reason']}";
+        }
+        else
+        {
+            $data = null;
+            echo("Error description: " . mysqli_error($conn));
+        }
+        $query1 = "SELECT ename,department FROM application join employee WHERE employee.eid=application.eid and  hr_approved=0";
+//echo $query;
+$data1 = array();
+$q1 = mysqli_query($conn,$query1);
+        if($q1)
+        {
+            $rowcount1=mysqli_num_rows($q1);
+      $data1['total_data_rows'] = $rowcount1;
+      while($row1 = mysqli_fetch_assoc($q1)) 
+      {
+        $data1['data'][] = $row1;
+      }
+            //$all_data = mysqli_fetch_all($q,MYSQLI_ASSOC);
+            mysqli_free_result($q1);
+         // echo  "{$data['data'][1]['reason']}";
+        }
+        else
+        {
+            $data1 = null;
+            echo("Error description: " . mysqli_error($conn));
+        }
+?>
 
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello HR,</a>
+                  <a class="navbar-brand" href="profile.php">Hello AAYUSHI,</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -158,8 +210,8 @@ WorkFlow  </title>
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Approved Applications</h4>
-                  <p class="card-category">List of the applications you have rejected.</p>
+                  <h4 class="card-title ">Rejected Applications</h4>
+                  <p class="card-category"> Here is the list of the Rejected Applications</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -199,104 +251,32 @@ WorkFlow  </title>
                       </thead>
                       <tbody>
                        <tr>
-                             <td>
-                            <?php
-                            
-                            $sql="select department from employee join application where employee.eid = application.eid AND application.hr_approved = '0' ";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['department']}";
-                            echo "<br>"; echo "<br>";
-                            }
-                         
-                            ?>
-                            </td>
-                          <td>
-                            <?php
-                            
-                            $sql="select app_no from application where hr_approved=0;";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['app_no']}";
-                            echo "<br>"; echo "<br>";
-                            }
-                         
-                            ?>
-                           </td>
+                        <?php
                              
-                           <td>
-                            <?php
-                            
-                            $sql="select ename from employee join application where employee.eid = application.eid AND application.hr_approved = '0' ";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['ename']}";
-                            echo "<br>"; echo "<br>";
-                            }
-                         
-                            ?>
-                           </td>
-                            
-                            
-                            <td>
-                            <?php
-                            
-                            $sql="select reason from application where hr_approved='0'";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['reason']}";
-                            echo "<br>"; echo "<br>";
-                            }
-                         
-                            ?>
-                          </td>
+for($i=0;$i<$data['total_data_rows'];$i++)
+{ 
 
-                            <td>
-                            <?php
-                            
-                            $sql="select leave_type from application where application.hr_approved = '0' ";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['leave_type']}";
-                            echo "<br>"; echo "<br>";
-                            }
-                         
-                            ?>
-                           </td>
-                             
-                            <td>
-                            <?php
-                            
-                            $sql="select from_date from application where hr_approved='0'";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['from_date']}";
-                            echo "<br>"; echo "<br>";
-                            }
-                         
-                            ?>
-                          </td>
-                            <td>
-                            <?php
-                            
-                            $sql="select to_date from application where hr_approved='0'";
-                            $result=mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                            echo "{$row['to_date']}";
-                            echo "<br>"; echo "<br>";
-                            }
-                         
-                            ?>
-                          </td>
+     $dept=$data1['data']["$i"]['department'];
+     $app_no = $data['data']["$i"]['app_no'];
+     $empname = $data1['data']["$i"]['ename'];
+     $reason = $data['data']["$i"]['reason'];
+     $type = $data['data']["$i"]['leave_type'];
+     $to = $data['data']["$i"]['to_date'];
+     $from = $data['data']["$i"]['from_date'];
+   
+   
+  //  $co = $data['data']["$i"]['leave_type'];
 
-                        </tr>
+  echo "<tr><td>$dept</td><td>$app_no</td><td>$empname</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td></tr>";
+ // echo "<td>$hr,$hod</td></tr>";
+  
+}
+ 
+?>
+                            
+                            
+                         
+
                       </tbody>
                     </table>
                   </div>

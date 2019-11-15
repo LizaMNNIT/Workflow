@@ -41,6 +41,7 @@ function approve(appnid)
     var op = document.getElementById("operation");
     op.value= operation;
     var form = document.getElementById("mainform");
+
     form.submit();
 }
 function reject(appnid)
@@ -82,13 +83,13 @@ function reject(appnid)
           <li class="nav-item ">
             <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">person</i>
-              <p>Pending Applications by HOD</p>
+              <p>Applications by HOD</p>
             </a>
           </li>
            <li class="nav-item ">
             <a class="nav-link" href="./curr_app_hr_by_emp.php">
               <i class="material-icons">person</i>
-              <p>Pending Applications by Employees</p>
+              <p>Applications by Employees</p>
             </a>
           </li
 		  <li class="nav-item ">
@@ -113,7 +114,7 @@ include('../functions/connection.php');
 
 //if we reach this line, we are connected to the database
 
-$query = "SELECT * FROM `application`,`employee` WHERE application.hr_approved= -1 AND application.hod_approved = 2 AND employee.eid = application.eid";
+$query = "SELECT * FROM `application`,`employee` WHERE  application.hod_approved = 2 AND  application.hr_approved=-1 AND employee.eid = application.eid";
 //echo $query;
 $data = array();
 $q = mysqli_query($conn,$query);
@@ -136,7 +137,7 @@ $q = mysqli_query($conn,$query);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello,HR></a>
+            <a class="navbar-brand" href="#pablo">Hello AAYUSHI,</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -190,7 +191,7 @@ $q = mysqli_query($conn,$query);
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
@@ -239,16 +240,19 @@ $q = mysqli_query($conn,$query);
 {
     $app_no = $data['data']["$i"]['app_no'];
     $emp = $data['data']["$i"]['ename'];
+    $paths = $data['data']["$i"]['paths'];
     $sl = $data['data']["$i"]['reason'];
   //  $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td><td>$emp</td><td>$sl</td>";
+    $file=substr($paths,24);
+     $fname="..".$file;
  echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";
 echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:reject(this.id);\" name=\"submit\">Reject</button></td>";
 
-echo "<td><button type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">View/Download</button>
-                            </td>
-			</tr>";
+
+
+			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";;
   
 }
 
