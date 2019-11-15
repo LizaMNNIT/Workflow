@@ -31,18 +31,25 @@ $sql="SELECT * FROM application WHERE app_no=$t";
               while($row = mysqli_fetch_assoc($result))
               {
                                 $leave=$row['leave_type'];
-				$to_date=$row['to_date'];
-				$from_date=$row['from_date'];
-				$reason=$row['reason'];
-				$to = new DateTime($to_date);
+			                        	$to_date=$row['to_date'];
+			                        	$from_date=$row['from_date'];
+				                        $reason=$row['reason'];
+			                        	$to = new DateTime($to_date);
                      	        $from = new DateTime($from_date);
                                 $diff=date_diff($to,$from);
               }
               $sql1="SELECT * from leave_info where eid=(SELECT eid from application WHERE app_no=$t)";
-              $result1=mysqli_query($conn,$sql);
-              while($row1 = mysqli_fetch_assoc($result))
+              $result1=mysqli_query($conn,$sql1);
+              while($row1 = mysqli_fetch_assoc($result1))
               {
-                $rem_days=$row1[$leave];
+                // echo $leave;
+                // echo $row1['sick'];
+                if($leave=='sick')
+                $rem_days=$row1['sick'];
+                else if($leave=='casual')
+                $rem_days=$row1['casual'];
+              else if($leave=='earned')
+                $rem_days=$row1['earned'];
               }
 $q4="UPDATE leave_info set $leave=$rem_days-$diff->days where eid=(SELECT eid from application WHERE app_no=$t)";
 $q3 = mysqli_query($conn,$q4); 
