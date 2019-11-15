@@ -167,31 +167,35 @@ $q = mysqli_query($conn,$query);
                         <th>
                           Accepted/Rejected
                         </th>
+                        <th>
+                        Application
+                          </th>
                       </thead>
                       <tbody>
                       <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
 {
   $app_no = $data['data']["$i"]['app_no'];
+  $paths = $data['data']["$i"]['paths'];
     $reason = $data['data']["$i"]['reason'];
     $to = new DateTime($data['data']["$i"]['to_date']);
      $from = new DateTime($data['data']["$i"]['from_date']);
     $type = $data['data']["$i"]['leave_type'];
     $hr = $data['data']["$i"]['hr_approved'];
     $hod = $data['data']["$i"]['hod_approved'];
+    $file=substr($paths,24);
+    $fname="..".$file;
   //  $co = $data['data']["$i"]['leave_type'];
   $diff=date_diff($to,$from);
   echo "<tr><td>$app_no</td><td>$reason</td><td>$diff->days</td><td>$type</td>";
  // echo "<td>$hr,$hod</td></tr>";
   if($hr=='1'||$hod=='1')
-  echo "<td><b style='color:green;font-size:20px'>Accepted</b></td></tr>";
+  echo "<td><b style='color:green;font-size:20px'>Accepted</b></td>";
   else if($hr==0 && $hod==0)
-  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td></tr>";
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HR</b></td>";
   else if($hod==0)
-  echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
-
-  // else
-  // echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td></tr>";
+  echo "<td><b style='color:red;font-size:20px'>Rejected by HOD</b></td>";
+  echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View/download' /></a></td></tr>";
 
 }
 
