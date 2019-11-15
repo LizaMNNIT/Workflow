@@ -95,7 +95,7 @@ $id=$_SESSION['loggedin'];
         $uname=$row['ename'];
         
       }
-$query = "SELECT * FROM application WHERE  hr_approved=1";
+$query = "SELECT * FROM application WHERE  hr_approved=0";
 //echo $query;
 $data = array();
 $q = mysqli_query($conn,$query);
