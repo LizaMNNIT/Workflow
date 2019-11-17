@@ -5,11 +5,11 @@ include('../functions/connection.php');
      //echo"<script>console.log($sign1);</script>";
 if($_POST['operation'] == "app")
 {
-    
+
 $t = $_POST['applicationid'];
 
 $sql="SELECT * FROM employee WHERE eid=(SELECT eid from application WHERE app_no='$t')";
-             
+
               $result = mysqli_query($conn,$sql);
               while($row = mysqli_fetch_assoc($result))
               {
@@ -18,12 +18,12 @@ $sql="SELECT * FROM employee WHERE eid=(SELECT eid from application WHERE app_no
                 $id=$row['eid'];
                 $team_no=$row['team_no'];
                 $sign=$row['sign'];
-                
-              
+
+
               }
 
 $sql="SELECT * FROM application WHERE app_no=$t";
-             
+
               $result = mysqli_query($conn,$sql);
               while($row = mysqli_fetch_assoc($result))
               {
@@ -35,12 +35,12 @@ $sql="SELECT * FROM application WHERE app_no=$t";
                      	        $from = new DateTime($from_date);
                                 $diff=date_diff($to,$from);
               }
- 
+
               $sql1="SELECT * from leave_info where eid=(SELECT eid from application WHERE app_no=$t)";
               $result1=mysqli_query($conn,$sql1);
               while($row1 = mysqli_fetch_assoc($result1))
               {
-                
+
                 if($leave=='sick')
                 $rem_days=$row1['sick'];
                 else if($leave=='casual')
@@ -49,7 +49,7 @@ $sql="SELECT * FROM application WHERE app_no=$t";
                 $rem_days=$row1['earned'];
               }
 $q4="UPDATE leave_info set $leave=$rem_days-$diff->days where eid=(SELECT eid from application WHERE app_no=$t)";
-$q3 = mysqli_query($conn,$q4); 
+$q3 = mysqli_query($conn,$q4);
 
 $query = "UPDATE `application` SET `hod_approved` = 1 WHERE `app_no`=$t";
 $q = mysqli_query($conn,$query);
@@ -165,7 +165,7 @@ WorkFlow  </title>
         </a>
       </div>
       <div class="sidebar-wrapper">
-        
+
       </div>
     </div>
     <div class="main-panel">
@@ -176,7 +176,6 @@ WorkFlow  </title>
 $eid = $_POST['applicationid'];
       include('../functions/connection.php');
 
-      $eid=$_SESSION['loggedin'];
       $sql= "SELECT ename from employee where eid= '$eid'";
 
       $result = mysqli_query($conn,$sql);
@@ -194,7 +193,7 @@ $eid = $_POST['applicationid'];
 
           <div class="collapse navbar-collapse justify-content-end">
 
-          
+
           </div>
         </div>
       </nav>
