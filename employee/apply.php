@@ -1,19 +1,4 @@
-<!--
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -184,19 +169,19 @@
              $pdf->Cell(100,10,"Head of Department",0,1);
              $pdf->Cell(100,10,"{$department} Department",0,1);
              $pdf->Cell(100,10,"XYZ Company",0,1);
-             $pdf->Cell(300,10,"",0,1);
+             $pdf->Cell(180,10,"",0,1);
              $pdf->Cell(100,10,"Date: {$date}",0,1);
-             $pdf->Cell(300,10,"",0,1);
+             $pdf->Cell(180,10,"",0,1);
              $pdf->Cell(100,10,"Subject: {$leave} Leave Application",0,1);
-             $pdf->Cell(300,10,"",0,1);
+             $pdf->Cell(180,10,"",0,1);
              $pdf->Cell(100,10,"Dear Sir,",0,1);
-             $pdf->Cell(300,10,"My name is {$uname}, employee id {$id}, of {$department} Department, team number {$team_no}.",0,1);
-             $pdf->Cell(300,10,"I want to apply for leave from {$from_date} to {$to_date} due to {$reason}.",0,1);
-             $pdf->Cell(300,10,"I will be obliged if you consider my application for approval.",0,1);
-             $pdf->Cell(300,10,"",0,1);
-             $pdf->Cell(300,10,"Yours sincerely,",0,1);
+             $pdf->Cell(180,10,"My name is {$uname}, employee id {$id}, of {$department} Department, team number {$team_no}.",0,1);
+             $pdf->Cell(180,10,"I want to apply for leave from {$from_date} to {$to_date} due to {$reason}.",0,1);
+             $pdf->Cell(180,10,"I will be obliged if you consider my application for approval.",0,1);
+             $pdf->Cell(180,10,"",0,1);
+             $pdf->Cell(180,10,"Yours sincerely,",0,1);
              $pdf->Image($sign,10,160,20,20);
-             $pdf->Cell(300,10,"{$uname}",0,1);
+             $pdf->Cell(180,10,"{$uname}",0,1);
              $filename="C:/xampp/htdocs/Workflow/files/PDF/{$app_no}.pdf";
              $pdf->Output($filename,'F');
 
