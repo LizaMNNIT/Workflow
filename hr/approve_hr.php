@@ -142,7 +142,7 @@ $q1 = mysqli_query($conn,$query1);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-                  <a class="navbar-brand" href="profile.php">Hello,<?php echo $uname?></b></a>
+                  <b>Hello,<?php echo $uname?></b>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -209,9 +209,7 @@ $q1 = mysqli_query($conn,$query1);
                     <table class="table">
                       <thead class=" text-primary">
 
-                         <th>
-                        Department
-                        </th>
+                         
 
                         <th>
                         Application ID
@@ -221,7 +219,9 @@ $q1 = mysqli_query($conn,$query1);
                         Employee Name
                         </th>
                          
-                        
+                        <th>
+                        Department
+                        </th>
          
                         
                          
@@ -235,6 +235,9 @@ $q1 = mysqli_query($conn,$query1);
 
                          <th>
                           Till Date
+                        </th>
+                        <th>
+                        Application
                         </th>
 
                       </thead>
@@ -255,7 +258,8 @@ for($i=0;$i<$data['total_data_rows'];$i++)
    
   //  $co = $data['data']["$i"]['leave_type'];
 
-  echo "<tr><td>$dept</td><td>$app_no</td><td>$empname</td><td>$type</td><td>$to</td><td>$from</td></tr>";
+  echo "<tr><td>$app_no</td><td>$empname</td><td>$dept</td><td>$type</td><td>$to</td><td>$from</td>";
+  echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
  // echo "<td>$hr,$hod</td></tr>";
   
 }

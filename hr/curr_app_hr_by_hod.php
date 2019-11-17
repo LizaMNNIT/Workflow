@@ -234,10 +234,14 @@ $q = mysqli_query($conn,$query);
                           Employee Name
                         </th>
                         <th>
+                        Department
+                        </th>
+         
+                        <th>
                         Leave Type
                         </th>
                         <th>
-                          
+                          Application
                         </th>
 <th></th>
 <th></th>
@@ -249,6 +253,7 @@ $q = mysqli_query($conn,$query);
                       for($i=0;$i<$data['total_data_rows'];$i++)
 {
     $app_no = $data['data']["$i"]['app_no'];
+    $dept=$data1['data']["$i"]['department'];
     $emp = $data['data']["$i"]['ename'];
     $paths = $data['data']["$i"]['paths'];
     //$sl = $data['data']["$i"]['reason'];
@@ -256,7 +261,7 @@ $q = mysqli_query($conn,$query);
   $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td>
-   <td><button id='det_$id1' type=\"submit\"  class=\"btn btn-link\" name=\"submit\" onclick=\"javascript:approve(this.id);\">$emp</button></td>
+   <td><button id='det_$id1' type=\"submit\"  class=\"btn btn-link\" name=\"submit\" onclick=\"javascript:approve(this.id);\">$emp</button></td><td>$dept</td>
     <td>$co</td>";
     $file=substr($paths,24);
      $fname="..".$file;

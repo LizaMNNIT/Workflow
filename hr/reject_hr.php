@@ -142,7 +142,7 @@ $q1 = mysqli_query($conn,$query1);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-                  <a class="navbar-brand" href="profile.php">Hello,<?php echo $uname?></b></a>
+                  <b>Hello,<?php echo $uname?></b>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -234,7 +234,7 @@ $q1 = mysqli_query($conn,$query1);
                           Till Date
                         </th>
                         <th>
-                        
+                        Application
                         </th>
 
                       </thead>
