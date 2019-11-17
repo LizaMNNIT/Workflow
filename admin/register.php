@@ -262,7 +262,7 @@
          if($var=='Employee')
            header("location:../employee/employee.php");
            else if($var=='HOD')
-              header("location:../hod/cur_app.php");
+              header("location:../hod/curr_app.php");
               else if($var=='HR')
                  header("location:../hr/curr_app_hr_by_hod.php");
            echo"<script>console.log('hello1');</script>";
