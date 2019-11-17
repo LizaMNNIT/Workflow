@@ -1,18 +1,3 @@
-<!--
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +34,7 @@ WorkFlow  </title>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./employee.html">
+            <a class="nav-link" href="./curr_app_hr_by_hod.php">
               <i class="material-icons">dashboard</i>
               <p>WELCOME!!</p>
             </a>
@@ -60,7 +45,7 @@ WorkFlow  </title>
               <p>Applications by HOD</p>
             </a>
           </li>
-            <li class="nav-item ">
+           <li class="nav-item ">
             <a class="nav-link" href="./curr_app_hr_by_emp.php">
               <i class="material-icons">person</i>
               <p>Applications by Employees</p>
@@ -69,7 +54,7 @@ WorkFlow  </title>
 		  <li class="nav-item ">
             <a class="nav-link" href="./approve_hr.php">
               <i class="material-icons">content_paste</i>
-              <p>Approved Applications</p>
+              <p>Approved Application</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -93,7 +78,7 @@ $id=$_SESSION['loggedin'];
       while($row = mysqli_fetch_assoc($result))
       {
         $uname=$row['ename'];
-        
+
       }
 $query = "SELECT * FROM application WHERE  hr_approved=0";
 //echo $query;
@@ -103,7 +88,7 @@ $q = mysqli_query($conn,$query);
         {
             $rowcount=mysqli_num_rows($q);
       $data['total_data_rows'] = $rowcount;
-      while($row = mysqli_fetch_assoc($q)) 
+      while($row = mysqli_fetch_assoc($q))
       {
         $data['data'][] = $row;
       }
@@ -124,7 +109,7 @@ $q1 = mysqli_query($conn,$query1);
         {
             $rowcount1=mysqli_num_rows($q1);
       $data1['total_data_rows'] = $rowcount1;
-      while($row1 = mysqli_fetch_assoc($q1)) 
+      while($row1 = mysqli_fetch_assoc($q1))
       {
         $data1['data'][] = $row1;
       }
@@ -142,7 +127,7 @@ $q1 = mysqli_query($conn,$query1);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-                  <b>Hello,<?php echo $uname?></b>
+                  <b>Hello, <?php echo $uname?></b>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -153,7 +138,7 @@ $q1 = mysqli_query($conn,$query1);
           <div class="collapse navbar-collapse justify-content-end">
             <form class="navbar-form">
               <div class="input-group no-border">
-               
+
                   <div class="ripple-container"></div>
                 </button>
               </div>
@@ -161,7 +146,7 @@ $q1 = mysqli_query($conn,$query1);
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
-                 
+
                   <p class="d-lg-none d-md-block">
                     Stats
                   </p>
@@ -169,12 +154,12 @@ $q1 = mysqli_query($conn,$query1);
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  
+
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
-               
+
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -184,7 +169,7 @@ $q1 = mysqli_query($conn,$query1);
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                 
+
                   <a class="dropdown-item" href="change_pass.php">Change Password</a>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
@@ -215,17 +200,17 @@ $q1 = mysqli_query($conn,$query1);
                         <th>
                         Employee Name
                         </th>
-                         
+
                         <th>
                         Department
                         </th>
-         
-                        
-                         
+
+
+
                         <th>
                           Leave Type
                         </th>
-                        
+
                          <th>
                           From Date
                         </th>
@@ -241,9 +226,9 @@ $q1 = mysqli_query($conn,$query1);
                       <tbody>
                        <tr>
                         <?php
-                             
+
 for($i=0;$i<$data['total_data_rows'];$i++)
-{ 
+{
 
      $dept=$data1['data']["$i"]['department'];
      $paths = $data['data']["$i"]['paths'];
@@ -255,19 +240,19 @@ for($i=0;$i<$data['total_data_rows'];$i++)
      $from = $data['data']["$i"]['from_date'];
      $file=substr($paths,24);
      $fname="..".$file;
-   
+
   //  $co = $data['data']["$i"]['leave_type'];
 
   echo "<tr><td>$app_no</td><td>$empname</td><td>$dept</td><td>$type</td><td>$to</td><td>$from</td>";
  // echo "<td>$hr,$hod</td></tr>";
  echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
-  
+
 }
- 
+
 ?>
-                            
-                            
-                         
+
+
+
 
                       </tbody>
                     </table>
