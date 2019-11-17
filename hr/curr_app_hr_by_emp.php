@@ -71,24 +71,13 @@ function details(eid)
 </head>
 
 <body class="">
-  <?php
-      session_start();
-      include('../functions/connection.php');
-
-     $id=$_SESSION['loggedin'];
-      $sql= "SELECT * from employee where eid= '$id'";
-
-      $result = mysqli_query($conn,$sql);
-      while($row = mysqli_fetch_assoc($result))
-      {
-        $uname=$row['ename'];
-        
-       
-      }
-     ?>
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-     
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           WORKFLOW
@@ -159,7 +148,7 @@ $q = mysqli_query($conn,$query);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello,<?php echo $uname?></b></a>
+            <a class="navbar-brand" href="#pablo">Hello AAYUSHI,</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -230,7 +219,7 @@ $q = mysqli_query($conn,$query);
                           Employee Name
                         </th>
                         <th>
-                          Leave Type
+                          Reason
                         </th>
                         <th>
                           
@@ -247,13 +236,13 @@ $q = mysqli_query($conn,$query);
     $app_no = $data['data']["$i"]['app_no'];
     $emp = $data['data']["$i"]['ename'];
     $paths = $data['data']["$i"]['paths'];
-   // $sl = $data['data']["$i"]['reason'];
+    $sl = $data['data']["$i"]['reason'];
      $id1 = $data['data']["$i"]['eid'];
-   $co = $data['data']["$i"]['leave_type'];
+  //  $co = $data['data']["$i"]['leave_type'];
     
     echo "<tr><td>$app_no</td>
     <td><button id='det_$id1' type=\"submit\"  class=\"btn btn-link\" name=\"submit\" onclick=\"javascript:approve(this.id);\">$emp</button></td>
-    <td>$co</td>";
+    <td>$sl</td>";
     $file=substr($paths,24);
      $fname="..".$file;
  echo "<td> <button id='app_$app_no' type=\"submit\" class=\"btn btn-primary pull-center\" onclick=\"javascript:approve(this.id);\" name=\"submit\">Approve</button></td>";

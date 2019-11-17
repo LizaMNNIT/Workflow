@@ -28,9 +28,9 @@ $sql="SELECT * FROM application WHERE app_no=$t";
               {
                                 $leave=$row['leave_type'];
 			        $to_date=$row['to_date'];
-			        $from_date=$row['from_date'];
-			        $reason=$row['reason'];
-			        $to = new DateTime($to_date);
+			                        	$from_date=$row['from_date'];
+				                        $reason=$row['reason'];
+			                        	$to = new DateTime($to_date);
                      	        $from = new DateTime($from_date);
                                 $diff=date_diff($to,$from);
               }
@@ -75,7 +75,6 @@ $sign1="C:/xampp/htdocs/Workflow/files/download.jpg";
              $pdf->Image($sign,10,160,20,20);
              $pdf->Image($sign1,160,180,40,40);
              $pdf->Cell(300,10,"{$uname}",0,1);
-             //$pdf->Cell(160,120,"{$uname}",0,1);
              $filename="C:/xampp/htdocs/Workflow/files/PDF/{$t}.pdf";
              $pdf->Output($filename,'F');
 
