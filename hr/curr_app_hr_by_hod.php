@@ -253,7 +253,7 @@ $q = mysqli_query($conn,$query);
                       for($i=0;$i<$data['total_data_rows'];$i++)
 {
     $app_no = $data['data']["$i"]['app_no'];
-    $dept=$data1['data']["$i"]['department'];
+    $dept=$data['data']["$i"]['department'];
     $emp = $data['data']["$i"]['ename'];
     $paths = $data['data']["$i"]['paths'];
     //$sl = $data['data']["$i"]['reason'];
