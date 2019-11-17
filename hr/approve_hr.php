@@ -142,7 +142,7 @@ $q1 = mysqli_query($conn,$query1);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-                  <a class="navbar-brand" href="profile.php">Hello AAYUSHI,</a>
+                  <a class="navbar-brand" href="profile.php">Hello,<?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -187,7 +187,7 @@ $q1 = mysqli_query($conn,$query1);
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                  
                   <a class="dropdown-item" href="change_pass.php">Change Password</a>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
             </ul>
@@ -209,6 +209,9 @@ $q1 = mysqli_query($conn,$query1);
                     <table class="table">
                       <thead class=" text-primary">
 
+                         <th>
+                        Department
+                        </th>
 
                         <th>
                         Application ID
@@ -218,13 +221,9 @@ $q1 = mysqli_query($conn,$query1);
                         Employee Name
                         </th>
                          
-                        <th>
-                        Department
-                        </th>
+                        
          
-                        <th>
-                         Leave Reason
-                        </th>
+                        
                          
                         <th>
                           Leave Type
@@ -237,9 +236,6 @@ $q1 = mysqli_query($conn,$query1);
                          <th>
                           Till Date
                         </th>
-                        <th>
-                        
-                        </th>
 
                       </thead>
                       <tbody>
@@ -247,22 +243,20 @@ $q1 = mysqli_query($conn,$query1);
                         <?php
                              
 for($i=0;$i<$data['total_data_rows'];$i++)
-{ $dept=$data1['data']["$i"]['department'];
-  $paths = $data['data']["$i"]['paths'];
-  $app_no = $data['data']["$i"]['app_no'];
-   $empname = $data1['data']["$i"]['ename'];
-    $reason = $data['data']["$i"]['reason'];
+{ 
+    $dept=$data1['data']["$i"]['department'];
+    $app_no = $data['data']["$i"]['app_no'];
+    $empname = $data1['data']["$i"]['ename'];
+    //$reason = $data['data']["$i"]['reason'];
      $type = $data['data']["$i"]['leave_type'];
     $to = $data['data']["$i"]['to_date'];
      $from = $data['data']["$i"]['from_date'];
-     $file=substr($paths,24);
-     $fname="..".$file;
+   
    
   //  $co = $data['data']["$i"]['leave_type'];
 
-  echo "<tr><td>$app_no</td><td>$empname</td><td>$dept</td><td>$reason</td><td>$type</td><td>$to</td><td>$from</td>";
+  echo "<tr><td>$dept</td><td>$app_no</td><td>$empname</td><td>$type</td><td>$to</td><td>$from</td></tr>";
  // echo "<td>$hr,$hod</td></tr>";
- echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";
   
 }
  
