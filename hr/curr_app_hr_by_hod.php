@@ -1,18 +1,3 @@
-<!--
-=========================================================
- Material Dashboard - v2.1.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,7 +68,7 @@ function details(eid)
       {
         $uname=$row['ename'];
         $dept=$row['department'];
-       
+
       }
      ?>
   <div class="wrapper ">
@@ -148,7 +133,7 @@ $q = mysqli_query($conn,$query);
         {
             $rowcount=mysqli_num_rows($q);
 			$data['total_data_rows'] = $rowcount;
-			while($row = mysqli_fetch_assoc($q)) 
+			while($row = mysqli_fetch_assoc($q))
 			{
 				$data['data'][] = $row;
 			}
@@ -163,7 +148,7 @@ $q = mysqli_query($conn,$query);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Hello,<?php echo $uname?></b></a>
+            <a class="navbar-brand" href="#pablo">Hello, <?php echo $uname?></b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -174,8 +159,8 @@ $q = mysqli_query($conn,$query);
           <div class="collapse navbar-collapse justify-content-end">
              <form class="navbar-form">
               <div class="input-group no-border">
-               
-                  
+
+
                   <div class="ripple-container"></div>
                 </button>
               </div>
@@ -183,13 +168,13 @@ $q = mysqli_query($conn,$query);
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
-                 
+
                   <p class="d-lg-none d-md-block">
                     Stats
                   </p>
                 </a>
               </li>
-             
+
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -198,9 +183,9 @@ $q = mysqli_query($conn,$query);
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  
+
                   <a class="dropdown-item" href="change_pass.php">Change Password</a>
-                
+
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               </li>
@@ -210,7 +195,7 @@ $q = mysqli_query($conn,$query);
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      
+
         <div class="container-fluid" name="d">
           <div class="row">
             <div class="col-md-12">
@@ -236,7 +221,7 @@ $q = mysqli_query($conn,$query);
                         <th>
                         Department
                         </th>
-         
+
                         <th>
                         Leave Type
                         </th>
@@ -246,20 +231,20 @@ $q = mysqli_query($conn,$query);
 <th></th>
 <th></th>
 
-                   
+
                       </thead>
                       <tbody>
                      <?php
                       for($i=0;$i<$data['total_data_rows'];$i++)
 {
     $app_no = $data['data']["$i"]['app_no'];
-    $dept=$data1['data']["$i"]['department'];
+    $dept=$data['data']["$i"]['department'];
     $emp = $data['data']["$i"]['ename'];
     $paths = $data['data']["$i"]['paths'];
     //$sl = $data['data']["$i"]['reason'];
      $id1 = $data['data']["$i"]['eid'];
   $co = $data['data']["$i"]['leave_type'];
-    
+
     echo "<tr><td>$app_no</td>
    <td><button id='det_$id1' type=\"submit\"  class=\"btn btn-link\" name=\"submit\" onclick=\"javascript:approve(this.id);\">$emp</button></td><td>$dept</td>
     <td>$co</td>";
@@ -271,7 +256,7 @@ echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull
 
 
 			echo "<td><a href=$fname> <input type='button'  class='btn btn-primary pull-center' value='View' /></a></td></tr>";;
-  
+
 }
 
 ?>
@@ -281,7 +266,7 @@ echo "<td> <button id='rej_$app_no' type=\"submit\" class=\"btn btn-primary pull
                     </table>
                   </div>
   </form>
-  
+
                 </div>
               </div>
             </div>
