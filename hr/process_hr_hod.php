@@ -108,7 +108,7 @@ $date=date("d/m/Y");
              $pdf->Output($filename,'F');
 
 
-    header("location:../hod/curr_app_hr_by_hod.php");
+    header("location:../hr/curr_app_hr_by_hod.php");
 }
 
 
@@ -120,7 +120,7 @@ if($_POST['operation'] == "rej")
 $t = $_POST['applicationid'];
 $query = "UPDATE `application` SET `hr_approved` = 0 WHERE `app_no`=$t";
 $q = mysqli_query($conn,$query);
-header("location:../hod/curr_app_hr_by_hod.php");
+header("location:../hr/curr_app_hr_by_hod.php");
 }
 ?>
 

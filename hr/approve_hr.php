@@ -71,7 +71,7 @@ WorkFlow  </title>
     <?php
       session_start();
 include('../functions/connection.php');
-$id=$_SESSION['loggedin'];
+$id= $_SESSION['loggedin'];
       $sql= "SELECT ename from employee where eid= '$id'";
 
       $result = mysqli_query($conn,$sql);
